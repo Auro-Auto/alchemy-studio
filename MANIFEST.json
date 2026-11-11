@@ -16,8 +16,8 @@
   },
   {
     "file": "README.md",
-    "bytes": 5717,
-    "sha256": "869f4c9df4b77e8619685b320303ebb4a6bb5c603241aaf0b75b4343c9bbce94"
+    "bytes": 13962,
+    "sha256": "80296a4275a5cbe829dff0d52edb1c32338341b2b35eb0f663470b3f574739fb"
   },
   {
     "file": "REPRODUCTION.md",
@@ -43,6 +43,21 @@
     "file": "docs/METHOD.md",
     "bytes": 15758,
     "sha256": "8ab8c4a77fe40c4a2d470bf5453218304e7830ddbcac4f967e1eb83478fd09e8"
+  },
+  {
+    "file": "docs/assets/hero.jpg",
+    "bytes": 86913,
+    "sha256": "36d74d7d3d945050e49add8671f07cb7f802b1f2f731fc3d80c0a53416edfd2c"
+  },
+  {
+    "file": "docs/assets/region-protection.jpg",
+    "bytes": 69361,
+    "sha256": "c41d82983467c64cee23c2878853cd13ce99fe7f5653d1e8a9f36c5b86911b6d"
+  },
+  {
+    "file": "docs/assets/style-materials.jpg",
+    "bytes": 173765,
+    "sha256": "0f62f018ba14a2ccb874ed45a9c44c55133d7c6dcd7417982e9f7c7e01e0ad70"
   },
   {
     "file": "docs/upstream_research.json",
