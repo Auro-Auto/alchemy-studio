@@ -1,0 +1,26 @@
+[
+  {
+    "name": "cat_tumbler_generic",
+    "prompt": "Combine the cup in image 1 and the cat in image 2 into a creative cat cup. Product photography.",
+    "image_a": "../input/iced_drink_cup.png",
+    "image_b": "../input/comfy_cat.png",
+    "seed": 42,
+    "megapixels": 0.5
+  },
+  {
+    "name": "cat_tumbler_seed43",
+    "prompt": "Create a single adorable reusable cat-shaped tumbler by fusing image 1 and image 2. Keep the tall tapered cup silhouette, lid and functional drinking straw from image 1. Translate the cat character from image 2 into the physical design: navy blue and cream body, two sculpted pointed ears on the lid, orange circular glasses molded around two expressive eyes on the front, and a curled tail forming a handle. The body is glossy glazed ceramic with subtle surface highlights. One coherent functional collectible product, no separate cat or laptop. High-end realistic studio product photography on a warm beige background.",
+    "image_a": "../input/iced_drink_cup.png",
+    "image_b": "../input/comfy_cat.png",
+    "seed": 43,
+    "megapixels": 0.5
+  },
+  {
+    "name": "cat_tumbler_1mp",
+    "prompt": "Create a single adorable reusable cat-shaped tumbler by fusing image 1 and image 2. Keep the tall tapered cup silhouette, lid and functional drinking straw from image 1. Translate the cat character from image 2 into the physical design: navy blue and cream body, two sculpted pointed ears on the lid, orange circular glasses molded around two expressive eyes on the front, and a curled tail forming a handle. The body is glossy glazed ceramic with subtle surface highlights. One coherent functional collectible product, no separate cat or laptop. High-end realistic studio product photography on a warm beige background.",
+    "image_a": "../input/iced_drink_cup.png",
+    "image_b": "../input/comfy_cat.png",
+    "seed": 42,
+    "megapixels": 1.0
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "repo": "black-forest-labs/flux-3-image-klein-comfy",
+  "revision": "9d36114cf7a2e03a45c28f5cc4987d20ebfdb6c1",
+  "source": "https://huggingface.co/api/models/black-forest-labs/flux-3-image-klein-comfy/tree/9d36114cf7a2e03a45c28f5cc4987d20ebfdb6c1?recursive=true",
+  "files": [
+    {
+      "path": "diffusion_models/flux3-image-klein-int8-convrot.safetensors",
+      "bytes": 5827874779,
+      "sha256": "****************************************************************"
+    },
+    {
+      "path": "text_encoders/qwen3vl_4b_int8_convrot.safetensors",
+      "bytes": 4858559240,
+      "sha256": "****************************************************************"
+    }
+  ]
+}

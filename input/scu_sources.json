@@ -1,0 +1,42 @@
+{
+  "sources": [
+    {
+      "asset": "input/scu_wangjiang.png",
+      "title": "四川大学望江校区北门牌坊",
+      "description": "四川大学望江校区北门牌坊实景照片。课程概念打样参考图，非四川大学官方文创。",
+      "author": "Kcx36",
+      "author_url": "https://commons.wikimedia.org/wiki/User:Kcx36",
+      "captured": "2023-07-02",
+      "source_page": "https://commons.wikimedia.org/w/index.php?title=File:%E5%9B%9B%E5%B7%9D%E5%A4%A7%E5%AD%A6%E6%9C%9B%E6%B1%9F%E6%A0%A1%E5%8C%BA%E5%8C%97%E9%97%A8%E7%89%8C%E5%9D%8A_2023-07-02.jpg&oldid=1236487671",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/%E5%9B%9B%E5%B7%9D%E5%A4%A7%E5%AD%A6%E6%9C%9B%E6%B1%9F%E6%A0%A1%E5%8C%BA%E5%8C%97%E9%97%A8%E7%89%8C%E5%9D%8A_2023-07-02.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution_zh": "“四川大学望江校区北门牌坊 2023-07-02”，Kcx36 / Wikimedia Commons，CC BY-SA 4.0。已裁切和缩放。",
+      "original_sha1": "79164d0b7553f7c926ffe89a6a32effa17f09006",
+      "asset_sha256": "be0ab54d8b2005ec87678f1fcd66b130605f3d8a3d44f0de6762b03e2139bc82",
+      "original_dimensions": [
+        3082,
+        2315
+      ],
+      "output_dimensions": [
+        1180,
+        623
+      ],
+      "crop_xyxy": [
+        176,
+        505,
+        2860,
+        1921
+      ],
+      "changes": "EXIF orientation normalized; RGB conversion, tight architectural crop, Lanczos resize; original capture metadata omitted.",
+      "scu_archival_reference": "https://www.scu.edu.cn/info/1892/35162.htm",
+      "motif": [
+        "four square vermilion pillars",
+        "three grey-green upturned eaves",
+        "higher central roof",
+        "carved stone feet"
+      ],
+      "design_note": "Render only the architectural motif as shallow glazed ceramic relief. Leave out plaque lettering, crowds, trees and cars; do not reproduce a university seal or imply endorsement."
+    }
+  ]
+}

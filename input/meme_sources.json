@@ -1,0 +1,114 @@
+{
+  "sources": [
+    {
+      "id": "doge",
+      "title": "Doge 柴犬",
+      "author": "Roberto Vasarri",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Shiba_inu_taiki.jpg",
+      "context_page": "https://commons.wikimedia.org/wiki/File:Doge_meme.png",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Shiba_inu_taiki.jpg",
+      "license": "Public domain (released by the photographer)",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "attribution_zh": "柴犬 Taiki 摄影：Roberto Vasarri / Wikimedia Commons，作者释入公共领域。已裁切、缩放。",
+      "description": "开放的 Doge 梗图变体使用的 Taiki 柴犬底图，保留笑脸和立耳。与 Kabosu 的经典原照为不同照片。",
+      "reference_hint": "转译柴犬的金棕毛色、奶白脸颊、立耳和露舌笑脸。只借外观，不带项圈或文字。",
+      "crop_xyxy": [
+        95,
+        32,
+        2100,
+        2015
+      ],
+      "asset": "input/memes/doge.png",
+      "download_sha256": "d70b4c272582f6b36b571f57e333d78c779cb3c5ba184b675949736a428dad26",
+      "original_dimensions": [
+        2175,
+        2563
+      ],
+      "changes": "EXIF orientation normalized; RGB conversion, Lanczos resize and crop.",
+      "output_dimensions": [
+        610,
+        603
+      ],
+      "asset_sha256": "c6eb785d6861b6407a13a64de48395125962cd0f6d236cb871044381f34f93a3",
+      "bytes": 489211
+    },
+    {
+      "id": "orly_owl",
+      "title": "O RLY? 猫头鹰",
+      "author": "SPUI; owl photograph by John and Karen Hollingsworth / USFWS",
+      "source_page": "https://commons.wikimedia.org/wiki/File:O_RLY.jpg",
+      "context_page": "https://commons.wikimedia.org/wiki/File:Northern_Spotted_Owl.USFWS.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/12/O_RLY.jpg",
+      "license": "Public domain (author release and US federal government photograph)",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "attribution_zh": "SPUI 的 O RLY? 公共领域重制版，底图为 John 和 Karen Hollingsworth / USFWS 摄影。已裁掉字幕、缩放。",
+      "description": "圆睁双眼、歪头的猫头鹰疑问反应梗。素材采用公共领域斑点鸮重制版。",
+      "reference_hint": "转译圆睁大眼、褐色斑点羽纹、微歪脑袋和明黄色喙。保留疑惑表情，不生成文字。",
+      "crop_xyxy": [
+        0,
+        0,
+        456,
+        320
+      ],
+      "asset": "input/memes/orly_owl.png",
+      "download_sha256": "496ee63d91b3a0a1e730c14faa03e8c5b377866e485e8977106f84a8b693b9bd",
+      "original_dimensions": [
+        456,
+        449
+      ],
+      "changes": "EXIF orientation normalized; RGB conversion, Lanczos resize and crop.",
+      "output_dimensions": [
+        600,
+        421
+      ],
+      "asset_sha256": "4c01072a112297d9f243abd7779493b4f5fbd82f69246a30d56f30de35d4fec8",
+      "bytes": 335430
+    },
+    {
+      "id": "fine_raccoon",
+      "title": "一切都好",
+      "author": "万物炼金台项目原创插画",
+      "source_page": null,
+      "source_asset": "input/memes/fine_raccoon.svg",
+      "license": "Original project artwork",
+      "license_url": null,
+      "attribution_zh": "万物炼金台原创浣熊插画。围巾浣熊、色块火苗和构图均单独绘制。",
+      "description": "原创的淡定浣熊端杯情境，呼应在混乱中说「一切都好」的网络用法。",
+      "reference_hint": "保留浣熊的深色眼罩、淡定的半闭双眼、蓝灰毛色和青绿围巾，加入少量朱橙火苗图形作为外观细节。",
+      "changes": "原创 SVG 由 Edge 按 840×720 渲染为 RGB PNG。",
+      "asset": "input/memes/fine_raccoon.png",
+      "output_dimensions": [
+        840,
+        720
+      ],
+      "asset_sha256": "24fd641a32d78e982c43b158686ea2fa7c2ddf629c9623399012eb64646d74ae",
+      "bytes": 62490
+    },
+    {
+      "id": "scream",
+      "title": "啊啊啊 · 呐喊",
+      "author": "Edvard Munch",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Edvard_Munch_-_The_Scream_-_Google_Art_Project.jpg",
+      "context_page": "https://www.munch.no/en/object/MM.M.00514",
+      "original_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Edvard_Munch_-_The_Scream_-_Google_Art_Project.jpg/960px-Edvard_Munch_-_The_Scream_-_Google_Art_Project.jpg",
+      "license": "Public domain (faithful reproduction of a public-domain painting)",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "attribution_zh": "爱德华·蒙克《呐喊》，MUNCH 馆藏版（MM.M.00514），公共领域。维基共享资源数字图缩放。",
+      "description": "以双手贴脸、圆口和橙蓝旋涡线条表达惊讶，呼应网络里的尖叫反应图。",
+      "reference_hint": "提炼圆口、双手贴脸和橙蓝波浪笔触，形成统一的图案或材质，不整张贴上画框和原画背景。",
+      "asset": "input/memes/scream.png",
+      "download_sha256": "63a232313729e2146b63c0d63a4f5521dc6a466b37e38deb73be4ad4096b0386",
+      "original_dimensions": [
+        960,
+        1214
+      ],
+      "changes": "EXIF orientation normalized; RGB conversion, Lanczos resize.",
+      "output_dimensions": [
+        482,
+        610
+      ],
+      "asset_sha256": "4e12fc8ca173e62d4d645beb85162b86372a4bc351e6d5cd73af0d638f20fbe7",
+      "bytes": 583906
+    }
+  ]
+}

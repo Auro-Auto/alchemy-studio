@@ -1,0 +1,23 @@
+[
+  {
+    "name": "flux-2-klein-4b-fp8.safetensors",
+    "folder": "diffusion_models",
+    "url": "https://hf-mirror.com/black-forest-labs/FLUX.2-klein-4b-fp8/resolve/main/flux-2-klein-4b-fp8.safetensors?download=true",
+    "size": 4070624520,
+    "sha256": "97ed34fe0567e436200f2faee3939b88f2b5d99f8af2a4dc16532c4245c0ccb6"
+  },
+  {
+    "name": "qwen_3_4b_fp4_flux2.safetensors",
+    "folder": "text_encoders",
+    "url": "https://modelscope.cn/models/Comfy-Org/Flux-2-Klein-4B/resolve/master/split_files/text_encoders/qwen_3_4b_fp4_flux2.safetensors?download=true",
+    "size": 3848213998,
+    "sha256": "3eab03a77adb0ee5304a4e677d5c10ac22f9049c1d7c894adca4f8bb39206ca8"
+  },
+  {
+    "name": "flux2-vae.safetensors",
+    "folder": "vae",
+    "url": "https://modelscope.cn/models/Comfy-Org/Flux-2-Klein-4B/resolve/master/split_files/vae/flux2-vae.safetensors?download=true",
+    "size": 336211292,
+    "sha256": "868fe7b343cc8f3a19dbcfcafbc3d5f888802be3f89bd81b65b3621a066ce8f3"
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "retrieved_on": "2026-11-08",
+  "assets": [
+    {
+      "file": "real_cat.png",
+      "download_url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png",
+      "source_page": "https://huggingface.co/datasets/huggingface/documentation-images/blob/main/diffusers/cat.png",
+      "used_by_official_docs": "https://huggingface.co/docs/diffusers/main/using-diffusers/img2img",
+      "publisher": "Hugging Face documentation-images dataset",
+      "author": "Original photographer not separately identified in the checked dataset and documentation pages.",
+      "license": {
+        "identifier": "CC-BY-NC-SA-4.0",
+        "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+        "evidence_url": "https://huggingface.co/datasets/huggingface/documentation-images/tree/main/diffusers",
+        "scope_note": "Dataset-level license declaration; individual photo attribution was not separately specified in the checked pages."
+      },
+      "visual_review": "Photographic black-and-white tuxedo cat with clear face, ears, green eyes and distinctive fur markings. Quiet green background. Front paws are on a bamboo ledge; lower body is occluded. Suitable as appearance donor.",
+      "modified_after_download": false,
+      "sha256": "b3596420d2f0bdf3122f04c89b550d7ff504045312b6b1e075a0c2841531543d",
+      "bytes": 1049491,
+      "width": 1024,
+      "height": 704,
+      "format": "PNG"
+    },
+    {
+      "file": "plain_mug.jpg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Mug_of_Tea.JPG",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Mug_of_Tea.JPG",
+      "source_page_revision": "https://commons.wikimedia.org/w/index.php?title=File:Mug_of_Tea.JPG&oldid=1249980157",
+      "title": "Mug of Tea.JPG",
+      "publisher": "Wikimedia Commons",
+      "author": "Factorylad",
+      "author_url": "https://commons.wikimedia.org/wiki/User:Factorylad",
+      "source_description": "Own work, photographed 13 April 2008; camera metadata identifies an Olympus u790SW/S790SW.",
+      "license": {
+        "identifier": "Public domain (PD-self)",
+        "evidence_url": "https://commons.wikimedia.org/wiki/File:Mug_of_Tea.JPG",
+        "scope_note": "The author releases the work into the public domain worldwide and grants unrestricted use where such a release is not legally possible."
+      },
+      "visual_review": "Real plain white ceramic mug filled with milky tea, with complete rim, body and right handle visible on a wooden tabletop. No printed logo, no hands and no additional foreground objects. Documentary object photo rather than a studio catalog photograph; suitable as structure donor.",
+      "modified_after_download": false,
+      "sha256": "918580e75ac885503e57ae35c8fe61a05f5dbb6e52b778cfb7f6311eabd5a285",
+      "bytes": 2385743,
+      "width": 3072,
+      "height": 2304,
+      "format": "JPEG"
+    }
+  ]
+}

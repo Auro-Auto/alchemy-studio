@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "history restores regions",
+    "presentation enter and escape",
+    "A upload resets regions after successful upload",
+    "390px mobile page and region modal without overflow"
+  ],
+  "errors": [],
+  "generation_job": "cb725c99318c466392e68806aeb0540a",
+  "passed": true
+}

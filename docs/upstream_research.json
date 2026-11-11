@@ -1,0 +1,72 @@
+[
+  {
+    "full_name": "Sanster/IOPaint",
+    "html_url": "https://github.com/Sanster/IOPaint",
+    "stargazers_count": 23285,
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "archived": true,
+    "pushed_at": "2025-04-29T02:13:17Z"
+  },
+  {
+    "full_name": "invoke-ai/InvokeAI",
+    "html_url": "https://github.com/invoke-ai/InvokeAI",
+    "stargazers_count": 29018,
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "archived": false,
+    "pushed_at": "2026-11-08T04:52:53Z"
+  },
+  {
+    "full_name": "danielgatis/rembg",
+    "html_url": "https://github.com/danielgatis/rembg",
+    "stargazers_count": 25379,
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "archived": false,
+    "pushed_at": "2026-11-06T01:18:29Z"
+  },
+  {
+    "full_name": "xuebinqin/U-2-Net",
+    "html_url": "https://github.com/xuebinqin/U-2-Net",
+    "stargazers_count": 9895,
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "archived": false,
+    "pushed_at": "2024-06-26T04:16:45Z"
+  },
+  {
+    "full_name": "Comfy-Org/ComfyUI",
+    "html_url": "https://github.com/Comfy-Org/ComfyUI",
+    "stargazers_count": 145622,
+    "license": {
+      "key": "gpl-3.0",
+      "name": "GNU General Public License v3.0",
+      "spdx_id": "GPL-3.0",
+      "url": "https://api.github.com/licenses/gpl-3.0",
+      "node_id": "MDc6TGljZW5zZTk="
+    },
+    "archived": false,
+    "pushed_at": "2026-11-08T04:54:44Z"
+  }
+]

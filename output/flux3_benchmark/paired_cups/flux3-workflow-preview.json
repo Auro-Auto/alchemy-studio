@@ -1,0 +1,295 @@
+{
+  "76": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "reference_a.png"
+    },
+    "_meta": {
+      "title": "Reference A / image1"
+    }
+  },
+  "81": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "reference_b.png"
+    },
+    "_meta": {
+      "title": "Reference B / image2"
+    }
+  },
+  "109": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "108",
+        0
+      ],
+      "text": "Create exactly one coherent physical object from two references. <ref_image_0> is the structure reference: preserve its main silhouette, camera angle, proportions and recognizable functional parts. <ref_image_1> supplies the character, distinctive colors, markings and selected appearance details. Integrate those details into the object's material and geometry, not a separate creature beside it and not a pasted rectangular photograph. If a face is used, put exactly one face on the front, with one pair of eyes, one nose and one mouth; do not repeat faces around the sides or back. Keep the design readable and physically integrated. Use realistic smooth glazed ceramic and subtle sculpted shallow relief. Preserve only the functional parts actually present in <ref_image_0>: for an open mug keep its open drinking rim and existing handle; for a lidded tumbler retain its existing lid and straw. Do not invent a straw or lid for an open mug. Use the character markings as glaze regions, with plain uncluttered sides.\n\nUser's additional design instructions (including Chinese; prioritize these for the requested design and actual functional parts):\n保持白色马克杯的敞口、右侧把手和木桌。只在正面做一张浅浮雕猫脸，两个绿眼睛、一个粉鼻子；黑白釉色匹配参考猫，侧面和背面纯白。不要盖子和吸管。"
+    },
+    "_meta": {
+      "title": "Two-reference instruction"
+    }
+  },
+  "86": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": {
+      "conditioning": [
+        "109",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Zero text for negative branch"
+    }
+  },
+  "111": {
+    "class_type": "ImageScaleToTotalPixels",
+    "inputs": {
+      "image": [
+        "76",
+        0
+      ],
+      "upscale_method": "nearest-exact",
+      "megapixels": 0.5,
+      "resolution_steps": 16
+    },
+    "_meta": {
+      "title": "Resize reference A"
+    }
+  },
+  "85": {
+    "class_type": "ImageScaleToTotalPixels",
+    "inputs": {
+      "image": [
+        "81",
+        0
+      ],
+      "upscale_method": "nearest-exact",
+      "megapixels": 0.5,
+      "resolution_steps": 1
+    },
+    "_meta": {
+      "title": "Resize reference B"
+    }
+  },
+  "105": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "104",
+        0
+      ],
+      "vae": [
+        "110",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Decode result"
+    }
+  },
+  "114": {
+    "class_type": "GetImageSize",
+    "inputs": {
+      "image": [
+        "111",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Output size from reference A"
+    }
+  },
+  "116": {
+    "class_type": "VAEEncode",
+    "inputs": {
+      "pixels": [
+        "111",
+        0
+      ],
+      "vae": [
+        "110",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Encode reference A"
+    }
+  },
+  "201": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "edit_mask_latent.png"
+    },
+    "_meta": {
+      "title": "Conservative latent edit mask"
+    }
+  },
+  "202": {
+    "class_type": "ImageScale",
+    "inputs": {
+      "image": [
+        "201",
+        0
+      ],
+      "upscale_method": "nearest-exact",
+      "width": [
+        "114",
+        0
+      ],
+      "height": [
+        "114",
+        1
+      ],
+      "crop": "disabled"
+    },
+    "_meta": {
+      "title": "Align edit mask"
+    }
+  },
+  "203": {
+    "class_type": "ImageToMask",
+    "inputs": {
+      "image": [
+        "202",
+        0
+      ],
+      "channel": "red"
+    },
+    "_meta": {
+      "title": "White permits editing"
+    }
+  },
+  "204": {
+    "class_type": "SetLatentNoiseMask",
+    "inputs": {
+      "samples": [
+        "116",
+        0
+      ],
+      "mask": [
+        "203",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Protect source latent"
+    }
+  },
+  "107": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "flux3-image-klein-int8-convrot.safetensors",
+      "weight_dtype": "default"
+    },
+    "_meta": {
+      "title": "FLUX 3 Image Klein distilled INT8"
+    }
+  },
+  "108": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_4b_int8_convrot.safetensors",
+      "type": "flux3",
+      "device": "default"
+    },
+    "_meta": {
+      "title": "Qwen3-VL-4B INT8 for FLUX 3"
+    }
+  },
+  "110": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "_meta": {
+      "title": "Shared FLUX.2 VAE"
+    }
+  },
+  "120": {
+    "class_type": "ReferenceMultiLatent",
+    "inputs": {
+      "positive": [
+        "109",
+        0
+      ],
+      "negative": [
+        "86",
+        0
+      ],
+      "vae": [
+        "110",
+        0
+      ],
+      "resolution": "keep resolution",
+      "images.image0": [
+        "111",
+        0
+      ],
+      "images.image1": [
+        "85",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Condition on structure A, then appearance B"
+    }
+  },
+  "104": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "107",
+        0
+      ],
+      "seed": 42,
+      "steps": 16,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "positive": [
+        "120",
+        0
+      ],
+      "negative": [
+        "120",
+        1
+      ],
+      "latent_image": [
+        "204",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Official FLUX 3 distilled schedule"
+    }
+  },
+  "94": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "105",
+        0
+      ],
+      "filename_prefix": "alchemy/benchmark_flux3_klein_int8"
+    },
+    "_meta": {
+      "title": "Save FLUX 3 benchmark result",
+      "provenance": {
+        "official_template_url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/image_flux3_klein_distilled_image_edit.json",
+        "official_template_sha256": "75037b9482769ab98f9d00ac304899c48b9b46b9238686eca19ede42c40924cc",
+        "comfyui_commit": "bdb0816a292d221efeb6ec4ae41bcdff3f91fc86",
+        "prompt_upsampler": false,
+        "prompt_adapter": "Image 1 → <ref_image_0>; Image 2 → <ref_image_1> (case insensitive)",
+        "reference_order": [
+          "structure_A",
+          "appearance_B"
+        ],
+        "same_preprocessing_as_flux2": true,
+        "masked": true,
+        "masked_source_encoded_separately": true
+      }
+    }
+  }
+}

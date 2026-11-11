@@ -1,0 +1,386 @@
+[
+  {
+    "name": "mug_42_current_global",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/real_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保持白色马克杯的敞口、右侧把手和木桌。只在正面做一张浅浮雕猫脸，两个绿眼睛、一个粉鼻子；黑白釉色匹配参考猫，侧面和背面纯白。不要盖子和吸管。"
+    },
+    "status": "success",
+    "id": "c14f27a3039f410da08c8c61977b0d16",
+    "elapsed_seconds": 20.264,
+    "error": null,
+    "result_url": "/api/files/data/jobs/c14f27a3039f410da08c8c61977b0d16/candidate_1/finished_0/raw.png",
+    "raw_url": "/api/files/data/jobs/c14f27a3039f410da08c8c61977b0d16/candidate_1/runs/20261110T085247Z_e94351c5/node_94_000_flux2_klein_00061_.png",
+    "locked_pixels": null,
+    "changed_locked_pixels": null
+  },
+  {
+    "name": "mug_42_current_region",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/real_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保持白色马克杯的敞口、右侧把手和木桌。只在正面做一张浅浮雕猫脸，两个绿眼睛、一个粉鼻子；黑白釉色匹配参考猫，侧面和背面纯白。不要盖子和吸管。",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": []
+    },
+    "status": "success",
+    "id": "d8393c8ef7c24fec998211512dc4f0e1",
+    "elapsed_seconds": 12.706,
+    "error": null,
+    "result_url": "/api/files/data/jobs/d8393c8ef7c24fec998211512dc4f0e1/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/d8393c8ef7c24fec998211512dc4f0e1/candidate_1/runs/20261110T085309Z_f857aa9d/node_94_000_flux2_klein_00062_.png",
+    "locked_pixels": 6028971,
+    "changed_locked_pixels": 0
+  },
+  {
+    "name": "mug_42_detail_region",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/real_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "Edit only the front wall of the existing white mug. Sculpt one low-relief face of the tuxedo cat in image 2 directly into the white glazed ceramic. Preserve its black forehead and ears, narrow white blaze down the nose, white cheeks, green eyes and small pink nose. Keep the rest of the ceramic white. Keep the open rim, tea, single right-side handle, camera and wooden table exactly as in image 1.",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": []
+    },
+    "status": "success",
+    "id": "6ce87cf1ac5a4b63b90f6d34e7a1c334",
+    "elapsed_seconds": 12.688,
+    "error": null,
+    "result_url": "/api/files/data/jobs/6ce87cf1ac5a4b63b90f6d34e7a1c334/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/6ce87cf1ac5a4b63b90f6d34e7a1c334/candidate_1/runs/20261110T085323Z_271e5b79/node_94_000_flux2_klein_00063_.png",
+    "locked_pixels": 6028971,
+    "changed_locked_pixels": 0
+  },
+  {
+    "name": "mug_123_current_global",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/real_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保持白色马克杯的敞口、右侧把手和木桌。只在正面做一张浅浮雕猫脸，两个绿眼睛、一个粉鼻子；黑白釉色匹配参考猫，侧面和背面纯白。不要盖子和吸管。"
+    },
+    "status": "success",
+    "id": "82b81c1116314a4b8fb7ad328b826f53",
+    "elapsed_seconds": 7.667,
+    "error": null,
+    "result_url": "/api/files/data/jobs/82b81c1116314a4b8fb7ad328b826f53/candidate_1/finished_0/raw.png",
+    "raw_url": "/api/files/data/jobs/82b81c1116314a4b8fb7ad328b826f53/candidate_1/runs/20261110T085334Z_b22cefad/node_94_000_flux2_klein_00064_.png",
+    "locked_pixels": null,
+    "changed_locked_pixels": null
+  },
+  {
+    "name": "mug_123_current_region",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/real_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保持白色马克杯的敞口、右侧把手和木桌。只在正面做一张浅浮雕猫脸，两个绿眼睛、一个粉鼻子；黑白釉色匹配参考猫，侧面和背面纯白。不要盖子和吸管。",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": []
+    },
+    "status": "success",
+    "id": "1336d563a42d4350ad2039ca6a365696",
+    "elapsed_seconds": 11.592,
+    "error": null,
+    "result_url": "/api/files/data/jobs/1336d563a42d4350ad2039ca6a365696/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/1336d563a42d4350ad2039ca6a365696/candidate_1/runs/20261110T085344Z_ce8ac68f/node_94_000_flux2_klein_00065_.png",
+    "locked_pixels": 6028971,
+    "changed_locked_pixels": 0
+  },
+  {
+    "name": "mug_123_detail_region",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/real_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "Edit only the front wall of the existing white mug. Sculpt one low-relief face of the tuxedo cat in image 2 directly into the white glazed ceramic. Preserve its black forehead and ears, narrow white blaze down the nose, white cheeks, green eyes and small pink nose. Keep the rest of the ceramic white. Keep the open rim, tea, single right-side handle, camera and wooden table exactly as in image 1.",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": []
+    },
+    "status": "success",
+    "id": "cde581ed2be14404b72509baf1babffa",
+    "elapsed_seconds": 12.549,
+    "error": null,
+    "result_url": "/api/files/data/jobs/cde581ed2be14404b72509baf1babffa/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/cde581ed2be14404b72509baf1babffa/candidate_1/runs/20261110T085356Z_1e9895ae/node_94_000_flux2_klein_00066_.png",
+    "locked_pixels": 6028971,
+    "changed_locked_pixels": 0
+  },
+  {
+    "name": "tumbler_42_current_global",
+    "request": {
+      "image_a": "input/iced_drink_cup.png",
+      "image_b": "input/comfy_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。"
+    },
+    "status": "success",
+    "id": "b842b1352e534a57b4136938c472d738",
+    "elapsed_seconds": 5.971,
+    "error": null,
+    "result_url": "/api/files/data/jobs/b842b1352e534a57b4136938c472d738/candidate_1/finished_0/raw.png",
+    "raw_url": "/api/files/data/jobs/b842b1352e534a57b4136938c472d738/candidate_1/runs/20261110T085406Z_61c8770e/node_94_000_flux2_klein_00067_.png",
+    "locked_pixels": null,
+    "changed_locked_pixels": null
+  },
+  {
+    "name": "tumbler_42_current_region",
+    "request": {
+      "image_a": "input/iced_drink_cup.png",
+      "image_b": "input/comfy_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.2,
+          0.39,
+          0.78,
+          0.91
+        ]
+      ],
+      "protect_regions": [
+        [
+          0,
+          0,
+          1,
+          0.4
+        ]
+      ]
+    },
+    "status": "success",
+    "id": "a7a286f1aa184f37bf1531c3e0618fab",
+    "elapsed_seconds": 7.638,
+    "error": null,
+    "result_url": "/api/files/data/jobs/a7a286f1aa184f37bf1531c3e0618fab/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/a7a286f1aa184f37bf1531c3e0618fab/candidate_1/runs/20261110T085413Z_635e8a99/node_94_000_flux2_klein_00068_.png",
+    "locked_pixels": 3277852,
+    "changed_locked_pixels": 0
+  },
+  {
+    "name": "tumbler_42_detail_region",
+    "request": {
+      "image_a": "input/iced_drink_cup.png",
+      "image_b": "input/comfy_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "Redesign only the lower body of the existing tapered drinking cup. Put one shallow sculpted navy cat face on the front, with a cream muzzle, the white forehead marking, and a single pair of thick round orange glasses matching image 2. Use glossy navy and cream glaze on the cup body. Preserve the clear lid, angled straw, tapered silhouette, position and tabletop from image 1. The existing cup is handleless and stays handleless.",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.2,
+          0.39,
+          0.78,
+          0.91
+        ]
+      ],
+      "protect_regions": [
+        [
+          0,
+          0,
+          1,
+          0.4
+        ]
+      ]
+    },
+    "status": "success",
+    "id": "f46d981a181e416c92c93b560ba23eea",
+    "elapsed_seconds": 8.629,
+    "error": null,
+    "result_url": "/api/files/data/jobs/f46d981a181e416c92c93b560ba23eea/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/f46d981a181e416c92c93b560ba23eea/candidate_1/runs/20261110T085421Z_9eedae3b/node_94_000_flux2_klein_00069_.png",
+    "locked_pixels": 3277852,
+    "changed_locked_pixels": 0
+  },
+  {
+    "name": "tumbler_123_current_global",
+    "request": {
+      "image_a": "input/iced_drink_cup.png",
+      "image_b": "input/comfy_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。"
+    },
+    "status": "success",
+    "id": "bdf6ba7944f842fa83eb8807b266e0e6",
+    "elapsed_seconds": 5.979,
+    "error": null,
+    "result_url": "/api/files/data/jobs/bdf6ba7944f842fa83eb8807b266e0e6/candidate_1/finished_0/raw.png",
+    "raw_url": "/api/files/data/jobs/bdf6ba7944f842fa83eb8807b266e0e6/candidate_1/runs/20261110T085429Z_d44e8758/node_94_000_flux2_klein_00070_.png",
+    "locked_pixels": null,
+    "changed_locked_pixels": null
+  },
+  {
+    "name": "tumbler_123_current_region",
+    "request": {
+      "image_a": "input/iced_drink_cup.png",
+      "image_b": "input/comfy_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.2,
+          0.39,
+          0.78,
+          0.91
+        ]
+      ],
+      "protect_regions": [
+        [
+          0,
+          0,
+          1,
+          0.4
+        ]
+      ]
+    },
+    "status": "success",
+    "id": "d12e5c84ef484bf2ad1293960d872c95",
+    "elapsed_seconds": 7.668,
+    "error": null,
+    "result_url": "/api/files/data/jobs/d12e5c84ef484bf2ad1293960d872c95/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/d12e5c84ef484bf2ad1293960d872c95/candidate_1/runs/20261110T085436Z_326d006c/node_94_000_flux2_klein_00071_.png",
+    "locked_pixels": 3277852,
+    "changed_locked_pixels": 0
+  },
+  {
+    "name": "tumbler_123_detail_region",
+    "request": {
+      "image_a": "input/iced_drink_cup.png",
+      "image_b": "input/comfy_cat.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "prompt": "Redesign only the lower body of the existing tapered drinking cup. Put one shallow sculpted navy cat face on the front, with a cream muzzle, the white forehead marking, and a single pair of thick round orange glasses matching image 2. Use glossy navy and cream glaze on the cup body. Preserve the clear lid, angled straw, tapered silhouette, position and tabletop from image 1. The existing cup is handleless and stays handleless.",
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.2,
+          0.39,
+          0.78,
+          0.91
+        ]
+      ],
+      "protect_regions": [
+        [
+          0,
+          0,
+          1,
+          0.4
+        ]
+      ]
+    },
+    "status": "success",
+    "id": "92ba74ae14a14501a031de8b4e7d3bdd",
+    "elapsed_seconds": 8.612,
+    "error": null,
+    "result_url": "/api/files/data/jobs/92ba74ae14a14501a031de8b4e7d3bdd/candidate_1/region_0/region_composite.png",
+    "raw_url": "/api/files/data/jobs/92ba74ae14a14501a031de8b4e7d3bdd/candidate_1/runs/20261110T085444Z_ef1f8a3a/node_94_000_flux2_klein_00072_.png",
+    "locked_pixels": 3277852,
+    "changed_locked_pixels": 0
+  }
+]

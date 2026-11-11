@@ -1,0 +1,14 @@
+[
+  {
+    "method": "global",
+    "outside_mae": 3.0636678795157746,
+    "inside_mae": 35.86969735884594,
+    "pixels": 422971
+  },
+  {
+    "method": "latent_mask",
+    "outside_mae": 2.135070725889009,
+    "inside_mae": 33.58158313584023,
+    "pixels": 422971
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "generation_verified": true,
+  "followup_passed": true,
+  "first_run_network_timeout_retained": "TimeoutError: page.waitForFunction: Timeout 30000ms exceeded.",
+  "generation_job": "cb725c99318c466392e68806aeb0540a",
+  "elapsed_seconds": 9.06,
+  "unit_tests": 65,
+  "paired_evaluation": "output/region_evaluation/v3/results.json"
+}

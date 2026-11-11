@@ -1,0 +1,13 @@
+{
+  "base": "http://127.0.0.1:5173",
+  "api": "http://127.0.0.1:5173",
+  "checks": [
+    "Desktop at 1440×900 and 1280×720, real preset switching",
+    "Original/Result view, zoom and fit",
+    "Draw, undo and save editing regions",
+    "Existing experiment, original/final toggle, second candidate and download"
+  ],
+  "errors": [],
+  "passed": false,
+  "failure": "Error: page.evaluate: Execution context was destroyed, most likely because of a navigation."
+}

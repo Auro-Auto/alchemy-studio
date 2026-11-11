@@ -1,0 +1,14 @@
+{
+  "base": "http://127.0.0.1:18890",
+  "api": "http://127.0.0.1:18890",
+  "checks": [
+    "Desktop at 1440×900 and 1280×720, real preset switching",
+    "Original/Result view, zoom and fit",
+    "Draw, undo and save editing regions",
+    "Existing experiment, original/final toggle, second candidate and download",
+    "Comparison and presentation mode",
+    "Responsive layout at 1024, 768, 390 and 360 px"
+  ],
+  "errors": [],
+  "passed": true
+}

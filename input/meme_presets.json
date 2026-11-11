@@ -1,0 +1,42 @@
+[
+  {
+    "id": "meme_early_class",
+    "title": "早八的第一口",
+    "subtitle": "马克杯 × O RLY? 猫头鹰",
+    "image_a": "input/plain_mug.jpg",
+    "image_b": "input/memes/orly_owl.png",
+    "style": "comic",
+    "seed": 42,
+    "prompt": "马克杯和猫头鹰融成一个角色：杯口是头顶，两只圆眼和尖喙长在杯身正面，右侧把手仍然清楚。它瞪大双眼，像是刚听见老师要点名。中近景，杯里的蒸气像一道惊叹号，画面没有文字。"
+  },
+  {
+    "id": "meme_doge_race",
+    "title": "谁的鞋先到教室",
+    "subtitle": "运动鞋 × Doge 柴犬",
+    "image_a": "input/sneaker_black.png",
+    "image_b": "input/memes/doge.png",
+    "style": "clay",
+    "seed": 42,
+    "prompt": "把参考运动鞋变成一只活过来的柴犬鞋。鞋尖长出柴犬侧眼和短鼻子，鞋底、鞋带和鞋口依然可辨。它一本正经地向右飞奔，两条松开的鞋带甩在身后，前面是一块快滚走的小狗饼干。让鞋和脸是一体，画面没有文字。"
+  },
+  {
+    "id": "meme_fine",
+    "title": "DDL？一切都好",
+    "subtitle": "随行杯 × 淡定浣熊",
+    "image_a": "input/iced_drink_cup.png",
+    "image_b": "input/memes/fine_raccoon.png",
+    "style": "pixel",
+    "seed": 42,
+    "prompt": "浣熊坐在堆满作业纸的书桌前，双手抱着参考图里带盖和吸管的大杯子，从吸管淡定喝饮料。桌边的纸堆像夸张的火山冒火，浣熊却半闭着眼一动不动。保留黑眼罩和条纹尾巴，主角、杯子、火苗一眼可读，画面没有文字。"
+  },
+  {
+    "id": "meme_exam_gate",
+    "title": "期末的望江红门",
+    "subtitle": "川大望江北门 × 《呐喊》",
+    "image_a": "input/scu_wangjiang.png",
+    "image_b": "input/memes/scream.png",
+    "style": "poster",
+    "seed": 42,
+    "prompt": "一张川大期末周反应图。在四川大学望江北门前，呐喊里双手捧脸的人站在下方中央，面对一叠比自己还高、摇摇欲坠的复习资料。背景保留北门中间高、两边低的三座灰瓦屋顶和四根朱红方柱。天空有参考画作的橙红起伏轮廓，画面没有文字。"
+  }
+]

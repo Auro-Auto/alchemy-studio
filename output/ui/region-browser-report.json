@@ -1,0 +1,1507 @@
+{
+  "checks": [
+    {
+      "name": "draw edit and protected rectangles",
+      "passed": true
+    },
+    {
+      "name": "real masked generation, raw/final comparison and download",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "job": {
+    "id": "cb725c99318c466392e68806aeb0540a",
+    "status": "success",
+    "stage": "complete",
+    "progress": 100,
+    "config": {
+      "image_a": "input/iced_drink_cup.png",
+      "image_b": "data/uploads/b7dbe5e9a1fc405dbeced83c8109deec.png",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "prompt": "保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。",
+      "isolate_subject": false,
+      "lock_background": false,
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.2,
+          0.39,
+          0.78,
+          0.91
+        ]
+      ],
+      "protect_regions": [
+        [
+          0.05,
+          0.06,
+          0.95,
+          0.4
+        ]
+      ],
+      "candidates": 1,
+      "seed": 123,
+      "megapixels": 0.5
+    },
+    "created_at": "2026-11-08T15:29:00.534+00:00",
+    "elapsed_seconds": 9.06,
+    "candidates": [
+      {
+        "id": "1_0",
+        "url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_composite.png",
+        "download_url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_composite.png?download=true",
+        "raw_url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/runs/20261108T152902Z_4df30985/node_94_000_flux2_klein_00059_.png",
+        "raw_download_url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/runs/20261108T152902Z_4df30985/node_94_000_flux2_klein_00059_.png?download=true",
+        "seed": 123,
+        "score": 77.47,
+        "metrics": {
+          "background_locked": true,
+          "raw_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/finished_0/raw.png",
+          "score_scope": "Reference heuristic only: mask geometry, normalized A silhouette overlap and B foreground HSV palette overlap. Does not assess semantic fusion, identity, aesthetics or duplicate faces; material and lighting changes can lower palette similarity.",
+          "score_kind": "reference_heuristic_v2",
+          "continuity": 1,
+          "component_count": 1,
+          "foreground_fraction": 0.286542,
+          "border_contact_fraction": 0,
+          "crop_safety": 1,
+          "area_reasonableness": 1,
+          "score_weights": {
+            "shape": 0.45,
+            "structure": 0.25,
+            "palette": 0.3
+          },
+          "segmentation": {
+            "method": "u2netp_onnx_cpu",
+            "model_md5": "8e83ca70e441ab06c318d82300c84806",
+            "model_path": "models/segmentation/u2netp.onnx",
+            "inference_size": [
+              320,
+              320
+            ],
+            "foreground_fraction": 0.2865416061046512,
+            "sample_bbox": [
+              28,
+              22,
+              134,
+              226
+            ]
+          },
+          "score_available": true,
+          "generated_mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/finished_0/generated_mask.png",
+          "shape_score": 100,
+          "reference_score_available": true,
+          "structure_similarity": 0.990276,
+          "palette_similarity": 0.256946,
+          "score_components": {
+            "shape": 100,
+            "structure": 99.0276,
+            "palette": 25.6946
+          },
+          "structure_comparison": "foreground_bbox_uniform_fit_centered_128px_binary_iou",
+          "palette_comparison": "foreground_hsv_75bin_histogram_intersection",
+          "palette_bins": {
+            "achromatic": [
+              "black",
+              "gray",
+              "white"
+            ],
+            "hue": 12,
+            "saturation": 2,
+            "value": 3
+          },
+          "palette_sample_max_edge": 256,
+          "reference_a_segmentation": {
+            "method": "provided_mask",
+            "foreground_fraction": 0.28885690789473684,
+            "sample_bbox": [
+              28,
+              22,
+              134,
+              226
+            ]
+          },
+          "reference_b_segmentation": {
+            "method": "u2netp_onnx_cpu",
+            "model_md5": "8e83ca70e441ab06c318d82300c84806",
+            "model_path": "models/segmentation/u2netp.onnx",
+            "inference_size": [
+              320,
+              320
+            ],
+            "foreground_fraction": 0.5876922607421875,
+            "sample_bbox": [
+              11,
+              26,
+              242,
+              237
+            ]
+          },
+          "region_locked": true,
+          "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+          "composite_mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_mask.png",
+          "raw_protected_mae_255": 4.576976,
+          "final_protected_mae_255": 0,
+          "raw_edit_mae_255": 62.994923,
+          "locked_background_pixels": 3277852,
+          "changed_locked_background_pixels": 0,
+          "editable_fraction": 0.217078,
+          "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+          "alignment": {
+            "method": "resize_inference_canvas_to_source_coordinates",
+            "aspect_ratio_rounding_error": 0.007481513701609321,
+            "expected_inference_size": [
+              592,
+              880
+            ]
+          },
+          "original_size": [
+            1672,
+            2504
+          ],
+          "generated_size": [
+            592,
+            880
+          ]
+        },
+        "processing_status": "complete",
+        "provenance": {
+          "raw_image": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/runs/20261108T152902Z_4df30985/node_94_000_flux2_klein_00059_.png",
+          "workflow": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/workflow_api.json",
+          "background_lock_requested": false,
+          "final_image": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_composite.png",
+          "source_structure": "input/iced_drink_cup.png",
+          "source_mask": "data/jobs/cb725c99318c466392e68806aeb0540a/region_mask_a_only/mask_a.png",
+          "finishing": {
+            "image_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_composite.png",
+            "raw_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/finished_0/raw.png",
+            "mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_mask.png",
+            "score": 77.47,
+            "metrics": {
+              "background_locked": true,
+              "raw_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/finished_0/raw.png",
+              "score_scope": "Reference heuristic only: mask geometry, normalized A silhouette overlap and B foreground HSV palette overlap. Does not assess semantic fusion, identity, aesthetics or duplicate faces; material and lighting changes can lower palette similarity.",
+              "score_kind": "reference_heuristic_v2",
+              "continuity": 1,
+              "component_count": 1,
+              "foreground_fraction": 0.286542,
+              "border_contact_fraction": 0,
+              "crop_safety": 1,
+              "area_reasonableness": 1,
+              "score_weights": {
+                "shape": 0.45,
+                "structure": 0.25,
+                "palette": 0.3
+              },
+              "segmentation": {
+                "method": "u2netp_onnx_cpu",
+                "model_md5": "8e83ca70e441ab06c318d82300c84806",
+                "model_path": "models/segmentation/u2netp.onnx",
+                "inference_size": [
+                  320,
+                  320
+                ],
+                "foreground_fraction": 0.2865416061046512,
+                "sample_bbox": [
+                  28,
+                  22,
+                  134,
+                  226
+                ]
+              },
+              "score_available": true,
+              "generated_mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/finished_0/generated_mask.png",
+              "shape_score": 100,
+              "reference_score_available": true,
+              "structure_similarity": 0.990276,
+              "palette_similarity": 0.256946,
+              "score_components": {
+                "shape": 100,
+                "structure": 99.0276,
+                "palette": 25.6946
+              },
+              "structure_comparison": "foreground_bbox_uniform_fit_centered_128px_binary_iou",
+              "palette_comparison": "foreground_hsv_75bin_histogram_intersection",
+              "palette_bins": {
+                "achromatic": [
+                  "black",
+                  "gray",
+                  "white"
+                ],
+                "hue": 12,
+                "saturation": 2,
+                "value": 3
+              },
+              "palette_sample_max_edge": 256,
+              "reference_a_segmentation": {
+                "method": "provided_mask",
+                "foreground_fraction": 0.28885690789473684,
+                "sample_bbox": [
+                  28,
+                  22,
+                  134,
+                  226
+                ]
+              },
+              "reference_b_segmentation": {
+                "method": "u2netp_onnx_cpu",
+                "model_md5": "8e83ca70e441ab06c318d82300c84806",
+                "model_path": "models/segmentation/u2netp.onnx",
+                "inference_size": [
+                  320,
+                  320
+                ],
+                "foreground_fraction": 0.5876922607421875,
+                "sample_bbox": [
+                  11,
+                  26,
+                  242,
+                  237
+                ]
+              },
+              "region_locked": true,
+              "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+              "composite_mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_mask.png",
+              "raw_protected_mae_255": 4.576976,
+              "final_protected_mae_255": 0,
+              "raw_edit_mae_255": 62.994923,
+              "locked_background_pixels": 3277852,
+              "changed_locked_background_pixels": 0,
+              "editable_fraction": 0.217078,
+              "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+              "alignment": {
+                "method": "resize_inference_canvas_to_source_coordinates",
+                "aspect_ratio_rounding_error": 0.007481513701609321,
+                "expected_inference_size": [
+                  592,
+                  880
+                ]
+              },
+              "original_size": [
+                1672,
+                2504
+              ],
+              "generated_size": [
+                592,
+                880
+              ]
+            },
+            "region_processing": {
+              "image_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_composite.png",
+              "mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_mask.png",
+              "metrics": {
+                "region_locked": true,
+                "background_locked": true,
+                "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+                "composite_mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/region_0/region_mask.png",
+                "raw_protected_mae_255": 4.576976,
+                "final_protected_mae_255": 0,
+                "raw_edit_mae_255": 62.994923,
+                "locked_background_pixels": 3277852,
+                "changed_locked_background_pixels": 0,
+                "editable_fraction": 0.217078,
+                "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+                "alignment": {
+                  "method": "resize_inference_canvas_to_source_coordinates",
+                  "aspect_ratio_rounding_error": 0.007481513701609321,
+                  "expected_inference_size": [
+                    592,
+                    880
+                  ]
+                },
+                "original_size": [
+                  1672,
+                  2504
+                ],
+                "generated_size": [
+                  592,
+                  880
+                ]
+              }
+            }
+          }
+        }
+      }
+    ],
+    "attempts": [
+      {
+        "index": 0,
+        "seed": 123,
+        "status": "success",
+        "started_at": "2026-11-08T15:29:02.928+00:00",
+        "workflow": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/workflow_api.json",
+        "prompt": "Create exactly one coherent physical object from two references. Image 1 is the structure reference: preserve its main silhouette, camera angle, proportions and recognizable functional parts. Image 2 supplies the character, distinctive colors, markings and selected appearance details. Integrate those details into the object's material and geometry, not a separate creature beside it and not a pasted rectangular photograph. If a face is used, put exactly one face on the front, with one pair of eyes, one nose and one mouth; do not repeat faces around the sides or back. Keep the design readable and physically integrated. Use realistic smooth glazed ceramic and subtle sculpted shallow relief. Preserve only the functional parts actually present in image 1: for an open mug keep its open drinking rim and existing handle; for a lidded tumbler retain its existing lid and straw. Do not invent a straw or lid for an open mug. Use the character markings as glaze regions, with plain uncluttered sides.\n\nUser's additional design instructions (including Chinese; prioritize these for the requested design and actual functional parts):\n保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。",
+        "inference": {
+          "started_at": "2026-11-08T15:29:02.960+00:00",
+          "finished_at": "2026-11-08T15:29:07.007+00:00",
+          "elapsed_seconds": 4.046,
+          "server": "http://127.0.0.1:8188",
+          "status": "success",
+          "prompt_id": "331b57d1-fdf5-4399-9411-34597390d9d6",
+          "client_id": "7d272235-576e-4ef6-af87-47965cc6112b",
+          "workflow_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/workflow_api.json",
+          "workflow": {
+            "76": {
+              "class_type": "LoadImage",
+              "inputs": {
+                "image": "f46c1ad31e7341d2a45600db65e01364.png"
+              },
+              "_meta": {
+                "title": "Reference A / image1"
+              }
+            },
+            "81": {
+              "class_type": "LoadImage",
+              "inputs": {
+                "image": "e221c350ca614479b0b6d6843b52bc68.png"
+              },
+              "_meta": {
+                "title": "Reference B / image2"
+              }
+            },
+            "85": {
+              "class_type": "ImageScaleToTotalPixels",
+              "inputs": {
+                "image": [
+                  "81",
+                  0
+                ],
+                "upscale_method": "nearest-exact",
+                "megapixels": 0.5,
+                "resolution_steps": 1
+              },
+              "_meta": {
+                "title": "Resize reference B"
+              }
+            },
+            "86": {
+              "class_type": "ConditioningZeroOut",
+              "inputs": {
+                "conditioning": [
+                  "109",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Zero text for negative branch"
+              }
+            },
+            "94": {
+              "class_type": "SaveImage",
+              "inputs": {
+                "images": [
+                  "105",
+                  0
+                ],
+                "filename_prefix": "alchemy/flux2_klein"
+              },
+              "_meta": {
+                "title": "Save alchemy result",
+                "provenance": {
+                  "source_url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/image_flux2_klein_image_edit_4b_distilled.json",
+                  "source_file": "official_flux2_klein_4b_distilled.json",
+                  "source_sha256": "7f1ead62d1456d485e95fb432fb492d2783f5ec9cfeefefe4ef71bfb448ba1a3",
+                  "source_subgraph": "65c22b29-59aa-496b-89c6-55a603658670",
+                  "schema_compatibility": "ComfyUI 0.44.0 /object_info: ImageScaleToTotalPixels uses resolution_steps for the template's third widget.",
+                  "adaptation": "Expanded native two-reference graph; reference order image_a then image_b on both conditioning branches; FP4 text encoder; reduced pixel budget; fixed seed. The original source file is unchanged."
+                }
+              }
+            },
+            "101": {
+              "class_type": "KSamplerSelect",
+              "inputs": {
+                "sampler_name": "euler"
+              },
+              "_meta": {
+                "title": "Euler sampler"
+              }
+            },
+            "102": {
+              "class_type": "Flux2Scheduler",
+              "inputs": {
+                "steps": 4,
+                "width": [
+                  "114",
+                  0
+                ],
+                "height": [
+                  "114",
+                  1
+                ]
+              },
+              "_meta": {
+                "title": "Official four-step schedule"
+              }
+            },
+            "103": {
+              "class_type": "CFGGuider",
+              "inputs": {
+                "model": [
+                  "107",
+                  0
+                ],
+                "positive": [
+                  "120",
+                  0
+                ],
+                "negative": [
+                  "118",
+                  0
+                ],
+                "cfg": 1
+              },
+              "_meta": {
+                "title": "Distilled CFG = 1"
+              }
+            },
+            "104": {
+              "class_type": "SamplerCustomAdvanced",
+              "inputs": {
+                "noise": [
+                  "106",
+                  0
+                ],
+                "guider": [
+                  "103",
+                  0
+                ],
+                "sampler": [
+                  "101",
+                  0
+                ],
+                "sigmas": [
+                  "102",
+                  0
+                ],
+                "latent_image": [
+                  "204",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Sample two-reference edit"
+              }
+            },
+            "105": {
+              "class_type": "VAEDecode",
+              "inputs": {
+                "samples": [
+                  "104",
+                  0
+                ],
+                "vae": [
+                  "110",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Decode result"
+              }
+            },
+            "106": {
+              "class_type": "RandomNoise",
+              "inputs": {
+                "noise_seed": 123
+              },
+              "_meta": {
+                "title": "Reproducible noise"
+              }
+            },
+            "107": {
+              "class_type": "UNETLoader",
+              "inputs": {
+                "unet_name": "flux-2-klein-4b-fp8.safetensors",
+                "weight_dtype": "default"
+              },
+              "_meta": {
+                "title": "FLUX.2 Klein 4B distilled FP8"
+              }
+            },
+            "108": {
+              "class_type": "CLIPLoader",
+              "inputs": {
+                "clip_name": "qwen_3_4b_fp4_flux2.safetensors",
+                "type": "flux2",
+                "device": "default"
+              },
+              "_meta": {
+                "title": "Qwen3 4B text encoder"
+              }
+            },
+            "109": {
+              "class_type": "CLIPTextEncode",
+              "inputs": {
+                "clip": [
+                  "108",
+                  0
+                ],
+                "text": "Create exactly one coherent physical object from two references. Image 1 is the structure reference: preserve its main silhouette, camera angle, proportions and recognizable functional parts. Image 2 supplies the character, distinctive colors, markings and selected appearance details. Integrate those details into the object's material and geometry, not a separate creature beside it and not a pasted rectangular photograph. If a face is used, put exactly one face on the front, with one pair of eyes, one nose and one mouth; do not repeat faces around the sides or back. Keep the design readable and physically integrated. Use realistic smooth glazed ceramic and subtle sculpted shallow relief. Preserve only the functional parts actually present in image 1: for an open mug keep its open drinking rim and existing handle; for a lidded tumbler retain its existing lid and straw. Do not invent a straw or lid for an open mug. Use the character markings as glaze regions, with plain uncluttered sides.\n\nUser's additional design instructions (including Chinese; prioritize these for the requested design and actual functional parts):\n保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。"
+              },
+              "_meta": {
+                "title": "Two-reference instruction"
+              }
+            },
+            "110": {
+              "class_type": "VAELoader",
+              "inputs": {
+                "vae_name": "flux2-vae.safetensors"
+              },
+              "_meta": {
+                "title": "FLUX.2 VAE"
+              }
+            },
+            "111": {
+              "class_type": "ImageScaleToTotalPixels",
+              "inputs": {
+                "image": [
+                  "76",
+                  0
+                ],
+                "upscale_method": "nearest-exact",
+                "megapixels": 0.5,
+                "resolution_steps": 16
+              },
+              "_meta": {
+                "title": "Resize reference A"
+              }
+            },
+            "113": {
+              "class_type": "EmptyFlux2LatentImage",
+              "inputs": {
+                "width": [
+                  "114",
+                  0
+                ],
+                "height": [
+                  "114",
+                  1
+                ],
+                "batch_size": 1
+              },
+              "_meta": {
+                "title": "Empty output latent"
+              }
+            },
+            "114": {
+              "class_type": "GetImageSize",
+              "inputs": {
+                "image": [
+                  "111",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Output size from reference A"
+              }
+            },
+            "115": {
+              "class_type": "ReferenceLatent",
+              "inputs": {
+                "conditioning": [
+                  "86",
+                  0
+                ],
+                "latent": [
+                  "116",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Negative + reference A"
+              }
+            },
+            "116": {
+              "class_type": "VAEEncode",
+              "inputs": {
+                "pixels": [
+                  "111",
+                  0
+                ],
+                "vae": [
+                  "110",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Encode reference A"
+              }
+            },
+            "117": {
+              "class_type": "ReferenceLatent",
+              "inputs": {
+                "conditioning": [
+                  "109",
+                  0
+                ],
+                "latent": [
+                  "116",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Positive + reference A"
+              }
+            },
+            "118": {
+              "class_type": "ReferenceLatent",
+              "inputs": {
+                "conditioning": [
+                  "115",
+                  0
+                ],
+                "latent": [
+                  "119",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Negative + reference A + B"
+              }
+            },
+            "119": {
+              "class_type": "VAEEncode",
+              "inputs": {
+                "pixels": [
+                  "85",
+                  0
+                ],
+                "vae": [
+                  "110",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Encode reference B"
+              }
+            },
+            "120": {
+              "class_type": "ReferenceLatent",
+              "inputs": {
+                "conditioning": [
+                  "117",
+                  0
+                ],
+                "latent": [
+                  "119",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Positive + reference A + B"
+              }
+            },
+            "201": {
+              "class_type": "LoadImage",
+              "inputs": {
+                "image": "7a71051ae37947e3a172eebf8e53184f.png"
+              },
+              "_meta": {
+                "title": "Conservative latent edit mask"
+              }
+            },
+            "202": {
+              "class_type": "ImageScale",
+              "inputs": {
+                "image": [
+                  "201",
+                  0
+                ],
+                "upscale_method": "nearest-exact",
+                "width": [
+                  "114",
+                  0
+                ],
+                "height": [
+                  "114",
+                  1
+                ],
+                "crop": "disabled"
+              },
+              "_meta": {
+                "title": "Align edit mask"
+              }
+            },
+            "203": {
+              "class_type": "ImageToMask",
+              "inputs": {
+                "image": [
+                  "202",
+                  0
+                ],
+                "channel": "red"
+              },
+              "_meta": {
+                "title": "White permits editing"
+              }
+            },
+            "204": {
+              "class_type": "SetLatentNoiseMask",
+              "inputs": {
+                "samples": [
+                  "116",
+                  0
+                ],
+                "mask": [
+                  "203",
+                  0
+                ]
+              },
+              "_meta": {
+                "title": "Protect source latent"
+              }
+            }
+          },
+          "uploads": [
+            {
+              "role": "image-a",
+              "node_id": "76",
+              "local_path": "data/jobs/cb725c99318c466392e68806aeb0540a/reference_a/reference_a.png",
+              "server_image": "f46c1ad31e7341d2a45600db65e01364.png",
+              "response": {
+                "name": "f46c1ad31e7341d2a45600db65e01364.png",
+                "subfolder": "",
+                "type": "input"
+              }
+            },
+            {
+              "role": "image-b",
+              "node_id": "81",
+              "local_path": "data/jobs/cb725c99318c466392e68806aeb0540a/reference_b/reference_b.png",
+              "server_image": "e221c350ca614479b0b6d6843b52bc68.png",
+              "response": {
+                "name": "e221c350ca614479b0b6d6843b52bc68.png",
+                "subfolder": "",
+                "type": "input"
+              }
+            },
+            {
+              "role": "upload",
+              "node_id": "201",
+              "local_path": "data/jobs/cb725c99318c466392e68806aeb0540a/regions/edit_mask_latent.png",
+              "server_image": "7a71051ae37947e3a172eebf8e53184f.png",
+              "response": {
+                "name": "7a71051ae37947e3a172eebf8e53184f.png",
+                "subfolder": "",
+                "type": "input"
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "node_id": "94",
+              "server_image": {
+                "filename": "flux2_klein_00059_.png",
+                "subfolder": "alchemy",
+                "type": "output",
+                "metadata": {
+                  "kind": "image",
+                  "width": 592,
+                  "height": 880
+                }
+              },
+              "local_path": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/runs/20261108T152902Z_4df30985/node_94_000_flux2_klein_00059_.png",
+              "bytes": 626594
+            }
+          ],
+          "timeout_seconds": 900,
+          "submission": {
+            "prompt_id": "331b57d1-fdf5-4399-9411-34597390d9d6",
+            "number": 58,
+            "node_errors": {}
+          },
+          "history": {
+            "prompt": [
+              58,
+              "331b57d1-fdf5-4399-9411-34597390d9d6",
+              {
+                "76": {
+                  "class_type": "LoadImage",
+                  "inputs": {
+                    "image": "f46c1ad31e7341d2a45600db65e01364.png"
+                  },
+                  "_meta": {
+                    "title": "Reference A / image1"
+                  }
+                },
+                "81": {
+                  "class_type": "LoadImage",
+                  "inputs": {
+                    "image": "e221c350ca614479b0b6d6843b52bc68.png"
+                  },
+                  "_meta": {
+                    "title": "Reference B / image2"
+                  }
+                },
+                "85": {
+                  "class_type": "ImageScaleToTotalPixels",
+                  "inputs": {
+                    "image": [
+                      "81",
+                      0
+                    ],
+                    "upscale_method": "nearest-exact",
+                    "megapixels": 0.5,
+                    "resolution_steps": 1
+                  },
+                  "_meta": {
+                    "title": "Resize reference B"
+                  }
+                },
+                "86": {
+                  "class_type": "ConditioningZeroOut",
+                  "inputs": {
+                    "conditioning": [
+                      "109",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Zero text for negative branch"
+                  }
+                },
+                "94": {
+                  "class_type": "SaveImage",
+                  "inputs": {
+                    "images": [
+                      "105",
+                      0
+                    ],
+                    "filename_prefix": "alchemy/flux2_klein"
+                  },
+                  "_meta": {
+                    "title": "Save alchemy result",
+                    "provenance": {
+                      "source_url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/image_flux2_klein_image_edit_4b_distilled.json",
+                      "source_file": "official_flux2_klein_4b_distilled.json",
+                      "source_sha256": "7f1ead62d1456d485e95fb432fb492d2783f5ec9cfeefefe4ef71bfb448ba1a3",
+                      "source_subgraph": "65c22b29-59aa-496b-89c6-55a603658670",
+                      "schema_compatibility": "ComfyUI 0.44.0 /object_info: ImageScaleToTotalPixels uses resolution_steps for the template's third widget.",
+                      "adaptation": "Expanded native two-reference graph; reference order image_a then image_b on both conditioning branches; FP4 text encoder; reduced pixel budget; fixed seed. The original source file is unchanged."
+                    }
+                  }
+                },
+                "101": {
+                  "class_type": "KSamplerSelect",
+                  "inputs": {
+                    "sampler_name": "euler"
+                  },
+                  "_meta": {
+                    "title": "Euler sampler"
+                  }
+                },
+                "102": {
+                  "class_type": "Flux2Scheduler",
+                  "inputs": {
+                    "steps": 4,
+                    "width": [
+                      "114",
+                      0
+                    ],
+                    "height": [
+                      "114",
+                      1
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Official four-step schedule"
+                  }
+                },
+                "103": {
+                  "class_type": "CFGGuider",
+                  "inputs": {
+                    "model": [
+                      "107",
+                      0
+                    ],
+                    "positive": [
+                      "120",
+                      0
+                    ],
+                    "negative": [
+                      "118",
+                      0
+                    ],
+                    "cfg": 1
+                  },
+                  "_meta": {
+                    "title": "Distilled CFG = 1"
+                  }
+                },
+                "104": {
+                  "class_type": "SamplerCustomAdvanced",
+                  "inputs": {
+                    "noise": [
+                      "106",
+                      0
+                    ],
+                    "guider": [
+                      "103",
+                      0
+                    ],
+                    "sampler": [
+                      "101",
+                      0
+                    ],
+                    "sigmas": [
+                      "102",
+                      0
+                    ],
+                    "latent_image": [
+                      "204",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Sample two-reference edit"
+                  }
+                },
+                "105": {
+                  "class_type": "VAEDecode",
+                  "inputs": {
+                    "samples": [
+                      "104",
+                      0
+                    ],
+                    "vae": [
+                      "110",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Decode result"
+                  }
+                },
+                "106": {
+                  "class_type": "RandomNoise",
+                  "inputs": {
+                    "noise_seed": 123
+                  },
+                  "_meta": {
+                    "title": "Reproducible noise"
+                  }
+                },
+                "107": {
+                  "class_type": "UNETLoader",
+                  "inputs": {
+                    "unet_name": "flux-2-klein-4b-fp8.safetensors",
+                    "weight_dtype": "default"
+                  },
+                  "_meta": {
+                    "title": "FLUX.2 Klein 4B distilled FP8"
+                  }
+                },
+                "108": {
+                  "class_type": "CLIPLoader",
+                  "inputs": {
+                    "clip_name": "qwen_3_4b_fp4_flux2.safetensors",
+                    "type": "flux2",
+                    "device": "default"
+                  },
+                  "_meta": {
+                    "title": "Qwen3 4B text encoder"
+                  }
+                },
+                "109": {
+                  "class_type": "CLIPTextEncode",
+                  "inputs": {
+                    "clip": [
+                      "108",
+                      0
+                    ],
+                    "text": "Create exactly one coherent physical object from two references. Image 1 is the structure reference: preserve its main silhouette, camera angle, proportions and recognizable functional parts. Image 2 supplies the character, distinctive colors, markings and selected appearance details. Integrate those details into the object's material and geometry, not a separate creature beside it and not a pasted rectangular photograph. If a face is used, put exactly one face on the front, with one pair of eyes, one nose and one mouth; do not repeat faces around the sides or back. Keep the design readable and physically integrated. Use realistic smooth glazed ceramic and subtle sculpted shallow relief. Preserve only the functional parts actually present in image 1: for an open mug keep its open drinking rim and existing handle; for a lidded tumbler retain its existing lid and straw. Do not invent a straw or lid for an open mug. Use the character markings as glaze regions, with plain uncluttered sides.\n\nUser's additional design instructions (including Chinese; prioritize these for the requested design and actual functional parts):\n保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。"
+                  },
+                  "_meta": {
+                    "title": "Two-reference instruction"
+                  }
+                },
+                "110": {
+                  "class_type": "VAELoader",
+                  "inputs": {
+                    "vae_name": "flux2-vae.safetensors"
+                  },
+                  "_meta": {
+                    "title": "FLUX.2 VAE"
+                  }
+                },
+                "111": {
+                  "class_type": "ImageScaleToTotalPixels",
+                  "inputs": {
+                    "image": [
+                      "76",
+                      0
+                    ],
+                    "upscale_method": "nearest-exact",
+                    "megapixels": 0.5,
+                    "resolution_steps": 16
+                  },
+                  "_meta": {
+                    "title": "Resize reference A"
+                  }
+                },
+                "113": {
+                  "class_type": "EmptyFlux2LatentImage",
+                  "inputs": {
+                    "width": [
+                      "114",
+                      0
+                    ],
+                    "height": [
+                      "114",
+                      1
+                    ],
+                    "batch_size": 1
+                  },
+                  "_meta": {
+                    "title": "Empty output latent"
+                  }
+                },
+                "114": {
+                  "class_type": "GetImageSize",
+                  "inputs": {
+                    "image": [
+                      "111",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Output size from reference A"
+                  }
+                },
+                "115": {
+                  "class_type": "ReferenceLatent",
+                  "inputs": {
+                    "conditioning": [
+                      "86",
+                      0
+                    ],
+                    "latent": [
+                      "116",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Negative + reference A"
+                  }
+                },
+                "116": {
+                  "class_type": "VAEEncode",
+                  "inputs": {
+                    "pixels": [
+                      "111",
+                      0
+                    ],
+                    "vae": [
+                      "110",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Encode reference A"
+                  }
+                },
+                "117": {
+                  "class_type": "ReferenceLatent",
+                  "inputs": {
+                    "conditioning": [
+                      "109",
+                      0
+                    ],
+                    "latent": [
+                      "116",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Positive + reference A"
+                  }
+                },
+                "118": {
+                  "class_type": "ReferenceLatent",
+                  "inputs": {
+                    "conditioning": [
+                      "115",
+                      0
+                    ],
+                    "latent": [
+                      "119",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Negative + reference A + B"
+                  }
+                },
+                "119": {
+                  "class_type": "VAEEncode",
+                  "inputs": {
+                    "pixels": [
+                      "85",
+                      0
+                    ],
+                    "vae": [
+                      "110",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Encode reference B"
+                  }
+                },
+                "120": {
+                  "class_type": "ReferenceLatent",
+                  "inputs": {
+                    "conditioning": [
+                      "117",
+                      0
+                    ],
+                    "latent": [
+                      "119",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Positive + reference A + B"
+                  }
+                },
+                "201": {
+                  "class_type": "LoadImage",
+                  "inputs": {
+                    "image": "7a71051ae37947e3a172eebf8e53184f.png"
+                  },
+                  "_meta": {
+                    "title": "Conservative latent edit mask"
+                  }
+                },
+                "202": {
+                  "class_type": "ImageScale",
+                  "inputs": {
+                    "image": [
+                      "201",
+                      0
+                    ],
+                    "upscale_method": "nearest-exact",
+                    "width": [
+                      "114",
+                      0
+                    ],
+                    "height": [
+                      "114",
+                      1
+                    ],
+                    "crop": "disabled"
+                  },
+                  "_meta": {
+                    "title": "Align edit mask"
+                  }
+                },
+                "203": {
+                  "class_type": "ImageToMask",
+                  "inputs": {
+                    "image": [
+                      "202",
+                      0
+                    ],
+                    "channel": "red"
+                  },
+                  "_meta": {
+                    "title": "White permits editing"
+                  }
+                },
+                "204": {
+                  "class_type": "SetLatentNoiseMask",
+                  "inputs": {
+                    "samples": [
+                      "116",
+                      0
+                    ],
+                    "mask": [
+                      "203",
+                      0
+                    ]
+                  },
+                  "_meta": {
+                    "title": "Protect source latent"
+                  }
+                }
+              },
+              {
+                "client_id": "7d272235-576e-4ef6-af87-47965cc6112b",
+                "create_time": 1794151742984
+              },
+              [
+                "94"
+              ]
+            ],
+            "outputs": {
+              "94": {
+                "images": [
+                  {
+                    "filename": "flux2_klein_00059_.png",
+                    "subfolder": "alchemy",
+                    "type": "output",
+                    "metadata": {
+                      "kind": "image",
+                      "width": 592,
+                      "height": 880
+                    }
+                  }
+                ]
+              }
+            },
+            "status": {
+              "status_str": "success",
+              "completed": true,
+              "messages": [
+                [
+                  "execution_start",
+                  {
+                    "prompt_id": "331b57d1-fdf5-4399-9411-34597390d9d6",
+                    "timestamp": 1794151742984
+                  }
+                ],
+                [
+                  "execution_cached",
+                  {
+                    "nodes": [
+                      "107",
+                      "108",
+                      "110",
+                      "101",
+                      "106"
+                    ],
+                    "prompt_id": "331b57d1-fdf5-4399-9411-34597390d9d6",
+                    "timestamp": 1794151742991
+                  }
+                ],
+                [
+                  "execution_success",
+                  {
+                    "prompt_id": "331b57d1-fdf5-4399-9411-34597390d9d6",
+                    "timestamp": 1794151746419
+                  }
+                ]
+              ]
+            },
+            "meta": {
+              "94": {
+                "node_id": "94",
+                "display_node": "94",
+                "parent_node": null,
+                "real_node_id": "94"
+              }
+            }
+          }
+        },
+        "run_file": "data/jobs/cb725c99318c466392e68806aeb0540a/candidate_1/runs/20261108T152902Z_4df30985/run.json",
+        "finished_at": "2026-11-08T15:29:09.592+00:00"
+      }
+    ],
+    "best_index": 0,
+    "preprocessing": {
+      "a_url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/reference_a/reference_a.png",
+      "mask_a_url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/region_mask_a_only/mask_a.png",
+      "edit_mask_url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/regions/edit_mask.png",
+      "b_url": "/api/files/data/jobs/cb725c99318c466392e68806aeb0540a/reference_b/reference_b.png"
+    },
+    "cancel_requested": false,
+    "compiled_prompt": "Create exactly one coherent physical object from two references. Image 1 is the structure reference: preserve its main silhouette, camera angle, proportions and recognizable functional parts. Image 2 supplies the character, distinctive colors, markings and selected appearance details. Integrate those details into the object's material and geometry, not a separate creature beside it and not a pasted rectangular photograph. If a face is used, put exactly one face on the front, with one pair of eyes, one nose and one mouth; do not repeat faces around the sides or back. Keep the design readable and physically integrated. Use realistic smooth glazed ceramic and subtle sculpted shallow relief. Preserve only the functional parts actually present in image 1: for an open mug keep its open drinking rim and existing handle; for a lidded tumbler retain its existing lid and straw. Do not invent a straw or lid for an open mug. Use the character markings as glaze regions, with plain uncluttered sides.\n\nUser's additional design instructions (including Chinese; prioritize these for the requested design and actual functional parts):\n保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。",
+    "progress_semantics": "Completed processing stages, not diffusion sampling percentage.",
+    "score_semantics": "Heuristic reference silhouette, palette and foreground integrity; cannot judge semantics, identity, aesthetics or duplicate faces.",
+    "models": {
+      "diffusion_model": "flux-2-klein-4b-fp8.safetensors",
+      "text_encoder": "qwen_3_4b_fp4_flux2.safetensors",
+      "vae": "flux2-vae.safetensors",
+      "steps": 4,
+      "sampler": "euler",
+      "cfg": 1
+    },
+    "workflow_provenance": {
+      "source_url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/image_flux2_klein_image_edit_4b_distilled.json",
+      "source_file": "official_flux2_klein_4b_distilled.json",
+      "source_sha256": "7f1ead62d1456d485e95fb432fb492d2783f5ec9cfeefefe4ef71bfb448ba1a3",
+      "source_subgraph": "65c22b29-59aa-496b-89c6-55a603658670",
+      "schema_compatibility": "ComfyUI 0.44.0 /object_info: ImageScaleToTotalPixels uses resolution_steps for the template's third widget.",
+      "adaptation": "Expanded native two-reference graph; reference order image_a then image_b on both conditioning branches; FP4 text encoder; reduced pixel budget; fixed seed. The original source file is unchanged."
+    },
+    "started_at": "2026-11-08T15:29:00.535+00:00",
+    "preprocessing_provenance": {
+      "a": {
+        "image_path": "data/jobs/cb725c99318c466392e68806aeb0540a/reference_a/reference_a.png",
+        "mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/region_mask_a_only/mask_a.png",
+        "metadata": {
+          "role": "a",
+          "source_size": [
+            1672,
+            2504
+          ],
+          "isolation_applied": false,
+          "neutral_rgb": [
+            255,
+            255,
+            255
+          ],
+          "crop_box": null,
+          "output_size": [
+            1672,
+            2504
+          ],
+          "background_lock_strategy": "Explicit region sampling and source-pixel restoration; keep the full structure scene.",
+          "background_mask_preparation": {
+            "role": "a",
+            "source_size": [
+              1672,
+              2504
+            ],
+            "isolation_applied": true,
+            "neutral_rgb": [
+              255,
+              255,
+              255
+            ],
+            "crop_box": null,
+            "method": "u2netp_onnx_cpu",
+            "model_md5": "8e83ca70e441ab06c318d82300c84806",
+            "model_path": "models/segmentation/u2netp.onnx",
+            "inference_size": [
+              320,
+              320
+            ],
+            "foreground_fraction": 0.28885690789473684,
+            "sample_bbox": [
+              28,
+              22,
+              134,
+              226
+            ],
+            "output_size": [
+              1672,
+              2504
+            ]
+          }
+        }
+      },
+      "regions": {
+        "mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/regions/edit_mask.png",
+        "hard_mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/regions/edit_mask_hard.png",
+        "latent_mask_path": "data/jobs/cb725c99318c466392e68806aeb0540a/regions/edit_mask_latent.png",
+        "metadata": {
+          "policy": "union_edit_rectangles_minus_protect_rectangles_inward_feather",
+          "coordinate_system": "normalized_exif_oriented_source_A",
+          "subject_restriction": "foreground_probability_at_least_0.5",
+          "edit_regions": [
+            [
+              0.2,
+              0.39,
+              0.78,
+              0.91
+            ]
+          ],
+          "protect_regions": [
+            [
+              0.05,
+              0.06,
+              0.95,
+              0.4
+            ]
+          ],
+          "size": [
+            1672,
+            2504
+          ],
+          "feather_radius_px": 8,
+          "megapixels": 0.5,
+          "inference_size": [
+            592,
+            880
+          ],
+          "resolution_steps": 16,
+          "resize_source": "https://github.com/Comfy-Org/ComfyUI/blob/bdb0816a292d221efeb6ec4ae41bcdff3f91fc86/comfy_extras/nodes_post_processing.py",
+          "latent_size": [
+            37,
+            55
+          ],
+          "latent_mask_policy": "any_overlapping_protected_source_pixel_blocks_cell_otherwise_mean_soft_mask",
+          "active_latent_cells": 388,
+          "latent_editable_fraction": 0.190663,
+          "editable_fraction": 0.217078
+        }
+      },
+      "b": {
+        "image_path": "data/jobs/cb725c99318c466392e68806aeb0540a/reference_b/reference_b.png",
+        "mask_path": null,
+        "metadata": {
+          "role": "b",
+          "source_size": [
+            1024,
+            1024
+          ],
+          "isolation_applied": false,
+          "neutral_rgb": [
+            255,
+            255,
+            255
+          ],
+          "crop_box": null,
+          "output_size": [
+            1024,
+            1024
+          ]
+        }
+      }
+    },
+    "region_control": {
+      "mode": "region",
+      "sampling": "source_A_latent_with_edit_noise_mask",
+      "restoration": "explicit_edit_mask_source_pixel_restoration",
+      "subject_mask_applied": true,
+      "foreground_restriction": "source_A_subject_intersection",
+      "union_background_lock_applied": false,
+      "mask": "data/jobs/cb725c99318c466392e68806aeb0540a/regions/edit_mask.png",
+      "sampling_mask": "data/jobs/cb725c99318c466392e68806aeb0540a/regions/edit_mask_latent.png",
+      "metadata": {
+        "policy": "union_edit_rectangles_minus_protect_rectangles_inward_feather",
+        "coordinate_system": "normalized_exif_oriented_source_A",
+        "subject_restriction": "foreground_probability_at_least_0.5",
+        "edit_regions": [
+          [
+            0.2,
+            0.39,
+            0.78,
+            0.91
+          ]
+        ],
+        "protect_regions": [
+          [
+            0.05,
+            0.06,
+            0.95,
+            0.4
+          ]
+        ],
+        "size": [
+          1672,
+          2504
+        ],
+        "feather_radius_px": 8,
+        "megapixels": 0.5,
+        "inference_size": [
+          592,
+          880
+        ],
+        "resolution_steps": 16,
+        "resize_source": "https://github.com/Comfy-Org/ComfyUI/blob/bdb0816a292d221efeb6ec4ae41bcdff3f91fc86/comfy_extras/nodes_post_processing.py",
+        "latent_size": [
+          37,
+          55
+        ],
+        "latent_mask_policy": "any_overlapping_protected_source_pixel_blocks_cell_otherwise_mean_soft_mask",
+        "active_latent_cells": 388,
+        "latent_editable_fraction": 0.190663,
+        "editable_fraction": 0.217078
+      }
+    },
+    "finished_at": "2026-11-08T15:29:09.594+00:00"
+  },
+  "passed": false,
+  "failure": "TimeoutError: page.waitForFunction: Timeout 30000ms exceeded."
+}

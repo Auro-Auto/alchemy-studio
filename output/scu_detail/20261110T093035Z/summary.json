@@ -1,0 +1,284 @@
+[
+  {
+    "name": "scu_gate_mug_42_region",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/scu_wangjiang.png",
+      "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，门檐和柱间留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。图案不写字，不加校徽。",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": [],
+      "region_detail": false
+    },
+    "id": "f6bf38b984564a9697c449f72e7d39d2",
+    "elapsed_seconds": 12.854,
+    "window": {
+      "policy": "union_edit_rectangles_minus_protect_rectangles_inward_feather",
+      "coordinate_system": "normalized_exif_oriented_source_A",
+      "subject_restriction": "foreground_probability_at_least_0.5",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": [],
+      "size": [
+        3072,
+        2304
+      ],
+      "feather_radius_px": 8.0,
+      "megapixels": 0.5,
+      "inference_size": [
+        832,
+        624
+      ],
+      "resolution_steps": 16,
+      "resize_source": "https://github.com/Comfy-Org/ComfyUI/blob/bdb0816a292d221efeb6ec4ae41bcdff3f91fc86/comfy_extras/nodes_post_processing.py",
+      "latent_size": [
+        52,
+        39
+      ],
+      "latent_mask_policy": "any_overlapping_protected_source_pixel_blocks_cell_otherwise_mean_soft_mask",
+      "active_latent_cells": 269,
+      "latent_editable_fraction": 0.132643,
+      "editable_fraction": 0.148196
+    },
+    "changed_protected_pixels": 0,
+    "protected_pixels": 6028971,
+    "url": "/api/files/data/jobs/f6bf38b984564a9697c449f72e7d39d2/candidate_1/region_0/region_composite.png",
+    "preview": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_42_region.jpg",
+    "zoom": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_42_region_zoom.jpg"
+  },
+  {
+    "name": "scu_gate_mug_42_detail",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/scu_wangjiang.png",
+      "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，门檐和柱间留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。图案不写字，不加校徽。",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 42,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": [],
+      "region_detail": true
+    },
+    "id": "957da09170404415aeaf88ed02d36f41",
+    "elapsed_seconds": 17.192,
+    "window": {
+      "coordinate_system": "exif_oriented_source_A_pixels_xyxy",
+      "crop_box": [
+        640,
+        124,
+        2955,
+        2224
+      ],
+      "source_size": [
+        3072,
+        2304
+      ],
+      "crop_size": [
+        2315,
+        2100
+      ],
+      "inference_size": [
+        768,
+        688
+      ],
+      "full_inference_size": [
+        832,
+        624
+      ],
+      "latent_size": [
+        48,
+        43
+      ],
+      "active_latent_cells": 391,
+      "full_active_latent_cells": 269,
+      "sampling_density_gain": 1.481751,
+      "crop_area_fraction": 0.686857,
+      "context_policy": "include_subject_bounds",
+      "subject_box": [
+        800,
+        269,
+        2795,
+        2079
+      ],
+      "latent_mask_policy": "any_overlapping_protected_source_pixel_blocks_cell_otherwise_mean_soft_mask"
+    },
+    "changed_protected_pixels": 0,
+    "protected_pixels": 6028971,
+    "url": "/api/files/data/jobs/957da09170404415aeaf88ed02d36f41/candidate_1/detail_0/region_composite.png",
+    "preview": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_42_detail.jpg",
+    "zoom": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_42_detail_zoom.jpg"
+  },
+  {
+    "name": "scu_gate_mug_123_region",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/scu_wangjiang.png",
+      "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，门檐和柱间留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。图案不写字，不加校徽。",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": [],
+      "region_detail": false
+    },
+    "id": "d447a85059c7433b9e5429441c658c83",
+    "elapsed_seconds": 12.452,
+    "window": {
+      "policy": "union_edit_rectangles_minus_protect_rectangles_inward_feather",
+      "coordinate_system": "normalized_exif_oriented_source_A",
+      "subject_restriction": "foreground_probability_at_least_0.5",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": [],
+      "size": [
+        3072,
+        2304
+      ],
+      "feather_radius_px": 8.0,
+      "megapixels": 0.5,
+      "inference_size": [
+        832,
+        624
+      ],
+      "resolution_steps": 16,
+      "resize_source": "https://github.com/Comfy-Org/ComfyUI/blob/bdb0816a292d221efeb6ec4ae41bcdff3f91fc86/comfy_extras/nodes_post_processing.py",
+      "latent_size": [
+        52,
+        39
+      ],
+      "latent_mask_policy": "any_overlapping_protected_source_pixel_blocks_cell_otherwise_mean_soft_mask",
+      "active_latent_cells": 269,
+      "latent_editable_fraction": 0.132643,
+      "editable_fraction": 0.148196
+    },
+    "changed_protected_pixels": 0,
+    "protected_pixels": 6028971,
+    "url": "/api/files/data/jobs/d447a85059c7433b9e5429441c658c83/candidate_1/region_0/region_composite.png",
+    "preview": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_123_region.jpg",
+    "zoom": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_123_region_zoom.jpg"
+  },
+  {
+    "name": "scu_gate_mug_123_detail",
+    "request": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/scu_wangjiang.png",
+      "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，门檐和柱间留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。图案不写字，不加校徽。",
+      "recipe": "ceramic",
+      "mode": "structured",
+      "seed": 123,
+      "megapixels": 0.5,
+      "candidates": 1,
+      "isolate_subject": false,
+      "lock_background": false,
+      "edit_mode": "region",
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": [],
+      "region_detail": true
+    },
+    "id": "13f0f00a60dc4f2cb107a462a252ff26",
+    "elapsed_seconds": 17.211,
+    "window": {
+      "coordinate_system": "exif_oriented_source_A_pixels_xyxy",
+      "crop_box": [
+        640,
+        124,
+        2955,
+        2224
+      ],
+      "source_size": [
+        3072,
+        2304
+      ],
+      "crop_size": [
+        2315,
+        2100
+      ],
+      "inference_size": [
+        768,
+        688
+      ],
+      "full_inference_size": [
+        832,
+        624
+      ],
+      "latent_size": [
+        48,
+        43
+      ],
+      "active_latent_cells": 391,
+      "full_active_latent_cells": 269,
+      "sampling_density_gain": 1.481751,
+      "crop_area_fraction": 0.686857,
+      "context_policy": "include_subject_bounds",
+      "subject_box": [
+        800,
+        269,
+        2795,
+        2079
+      ],
+      "latent_mask_policy": "any_overlapping_protected_source_pixel_blocks_cell_otherwise_mean_soft_mask"
+    },
+    "changed_protected_pixels": 0,
+    "protected_pixels": 6028971,
+    "url": "/api/files/data/jobs/13f0f00a60dc4f2cb107a462a252ff26/candidate_1/detail_0/region_composite.png",
+    "preview": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_123_detail.jpg",
+    "zoom": "output/scu_detail/20261110T093035Z/previews/scu_gate_mug_123_detail_zoom.jpg"
+  }
+]

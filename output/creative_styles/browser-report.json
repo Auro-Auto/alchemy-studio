@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "22 real previews, 19 editable templates, append and dedupe, recipe choice, mobile"
+  ],
+  "errors": [],
+  "job_id": "2fd8752ea50c4054ab05ec6760cb7c11",
+  "elapsed_seconds": 7.427,
+  "passed": true
+}

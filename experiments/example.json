@@ -1,0 +1,26 @@
+[
+  {
+    "name": "official_handbag_logo",
+    "image_a": "../input/handbag_white.png",
+    "image_b": "../input/comfy_logo_blue.png",
+    "prompt": "stylize the handbag in image1 with the colours and logo from image 2",
+    "seed": 786795143695419,
+    "megapixels": 0.25
+  },
+  {
+    "name": "cat_drink_creature",
+    "image_a": "../input/comfy_cat.png",
+    "image_b": "../input/iced_drink_cup.png",
+    "prompt": "Create one charming original fantasy creature by fusing the cat in image 1 with the iced drink cup in image 2. Preserve the cat's recognizable face, ears and fur markings. Turn its body into a translucent cup filled with the drink, with its tail curled around the cup. The result is one coherent living creature, not two objects side by side. Full body, clean studio background, detailed collectible toy photography.",
+    "seed": 786795143695419,
+    "megapixels": 0.25
+  },
+  {
+    "name": "sneaker_cat_creature",
+    "image_a": "../input/sneaker_black.png",
+    "image_b": "../input/comfy_cat.png",
+    "prompt": "Transform the sneaker in image 1 into one playful cat-like fantasy creature inspired by the cat in image 2. Keep the sneaker's distinctive black silhouette, laces and sole as recognizable body structures. Add the cat's ears, face and curled tail, blending them naturally into the shoe creature. One coherent full-body creature, no separate normal cat or shoe, clean studio background, detailed collectible toy photography.",
+    "seed": 786795143695419,
+    "megapixels": 0.25
+  }
+]

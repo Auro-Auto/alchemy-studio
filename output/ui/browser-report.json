@@ -1,0 +1,34 @@
+{
+  "server": "http://127.0.0.1:18890",
+  "checks": [
+    {
+      "name": "initial assets",
+      "broken": []
+    },
+    {
+      "name": "comparison control",
+      "sliders": 1
+    },
+    {
+      "name": "image modal escape",
+      "closed": true
+    },
+    {
+      "name": "real image upload",
+      "passed": true
+    },
+    {
+      "name": "live generation and downloads",
+      "id": "f704bfcd73134bc787eba8c99cf12184",
+      "status": "success",
+      "candidates": 2,
+      "seconds": 9.518
+    },
+    {
+      "name": "mobile horizontal overflow",
+      "pixels": 0
+    }
+  ],
+  "errors": [],
+  "success": true
+}

@@ -1,0 +1,222 @@
+[
+  {
+    "name": "scu_gate_mug_42_region",
+    "image_a": "input/plain_mug.jpg",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，三处门洞留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 42,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.28,
+        0.48,
+        0.7,
+        0.9
+      ]
+    ],
+    "protect_regions": [],
+    "region_detail": false
+  },
+  {
+    "name": "scu_gate_mug_42_detail",
+    "image_a": "input/plain_mug.jpg",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，三处门洞留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 42,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.28,
+        0.48,
+        0.7,
+        0.9
+      ]
+    ],
+    "protect_regions": [],
+    "region_detail": true
+  },
+  {
+    "name": "scu_gate_mug_123_region",
+    "image_a": "input/plain_mug.jpg",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，三处门洞留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 123,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.28,
+        0.48,
+        0.7,
+        0.9
+      ]
+    ],
+    "protect_regions": [],
+    "region_detail": false
+  },
+  {
+    "name": "scu_gate_mug_123_detail",
+    "image_a": "input/plain_mug.jpg",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，三处门洞留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 123,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.28,
+        0.48,
+        0.7,
+        0.9
+      ]
+    ],
+    "protect_regions": [],
+    "region_detail": true
+  },
+  {
+    "name": "scu_gate_tumbler_42_region",
+    "image_a": "input/iced_drink_cup.png",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "用奶白釉杯身承托一座四川大学望江北门的浮雕。中间高、两边低的三座青灰瓦飞檐和四根朱红方柱构成唯一的主图案，放在杯身中央，保留清楚的屋檐轮廓和柱间留白。保留原透明杯盖和吸管，杯身无把手。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 42,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.2,
+        0.39,
+        0.78,
+        0.91
+      ]
+    ],
+    "protect_regions": [
+      [
+        0,
+        0,
+        1,
+        0.4
+      ]
+    ],
+    "region_detail": false
+  },
+  {
+    "name": "scu_gate_tumbler_42_detail",
+    "image_a": "input/iced_drink_cup.png",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "用奶白釉杯身承托一座四川大学望江北门的浮雕。中间高、两边低的三座青灰瓦飞檐和四根朱红方柱构成唯一的主图案，放在杯身中央，保留清楚的屋檐轮廓和柱间留白。保留原透明杯盖和吸管，杯身无把手。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 42,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.2,
+        0.39,
+        0.78,
+        0.91
+      ]
+    ],
+    "protect_regions": [
+      [
+        0,
+        0,
+        1,
+        0.4
+      ]
+    ],
+    "region_detail": true
+  },
+  {
+    "name": "scu_gate_tumbler_123_region",
+    "image_a": "input/iced_drink_cup.png",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "用奶白釉杯身承托一座四川大学望江北门的浮雕。中间高、两边低的三座青灰瓦飞檐和四根朱红方柱构成唯一的主图案，放在杯身中央，保留清楚的屋檐轮廓和柱间留白。保留原透明杯盖和吸管，杯身无把手。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 123,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.2,
+        0.39,
+        0.78,
+        0.91
+      ]
+    ],
+    "protect_regions": [
+      [
+        0,
+        0,
+        1,
+        0.4
+      ]
+    ],
+    "region_detail": false
+  },
+  {
+    "name": "scu_gate_tumbler_123_detail",
+    "image_a": "input/iced_drink_cup.png",
+    "image_b": "input/scu_wangjiang.png",
+    "prompt": "用奶白釉杯身承托一座四川大学望江北门的浮雕。中间高、两边低的三座青灰瓦飞檐和四根朱红方柱构成唯一的主图案，放在杯身中央，保留清楚的屋檐轮廓和柱间留白。保留原透明杯盖和吸管，杯身无把手。",
+    "recipe": "architecture",
+    "mode": "structured",
+    "seed": 123,
+    "megapixels": 0.5,
+    "candidates": 1,
+    "isolate_subject": false,
+    "lock_background": false,
+    "edit_mode": "region",
+    "edit_regions": [
+      [
+        0.2,
+        0.39,
+        0.78,
+        0.91
+      ]
+    ],
+    "protect_regions": [
+      [
+        0,
+        0,
+        1,
+        0.4
+      ]
+    ],
+    "region_detail": true
+  }
+]

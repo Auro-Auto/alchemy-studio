@@ -1,0 +1,829 @@
+{
+  "started_at": "2026-11-08T05:01:29.598+00:00",
+  "finished_at": "2026-11-08T05:01:38.008+00:00",
+  "elapsed_seconds": 8.411,
+  "server": "http://127.0.0.1:18888",
+  "status": "success",
+  "prompt_id": "8490779e-3e0e-473f-b73c-1eabe9c4d1ac",
+  "client_id": "62c781a4-b987-4760-9c0d-e2f4f5d77a3a",
+  "workflow_path": "workflows\\crystal_tumbler_api.json",
+  "workflow": {
+    "76": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "ea032365370b4641ae645bb1c379bd27.png"
+      },
+      "_meta": {
+        "title": "Reference A / image1"
+      }
+    },
+    "81": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "cf49187073c5405d8f998a021494dcae.png"
+      },
+      "_meta": {
+        "title": "Reference B / image2"
+      }
+    },
+    "107": {
+      "class_type": "UNETLoader",
+      "inputs": {
+        "unet_name": "flux-2-klein-4b-fp8.safetensors",
+        "weight_dtype": "default"
+      },
+      "_meta": {
+        "title": "FLUX.2 Klein 4B distilled FP8"
+      }
+    },
+    "108": {
+      "class_type": "CLIPLoader",
+      "inputs": {
+        "clip_name": "qwen_3_4b_fp4_flux2.safetensors",
+        "type": "flux2",
+        "device": "default"
+      },
+      "_meta": {
+        "title": "Qwen3 4B text encoder"
+      }
+    },
+    "110": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "flux2-vae.safetensors"
+      },
+      "_meta": {
+        "title": "FLUX.2 VAE"
+      }
+    },
+    "109": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "clip": [
+          "108",
+          0
+        ],
+        "text": "Fuse the functional tumbler in image 1 and the cat character in image 2 into a single exquisite art-glass cat vessel. Preserve the tall tapered cup, removable lid and drinking straw. Sculpt two pointed cat ears into the lid and one friendly cat face in the front. Transform the body into translucent deep sapphire blue glass with frosted cream-colored facial glass, amber-orange circular eyeglass rims, and a curled glass tail forming the side handle. The vessel is hollow and usable, with thick polished glass, realistic refraction, caustics and intricate artisan detail. One premium collectible art object on a pale stone studio pedestal. No separate living cat, no laptop, no printed image."
+      },
+      "_meta": {
+        "title": "Two-reference instruction"
+      }
+    },
+    "86": {
+      "class_type": "ConditioningZeroOut",
+      "inputs": {
+        "conditioning": [
+          "109",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Zero text for negative branch"
+      }
+    },
+    "111": {
+      "class_type": "ImageScaleToTotalPixels",
+      "inputs": {
+        "image": [
+          "76",
+          0
+        ],
+        "upscale_method": "nearest-exact",
+        "megapixels": 1.0,
+        "resolution_steps": 1
+      },
+      "_meta": {
+        "title": "Resize reference A"
+      }
+    },
+    "85": {
+      "class_type": "ImageScaleToTotalPixels",
+      "inputs": {
+        "image": [
+          "81",
+          0
+        ],
+        "upscale_method": "nearest-exact",
+        "megapixels": 1.0,
+        "resolution_steps": 1
+      },
+      "_meta": {
+        "title": "Resize reference B"
+      }
+    },
+    "116": {
+      "class_type": "VAEEncode",
+      "inputs": {
+        "pixels": [
+          "111",
+          0
+        ],
+        "vae": [
+          "110",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Encode reference A"
+      }
+    },
+    "119": {
+      "class_type": "VAEEncode",
+      "inputs": {
+        "pixels": [
+          "85",
+          0
+        ],
+        "vae": [
+          "110",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Encode reference B"
+      }
+    },
+    "117": {
+      "class_type": "ReferenceLatent",
+      "inputs": {
+        "conditioning": [
+          "109",
+          0
+        ],
+        "latent": [
+          "116",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Positive + reference A"
+      }
+    },
+    "115": {
+      "class_type": "ReferenceLatent",
+      "inputs": {
+        "conditioning": [
+          "86",
+          0
+        ],
+        "latent": [
+          "116",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Negative + reference A"
+      }
+    },
+    "120": {
+      "class_type": "ReferenceLatent",
+      "inputs": {
+        "conditioning": [
+          "117",
+          0
+        ],
+        "latent": [
+          "119",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Positive + reference A + B"
+      }
+    },
+    "118": {
+      "class_type": "ReferenceLatent",
+      "inputs": {
+        "conditioning": [
+          "115",
+          0
+        ],
+        "latent": [
+          "119",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Negative + reference A + B"
+      }
+    },
+    "114": {
+      "class_type": "GetImageSize",
+      "inputs": {
+        "image": [
+          "111",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Output size from reference A"
+      }
+    },
+    "113": {
+      "class_type": "EmptyFlux2LatentImage",
+      "inputs": {
+        "width": [
+          "114",
+          0
+        ],
+        "height": [
+          "114",
+          1
+        ],
+        "batch_size": 1
+      },
+      "_meta": {
+        "title": "Empty output latent"
+      }
+    },
+    "102": {
+      "class_type": "Flux2Scheduler",
+      "inputs": {
+        "steps": 4,
+        "width": [
+          "114",
+          0
+        ],
+        "height": [
+          "114",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Official four-step schedule"
+      }
+    },
+    "101": {
+      "class_type": "KSamplerSelect",
+      "inputs": {
+        "sampler_name": "euler"
+      },
+      "_meta": {
+        "title": "Euler sampler"
+      }
+    },
+    "106": {
+      "class_type": "RandomNoise",
+      "inputs": {
+        "noise_seed": 87
+      },
+      "_meta": {
+        "title": "Reproducible noise"
+      }
+    },
+    "103": {
+      "class_type": "CFGGuider",
+      "inputs": {
+        "model": [
+          "107",
+          0
+        ],
+        "positive": [
+          "120",
+          0
+        ],
+        "negative": [
+          "118",
+          0
+        ],
+        "cfg": 1.0
+      },
+      "_meta": {
+        "title": "Distilled CFG = 1"
+      }
+    },
+    "104": {
+      "class_type": "SamplerCustomAdvanced",
+      "inputs": {
+        "noise": [
+          "106",
+          0
+        ],
+        "guider": [
+          "103",
+          0
+        ],
+        "sampler": [
+          "101",
+          0
+        ],
+        "sigmas": [
+          "102",
+          0
+        ],
+        "latent_image": [
+          "113",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Sample two-reference edit"
+      }
+    },
+    "105": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": [
+          "104",
+          0
+        ],
+        "vae": [
+          "110",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Decode result"
+      }
+    },
+    "94": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "105",
+          0
+        ],
+        "filename_prefix": "alchemy/flux2_klein"
+      },
+      "_meta": {
+        "title": "Save alchemy result",
+        "provenance": {
+          "source_url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/image_flux2_klein_image_edit_4b_distilled.json",
+          "source_file": "official_flux2_klein_4b_distilled.json",
+          "source_sha256": "7f1ead62d1456d485e95fb432fb492d2783f5ec9cfeefefe4ef71bfb448ba1a3",
+          "source_subgraph": "65c22b29-59aa-496b-89c6-55a603658670",
+          "schema_compatibility": "ComfyUI 0.44.0 /object_info: ImageScaleToTotalPixels uses resolution_steps for the template's third widget.",
+          "adaptation": "Expanded native two-reference graph; reference order image_a then image_b on both conditioning branches; FP4 text encoder; reduced pixel budget; fixed seed. The original source file is unchanged."
+        }
+      }
+    }
+  },
+  "uploads": [
+    {
+      "role": "image-a",
+      "node_id": "76",
+      "local_path": "input\\iced_drink_cup.png",
+      "server_image": "ea032365370b4641ae645bb1c379bd27.png",
+      "response": {
+        "name": "ea032365370b4641ae645bb1c379bd27.png",
+        "subfolder": "",
+        "type": "input"
+      }
+    },
+    {
+      "role": "image-b",
+      "node_id": "81",
+      "local_path": "input\\comfy_cat.png",
+      "server_image": "cf49187073c5405d8f998a021494dcae.png",
+      "response": {
+        "name": "cf49187073c5405d8f998a021494dcae.png",
+        "subfolder": "",
+        "type": "input"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "node_id": "94",
+      "server_image": {
+        "filename": "flux2_klein_00010_.png",
+        "subfolder": "alchemy",
+        "type": "output",
+        "metadata": {
+          "kind": "image",
+          "width": 832,
+          "height": 1248
+        }
+      },
+      "local_path": "output\\crystal_tumbler\\20261108T050129Z_628a05a0\\node_94_000_flux2_klein_00010_.png",
+      "bytes": 1159763
+    }
+  ],
+  "timeout_seconds": 900.0,
+  "submission": {
+    "prompt_id": "8490779e-3e0e-473f-b73c-1eabe9c4d1ac",
+    "number": 9,
+    "node_errors": {}
+  },
+  "history": {
+    "prompt": [
+      9,
+      "8490779e-3e0e-473f-b73c-1eabe9c4d1ac",
+      {
+        "76": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "ea032365370b4641ae645bb1c379bd27.png"
+          },
+          "_meta": {
+            "title": "Reference A / image1"
+          }
+        },
+        "81": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "cf49187073c5405d8f998a021494dcae.png"
+          },
+          "_meta": {
+            "title": "Reference B / image2"
+          }
+        },
+        "107": {
+          "class_type": "UNETLoader",
+          "inputs": {
+            "unet_name": "flux-2-klein-4b-fp8.safetensors",
+            "weight_dtype": "default"
+          },
+          "_meta": {
+            "title": "FLUX.2 Klein 4B distilled FP8"
+          }
+        },
+        "108": {
+          "class_type": "CLIPLoader",
+          "inputs": {
+            "clip_name": "qwen_3_4b_fp4_flux2.safetensors",
+            "type": "flux2",
+            "device": "default"
+          },
+          "_meta": {
+            "title": "Qwen3 4B text encoder"
+          }
+        },
+        "110": {
+          "class_type": "VAELoader",
+          "inputs": {
+            "vae_name": "flux2-vae.safetensors"
+          },
+          "_meta": {
+            "title": "FLUX.2 VAE"
+          }
+        },
+        "109": {
+          "class_type": "CLIPTextEncode",
+          "inputs": {
+            "clip": [
+              "108",
+              0
+            ],
+            "text": "Fuse the functional tumbler in image 1 and the cat character in image 2 into a single exquisite art-glass cat vessel. Preserve the tall tapered cup, removable lid and drinking straw. Sculpt two pointed cat ears into the lid and one friendly cat face in the front. Transform the body into translucent deep sapphire blue glass with frosted cream-colored facial glass, amber-orange circular eyeglass rims, and a curled glass tail forming the side handle. The vessel is hollow and usable, with thick polished glass, realistic refraction, caustics and intricate artisan detail. One premium collectible art object on a pale stone studio pedestal. No separate living cat, no laptop, no printed image."
+          },
+          "_meta": {
+            "title": "Two-reference instruction"
+          }
+        },
+        "86": {
+          "class_type": "ConditioningZeroOut",
+          "inputs": {
+            "conditioning": [
+              "109",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Zero text for negative branch"
+          }
+        },
+        "111": {
+          "class_type": "ImageScaleToTotalPixels",
+          "inputs": {
+            "image": [
+              "76",
+              0
+            ],
+            "upscale_method": "nearest-exact",
+            "megapixels": 1.0,
+            "resolution_steps": 1
+          },
+          "_meta": {
+            "title": "Resize reference A"
+          }
+        },
+        "85": {
+          "class_type": "ImageScaleToTotalPixels",
+          "inputs": {
+            "image": [
+              "81",
+              0
+            ],
+            "upscale_method": "nearest-exact",
+            "megapixels": 1.0,
+            "resolution_steps": 1
+          },
+          "_meta": {
+            "title": "Resize reference B"
+          }
+        },
+        "116": {
+          "class_type": "VAEEncode",
+          "inputs": {
+            "pixels": [
+              "111",
+              0
+            ],
+            "vae": [
+              "110",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Encode reference A"
+          }
+        },
+        "119": {
+          "class_type": "VAEEncode",
+          "inputs": {
+            "pixels": [
+              "85",
+              0
+            ],
+            "vae": [
+              "110",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Encode reference B"
+          }
+        },
+        "117": {
+          "class_type": "ReferenceLatent",
+          "inputs": {
+            "conditioning": [
+              "109",
+              0
+            ],
+            "latent": [
+              "116",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Positive + reference A"
+          }
+        },
+        "115": {
+          "class_type": "ReferenceLatent",
+          "inputs": {
+            "conditioning": [
+              "86",
+              0
+            ],
+            "latent": [
+              "116",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Negative + reference A"
+          }
+        },
+        "120": {
+          "class_type": "ReferenceLatent",
+          "inputs": {
+            "conditioning": [
+              "117",
+              0
+            ],
+            "latent": [
+              "119",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Positive + reference A + B"
+          }
+        },
+        "118": {
+          "class_type": "ReferenceLatent",
+          "inputs": {
+            "conditioning": [
+              "115",
+              0
+            ],
+            "latent": [
+              "119",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Negative + reference A + B"
+          }
+        },
+        "114": {
+          "class_type": "GetImageSize",
+          "inputs": {
+            "image": [
+              "111",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Output size from reference A"
+          }
+        },
+        "113": {
+          "class_type": "EmptyFlux2LatentImage",
+          "inputs": {
+            "width": [
+              "114",
+              0
+            ],
+            "height": [
+              "114",
+              1
+            ],
+            "batch_size": 1
+          },
+          "_meta": {
+            "title": "Empty output latent"
+          }
+        },
+        "102": {
+          "class_type": "Flux2Scheduler",
+          "inputs": {
+            "steps": 4,
+            "width": [
+              "114",
+              0
+            ],
+            "height": [
+              "114",
+              1
+            ]
+          },
+          "_meta": {
+            "title": "Official four-step schedule"
+          }
+        },
+        "101": {
+          "class_type": "KSamplerSelect",
+          "inputs": {
+            "sampler_name": "euler"
+          },
+          "_meta": {
+            "title": "Euler sampler"
+          }
+        },
+        "106": {
+          "class_type": "RandomNoise",
+          "inputs": {
+            "noise_seed": 87
+          },
+          "_meta": {
+            "title": "Reproducible noise"
+          }
+        },
+        "103": {
+          "class_type": "CFGGuider",
+          "inputs": {
+            "model": [
+              "107",
+              0
+            ],
+            "positive": [
+              "120",
+              0
+            ],
+            "negative": [
+              "118",
+              0
+            ],
+            "cfg": 1.0
+          },
+          "_meta": {
+            "title": "Distilled CFG = 1"
+          }
+        },
+        "104": {
+          "class_type": "SamplerCustomAdvanced",
+          "inputs": {
+            "noise": [
+              "106",
+              0
+            ],
+            "guider": [
+              "103",
+              0
+            ],
+            "sampler": [
+              "101",
+              0
+            ],
+            "sigmas": [
+              "102",
+              0
+            ],
+            "latent_image": [
+              "113",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Sample two-reference edit"
+          }
+        },
+        "105": {
+          "class_type": "VAEDecode",
+          "inputs": {
+            "samples": [
+              "104",
+              0
+            ],
+            "vae": [
+              "110",
+              0
+            ]
+          },
+          "_meta": {
+            "title": "Decode result"
+          }
+        },
+        "94": {
+          "class_type": "SaveImage",
+          "inputs": {
+            "images": [
+              "105",
+              0
+            ],
+            "filename_prefix": "alchemy/flux2_klein"
+          },
+          "_meta": {
+            "title": "Save alchemy result",
+            "provenance": {
+              "source_url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/image_flux2_klein_image_edit_4b_distilled.json",
+              "source_file": "official_flux2_klein_4b_distilled.json",
+              "source_sha256": "7f1ead62d1456d485e95fb432fb492d2783f5ec9cfeefefe4ef71bfb448ba1a3",
+              "source_subgraph": "65c22b29-59aa-496b-89c6-55a603658670",
+              "schema_compatibility": "ComfyUI 0.44.0 /object_info: ImageScaleToTotalPixels uses resolution_steps for the template's third widget.",
+              "adaptation": "Expanded native two-reference graph; reference order image_a then image_b on both conditioning branches; FP4 text encoder; reduced pixel budget; fixed seed. The original source file is unchanged."
+            }
+          }
+        }
+      },
+      {
+        "client_id": "62c781a4-b987-4760-9c0d-e2f4f5d77a3a",
+        "create_time": 1794113981975
+      },
+      [
+        "94"
+      ]
+    ],
+    "outputs": {
+      "94": {
+        "images": [
+          {
+            "filename": "flux2_klein_00010_.png",
+            "subfolder": "alchemy",
+            "type": "output",
+            "metadata": {
+              "kind": "image",
+              "width": 832,
+              "height": 1248
+            }
+          }
+        ]
+      }
+    },
+    "status": {
+      "status_str": "success",
+      "completed": true,
+      "messages": [
+        [
+          "execution_start",
+          {
+            "prompt_id": "8490779e-3e0e-473f-b73c-1eabe9c4d1ac",
+            "timestamp": 1794113981976
+          }
+        ],
+        [
+          "execution_cached",
+          {
+            "nodes": [
+              "107",
+              "108",
+              "110",
+              "101"
+            ],
+            "prompt_id": "8490779e-3e0e-473f-b73c-1eabe9c4d1ac",
+            "timestamp": 1794113981982
+          }
+        ],
+        [
+          "execution_success",
+          {
+            "prompt_id": "8490779e-3e0e-473f-b73c-1eabe9c4d1ac",
+            "timestamp": 1794113988962
+          }
+        ]
+      ]
+    },
+    "meta": {
+      "94": {
+        "node_id": "94",
+        "display_node": "94",
+        "parent_node": null,
+        "real_node_id": "94"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+case,seed,method,character_0_2,material_0_2,function_0_2,boundary_0_2,reviewer,notes
+mug,42,global,,,,,,
+mug,42,latent_mask,,,,,,
+mug,123,global,,,,,,
+mug,123,latent_mask,,,,,,
+tumbler,42,global,,,,,,
+tumbler,42,latent_mask,,,,,,
+tumbler,123,global,,,,,,
+tumbler,123,latent_mask,,,,,,
+sneaker,42,global,,,,,,
+sneaker,42,latent_mask,,,,,,
+sneaker,123,global,,,,,,
+sneaker,123,latent_mask,,,,,,

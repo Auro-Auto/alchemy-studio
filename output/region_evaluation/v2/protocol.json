@@ -1,0 +1,78 @@
+{
+  "cases": [
+    {
+      "id": "mug",
+      "a": "plain_mug.jpg",
+      "b": "real_cat.png",
+      "recipe": "ceramic",
+      "edits": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect": [],
+      "extra": "Redesign only the front mug body with one shallow sculpted ceramic cat face. Keep the open rim, tea, handle, silhouette and wooden table unchanged."
+    },
+    {
+      "id": "tumbler",
+      "a": "iced_drink_cup.png",
+      "b": "comfy_cat.png",
+      "recipe": "ceramic",
+      "edits": [
+        [
+          0.2,
+          0.39,
+          0.78,
+          0.91
+        ]
+      ],
+      "protect": [
+        [
+          0,
+          0,
+          1,
+          0.4
+        ]
+      ],
+      "extra": "Make the lower cup body a navy, cream and orange cat-themed ceramic collectible with one sculpted face. Keep the existing transparent lid, straw, position and background unchanged."
+    },
+    {
+      "id": "sneaker",
+      "a": "sneaker_black.png",
+      "b": "real_cat.png",
+      "recipe": "sneaker",
+      "edits": [
+        [
+          0.47,
+          0.35,
+          0.6,
+          0.6
+        ]
+      ],
+      "protect": [],
+      "extra": "Redesign only the side panel of the black sneaker with a black and white cat face integrated as embroidered fabric and leather relief. Preserve the laces, sole, toe, opening, camera and background."
+    }
+  ],
+  "seeds": [
+    42,
+    123
+  ],
+  "megapixels": 0.5,
+  "subject_mask": true,
+  "methods": [
+    "global",
+    "latent_mask"
+  ],
+  "resolution_steps_A": 16,
+  "controls": "Identical A, B, prompt, seed, 4-step Euler, CFG1, model and resolution within each pair. Only source latent and edit mask differ.",
+  "predefined_checks": {
+    "raw_protection": "Compare MAE outside edit mask against the same VAE-decoded A. Report every pair, including regressions; lower is better for unchanged pixels only.",
+    "final_protection": "Exactly zero changed source pixels where edit mask is zero. This verifies restoration, not model quality.",
+    "edit_activity": "Report MAE inside mask; a low outside score alone can be a no-op.",
+    "human_rubric": "Unfilled 0/1/2 ratings: recognizable character, integrated material, preserved functional parts, clean boundary. 0=failed, 1=partial, 2=clear. Human ratings are required; none inferred from pixel metrics."
+  },
+  "limits": "Three selected objects, two seeds; engineering ablation, not a general benchmark or user study. Manual rectangles are additional input."
+}

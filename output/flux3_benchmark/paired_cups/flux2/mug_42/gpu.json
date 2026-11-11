@@ -1,0 +1,429 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "scripts/run_comfy.py",
+    "--server",
+    "http://127.0.0.1:8188",
+    "--workflow",
+    "output/flux3_benchmark/paired_cups/flux2/mug_42/workflow.json",
+    "--output-dir",
+    "output/flux3_benchmark/paired_cups/flux2/mug_42/runs",
+    "--poll-interval",
+    ".3",
+    "--image-a",
+    "76=output/flux3_benchmark/paired_cups/flux2/mug_42/source/reference_a.png",
+    "--image-b",
+    "81=output/flux3_benchmark/paired_cups/flux2/mug_42/reference/reference_b.png",
+    "--upload",
+    "201=output/flux3_benchmark/paired_cups/flux2/mug_42/mask/edit_mask_latent.png"
+  ],
+  "gpu": {
+    "index": 0,
+    "name": "NVIDIA GeForce RTX 5070 Ti",
+    "uuid": "GPU-b3af5002-2b8b-d6f8-15f9-2af47c82c812",
+    "total_mib": 16303
+  },
+  "sampling_source": "nvidia-smi",
+  "requested_interval_seconds": 0.1,
+  "observed_sample_intervals_seconds": {
+    "min": 0.0727,
+    "median": 0.1001,
+    "max": 0.2301
+  },
+  "process_pid": 39372,
+  "elapsed_seconds": 7.652531,
+  "returncode": 0,
+  "device": {
+    "baseline_mib": 624,
+    "peak_mib": 9648,
+    "peak_over_baseline_mib": 9024,
+    "sample_count": 75
+  },
+  "process": {
+    "baseline_mib": null,
+    "peak_mib": null,
+    "peak_over_baseline_mib": null,
+    "sample_count": 0
+  },
+  "samples": [
+    {
+      "elapsed_seconds": 0.000248,
+      "device_used_mib": 624,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.102566,
+      "device_used_mib": 624,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.224047,
+      "device_used_mib": 624,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.340801,
+      "device_used_mib": 624,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.440871,
+      "device_used_mib": 624,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.541,
+      "device_used_mib": 752,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.771143,
+      "device_used_mib": 1552,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.871279,
+      "device_used_mib": 784,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.971393,
+      "device_used_mib": 1520,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.071522,
+      "device_used_mib": 784,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.171674,
+      "device_used_mib": 784,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.340138,
+      "device_used_mib": 784,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.440248,
+      "device_used_mib": 784,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.540397,
+      "device_used_mib": 784,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.640546,
+      "device_used_mib": 1552,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.74078,
+      "device_used_mib": 1552,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.840957,
+      "device_used_mib": 1616,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.941132,
+      "device_used_mib": 2224,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.041283,
+      "device_used_mib": 2576,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.141725,
+      "device_used_mib": 2736,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.242036,
+      "device_used_mib": 2992,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.342178,
+      "device_used_mib": 3152,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.442292,
+      "device_used_mib": 3312,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.542442,
+      "device_used_mib": 3408,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.642686,
+      "device_used_mib": 3600,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.743379,
+      "device_used_mib": 3792,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.843486,
+      "device_used_mib": 3952,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.943596,
+      "device_used_mib": 4144,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.043734,
+      "device_used_mib": 4208,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.143909,
+      "device_used_mib": 4336,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.24411,
+      "device_used_mib": 4464,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.374016,
+      "device_used_mib": 4560,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.47423,
+      "device_used_mib": 4592,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.574386,
+      "device_used_mib": 4752,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.674485,
+      "device_used_mib": 4816,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.774667,
+      "device_used_mib": 4464,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.874771,
+      "device_used_mib": 4560,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.974983,
+      "device_used_mib": 5008,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.075125,
+      "device_used_mib": 5808,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.175234,
+      "device_used_mib": 6064,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.275392,
+      "device_used_mib": 6320,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.37549,
+      "device_used_mib": 6576,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.47557,
+      "device_used_mib": 6768,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.57576,
+      "device_used_mib": 7152,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.675932,
+      "device_used_mib": 7472,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.776105,
+      "device_used_mib": 7696,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.87635,
+      "device_used_mib": 8016,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 4.976454,
+      "device_used_mib": 8048,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.076587,
+      "device_used_mib": 8208,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.176757,
+      "device_used_mib": 8560,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.276927,
+      "device_used_mib": 8784,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.37706,
+      "device_used_mib": 9008,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.477242,
+      "device_used_mib": 9200,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.577378,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.67749,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.777728,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.877906,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 5.978044,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.078178,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.178318,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.278413,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.378541,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.478631,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.578743,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.678841,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.778971,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.879059,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 6.97914,
+      "device_used_mib": 9328,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 7.079233,
+      "device_used_mib": 8368,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 7.1794,
+      "device_used_mib": 8880,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 7.279526,
+      "device_used_mib": 9648,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 7.379633,
+      "device_used_mib": 8432,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 7.479713,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 7.579836,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 7.652531,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    }
+  ],
+  "errors": [
+    "nvml initialization: No module named 'pynvml'",
+    "No compute memory samples were reported for PID 39372"
+  ]
+}

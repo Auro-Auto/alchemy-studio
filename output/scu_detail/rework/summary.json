@@ -1,0 +1,54 @@
+{
+  "id": "a1e6d8099b224f97bdcf911f744a6bca",
+  "image_a": "data/jobs/73b178eb6055444183b6a5d5dae9b453/candidate_1/detail_0/region_composite.png",
+  "image_b": "input/scu_wangjiang.png",
+  "seconds": 17.825,
+  "metrics": {
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "local_detail_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "data/jobs/a1e6d8099b224f97bdcf911f744a6bca/candidate_1/detail_0/region_mask.png",
+    "raw_protected_mae_255": 1.999329,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 16.072663,
+    "locked_background_pixels": 6984100,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.013251,
+    "region_metric_scope": "Raw error is measured in the generated window. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_window_and_paste_at_source_crop",
+      "crop_box": [
+        640,
+        124,
+        2955,
+        2224
+      ],
+      "aspect_ratio_rounding_error": 0.012607363503942759,
+      "expected_inference_size": [
+        768,
+        688
+      ]
+    },
+    "original_size": [
+      3072,
+      2304
+    ],
+    "generated_size": [
+      768,
+      688
+    ],
+    "local_detail": true,
+    "local_detail_crop_box": [
+      640,
+      124,
+      2955,
+      2224
+    ],
+    "local_detail_sampling_density_gain": 1.481751,
+    "local_detail_active_latent_cells": 22,
+    "local_detail_full_active_latent_cells": 18,
+    "raw_canvas_protected_mae_255": 1.364847,
+    "raw_protected_scope": "crop_only",
+    "raw_protected_measured_pixels": 4767712
+  }
+}

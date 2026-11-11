@@ -1,0 +1,234 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "scripts/run_comfy.py",
+    "--server",
+    "http://127.0.0.1:8188",
+    "--workflow",
+    "output/flux3_benchmark/paired_cups/flux2/tumbler_42/workflow.json",
+    "--output-dir",
+    "output/flux3_benchmark/paired_cups/flux2/tumbler_42/runs",
+    "--poll-interval",
+    ".3",
+    "--image-a",
+    "76=output/flux3_benchmark/paired_cups/flux2/tumbler_42/source/reference_a.png",
+    "--image-b",
+    "81=output/flux3_benchmark/paired_cups/flux2/tumbler_42/reference/reference_b.png",
+    "--upload",
+    "201=output/flux3_benchmark/paired_cups/flux2/tumbler_42/mask/edit_mask_latent.png"
+  ],
+  "gpu": {
+    "index": 0,
+    "name": "NVIDIA GeForce RTX 5070 Ti",
+    "uuid": "GPU-b3af5002-2b8b-d6f8-15f9-2af47c82c812",
+    "total_mib": 16303
+  },
+  "sampling_source": "nvidia-smi",
+  "requested_interval_seconds": 0.1,
+  "observed_sample_intervals_seconds": {
+    "min": 0.0594,
+    "median": 0.1001,
+    "max": 0.1024
+  },
+  "process_pid": 39372,
+  "elapsed_seconds": 3.466631,
+  "returncode": 0,
+  "device": {
+    "baseline_mib": 8400,
+    "peak_mib": 9616,
+    "peak_over_baseline_mib": 1216,
+    "sample_count": 36
+  },
+  "process": {
+    "baseline_mib": null,
+    "peak_mib": null,
+    "peak_over_baseline_mib": null,
+    "sample_count": 0
+  },
+  "samples": [
+    {
+      "elapsed_seconds": 0.0002,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.100468,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.20061,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.300733,
+      "device_used_mib": 9168,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.400987,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.501064,
+      "device_used_mib": 9168,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.601169,
+      "device_used_mib": 8656,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.701258,
+      "device_used_mib": 8752,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.801387,
+      "device_used_mib": 8752,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 0.901679,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.00176,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.101949,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.202117,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.302234,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.402412,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.50253,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.602647,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.705079,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.805164,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 1.9053,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.005398,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.105515,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.205733,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.305938,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.406065,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.506202,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.606282,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.706367,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.806447,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 2.906538,
+      "device_used_mib": 9296,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.006649,
+      "device_used_mib": 9104,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.106766,
+      "device_used_mib": 9616,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.206935,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.307111,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.40724,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    },
+    {
+      "elapsed_seconds": 3.466631,
+      "device_used_mib": 8400,
+      "process_used_mib": null
+    }
+  ],
+  "errors": [
+    "nvml initialization: No module named 'pynvml'",
+    "No compute memory samples were reported for PID 39372"
+  ]
+}

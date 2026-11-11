@@ -1,0 +1,6 @@
+[
+  {"name":"tumbler_baseline","image_a":"input/iced_drink_cup.png","image_b":"input/comfy_cat.png","recipe":"ceramic","mode":"baseline","prompt":"Make a collectible cat-themed drinking cup using navy blue, cream and orange colors.","isolate_subject":false,"lock_background":false,"candidates":1,"seed":42,"megapixels":0.5},
+  {"name":"tumbler_roles","image_a":"input/iced_drink_cup.png","image_b":"input/comfy_cat.png","recipe":"ceramic","mode":"structured","prompt":"Make a collectible cat-themed drinking cup using navy blue, cream and orange colors.","isolate_subject":false,"lock_background":false,"candidates":1,"seed":42,"megapixels":0.5},
+  {"name":"tumbler_foreground","image_a":"input/iced_drink_cup.png","image_b":"input/comfy_cat.png","recipe":"ceramic","mode":"structured","prompt":"Make a collectible cat-themed drinking cup using navy blue, cream and orange colors.","isolate_subject":true,"lock_background":false,"candidates":2,"seed":42,"megapixels":0.5},
+  {"name":"realcat_background_lock","image_a":"input/plain_mug.jpg","image_b":"input/real_cat.png","recipe":"ceramic","mode":"structured","prompt":"Keep the original white mug and handle on the wooden table. Integrate exactly one green-eyed black-and-white cat face as shallow ceramic relief on its front.","isolate_subject":true,"lock_background":true,"candidates":2,"seed":43,"megapixels":0.5}
+]

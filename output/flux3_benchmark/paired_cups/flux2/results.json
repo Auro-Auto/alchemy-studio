@@ -1,0 +1,254 @@
+[
+  {
+    "case": "mug_42",
+    "model": "flux2",
+    "seed": 42,
+    "expected_size": [
+      832,
+      624
+    ],
+    "input_sha256": {
+      "a": "07691ec2d9313039f002879773ec92030e59eb9832be9dc7da137bb4afa4c8de",
+      "b": "663f4f25a31dff72ee99086b1e6dd10f81687bba99668cd9b699fcc0c106e1b1",
+      "latent_mask": "b119f186ebc39037bc5cef8230b73f47dbf1181a209d31e494b0efb71624bca5",
+      "final_mask": "2e46466c63cbc0b584cc0b8c78f92d34ff0651c59a152f504cac064a7f2b6b8b"
+    },
+    "seconds_with_client": 7.84,
+    "cold_start_requested": true,
+    "gpu": "flux2/mug_42/gpu.json",
+    "status": "success",
+    "device": {
+      "baseline_mib": 624,
+      "peak_mib": 9648,
+      "peak_over_baseline_mib": 9024,
+      "sample_count": 75
+    },
+    "process": {
+      "baseline_mib": null,
+      "peak_mib": null,
+      "peak_over_baseline_mib": null,
+      "sample_count": 0
+    },
+    "sampling_source": "nvidia-smi",
+    "raw": "flux2/mug_42/runs/20261110T090605Z_a85ca213/node_94_000_flux2_klein_00074_.png",
+    "final": "flux2/mug_42/finished/region_composite.png",
+    "protection": {
+      "region_locked": true,
+      "background_locked": true,
+      "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+      "composite_mask_path": "output/flux3_benchmark/paired_cups/flux2/mug_42/finished/region_mask.png",
+      "raw_protected_mae_255": 3.51017,
+      "final_protected_mae_255": 0.0,
+      "raw_edit_mae_255": 44.679241,
+      "locked_background_pixels": 6028971,
+      "changed_locked_background_pixels": 0,
+      "editable_fraction": 0.148196,
+      "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+      "alignment": {
+        "method": "resize_inference_canvas_to_source_coordinates",
+        "aspect_ratio_rounding_error": 0.0,
+        "expected_inference_size": [
+          832,
+          624
+        ]
+      },
+      "original_size": [
+        3072,
+        2304
+      ],
+      "generated_size": [
+        832,
+        624
+      ]
+    }
+  },
+  {
+    "case": "mug_123",
+    "model": "flux2",
+    "seed": 123,
+    "expected_size": [
+      832,
+      624
+    ],
+    "input_sha256": {
+      "a": "07691ec2d9313039f002879773ec92030e59eb9832be9dc7da137bb4afa4c8de",
+      "b": "663f4f25a31dff72ee99086b1e6dd10f81687bba99668cd9b699fcc0c106e1b1",
+      "latent_mask": "b119f186ebc39037bc5cef8230b73f47dbf1181a209d31e494b0efb71624bca5",
+      "final_mask": "2e46466c63cbc0b584cc0b8c78f92d34ff0651c59a152f504cac064a7f2b6b8b"
+    },
+    "seconds_with_client": 3.578,
+    "cold_start_requested": false,
+    "gpu": "flux2/mug_123/gpu.json",
+    "status": "success",
+    "device": {
+      "baseline_mib": 8400,
+      "peak_mib": 9616,
+      "peak_over_baseline_mib": 1216,
+      "sample_count": 34
+    },
+    "process": {
+      "baseline_mib": null,
+      "peak_mib": null,
+      "peak_over_baseline_mib": null,
+      "sample_count": 0
+    },
+    "sampling_source": "nvidia-smi",
+    "raw": "flux2/mug_123/runs/20261110T090622Z_dbb79612/node_94_000_flux2_klein_00075_.png",
+    "final": "flux2/mug_123/finished/region_composite.png",
+    "protection": {
+      "region_locked": true,
+      "background_locked": true,
+      "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+      "composite_mask_path": "output/flux3_benchmark/paired_cups/flux2/mug_123/finished/region_mask.png",
+      "raw_protected_mae_255": 3.278659,
+      "final_protected_mae_255": 0.0,
+      "raw_edit_mae_255": 40.047024,
+      "locked_background_pixels": 6028971,
+      "changed_locked_background_pixels": 0,
+      "editable_fraction": 0.148196,
+      "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+      "alignment": {
+        "method": "resize_inference_canvas_to_source_coordinates",
+        "aspect_ratio_rounding_error": 0.0,
+        "expected_inference_size": [
+          832,
+          624
+        ]
+      },
+      "original_size": [
+        3072,
+        2304
+      ],
+      "generated_size": [
+        832,
+        624
+      ]
+    }
+  },
+  {
+    "case": "tumbler_42",
+    "model": "flux2",
+    "seed": 42,
+    "expected_size": [
+      592,
+      880
+    ],
+    "input_sha256": {
+      "a": "979525bce1a87df18e18bc10bf9c7ea9676d8027a928e5bea67cd422c9f3ced6",
+      "b": "a6614d5ae566b67ffafeb3c9bbf644984039a7ce17b699303f8fad9d2c9ab719",
+      "latent_mask": "335c4819184d3dd001d5f58dcbebf8092a4790054a90db43414fc93527c7be93",
+      "final_mask": "cda1653975e9833c370f0fbbcf5c4524c2a91ec25bcefd63a6bf0774240761c2"
+    },
+    "seconds_with_client": 3.614,
+    "cold_start_requested": false,
+    "gpu": "flux2/tumbler_42/gpu.json",
+    "status": "success",
+    "device": {
+      "baseline_mib": 8400,
+      "peak_mib": 9616,
+      "peak_over_baseline_mib": 1216,
+      "sample_count": 36
+    },
+    "process": {
+      "baseline_mib": null,
+      "peak_mib": null,
+      "peak_over_baseline_mib": null,
+      "sample_count": 0
+    },
+    "sampling_source": "nvidia-smi",
+    "raw": "flux2/tumbler_42/runs/20261110T090631Z_a8866322/node_94_000_flux2_klein_00076_.png",
+    "final": "flux2/tumbler_42/finished/region_composite.png",
+    "protection": {
+      "region_locked": true,
+      "background_locked": true,
+      "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+      "composite_mask_path": "output/flux3_benchmark/paired_cups/flux2/tumbler_42/finished/region_mask.png",
+      "raw_protected_mae_255": 5.30789,
+      "final_protected_mae_255": 0.0,
+      "raw_edit_mae_255": 70.267166,
+      "locked_background_pixels": 3277852,
+      "changed_locked_background_pixels": 0,
+      "editable_fraction": 0.217078,
+      "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+      "alignment": {
+        "method": "resize_inference_canvas_to_source_coordinates",
+        "aspect_ratio_rounding_error": 0.007481513701609321,
+        "expected_inference_size": [
+          592,
+          880
+        ]
+      },
+      "original_size": [
+        1672,
+        2504
+      ],
+      "generated_size": [
+        592,
+        880
+      ]
+    }
+  },
+  {
+    "case": "tumbler_123",
+    "model": "flux2",
+    "seed": 123,
+    "expected_size": [
+      592,
+      880
+    ],
+    "input_sha256": {
+      "a": "979525bce1a87df18e18bc10bf9c7ea9676d8027a928e5bea67cd422c9f3ced6",
+      "b": "a6614d5ae566b67ffafeb3c9bbf644984039a7ce17b699303f8fad9d2c9ab719",
+      "latent_mask": "335c4819184d3dd001d5f58dcbebf8092a4790054a90db43414fc93527c7be93",
+      "final_mask": "cda1653975e9833c370f0fbbcf5c4524c2a91ec25bcefd63a6bf0774240761c2"
+    },
+    "seconds_with_client": 3.235,
+    "cold_start_requested": false,
+    "gpu": "flux2/tumbler_123/gpu.json",
+    "status": "success",
+    "device": {
+      "baseline_mib": 8400,
+      "peak_mib": 9616,
+      "peak_over_baseline_mib": 1216,
+      "sample_count": 32
+    },
+    "process": {
+      "baseline_mib": null,
+      "peak_mib": null,
+      "peak_over_baseline_mib": null,
+      "sample_count": 0
+    },
+    "sampling_source": "nvidia-smi",
+    "raw": "flux2/tumbler_123/runs/20261110T090640Z_a888b0a2/node_94_000_flux2_klein_00077_.png",
+    "final": "flux2/tumbler_123/finished/region_composite.png",
+    "protection": {
+      "region_locked": true,
+      "background_locked": true,
+      "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+      "composite_mask_path": "output/flux3_benchmark/paired_cups/flux2/tumbler_123/finished/region_mask.png",
+      "raw_protected_mae_255": 4.576976,
+      "final_protected_mae_255": 0.0,
+      "raw_edit_mae_255": 62.994923,
+      "locked_background_pixels": 3277852,
+      "changed_locked_background_pixels": 0,
+      "editable_fraction": 0.217078,
+      "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+      "alignment": {
+        "method": "resize_inference_canvas_to_source_coordinates",
+        "aspect_ratio_rounding_error": 0.007481513701609321,
+        "expected_inference_size": [
+          592,
+          880
+        ]
+      },
+      "original_size": [
+        1672,
+        2504
+      ],
+      "generated_size": [
+        592,
+        880
+      ]
+    }
+  }
+]

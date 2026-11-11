@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "campus and meme categories, 4 generated thumbnails, preview config",
+    "mobile layout, style changes and preset restores"
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "handbag_white.png",
+    "source": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/input/handbag_white.png",
+    "sha256": "d37ec31eeaf06832ef59b0948cdd7ac09a5bc96a951614c5207fc12e646e4ad4",
+    "bytes": 5992775
+  },
+  {
+    "name": "comfy_logo_blue.png",
+    "source": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/input/comfy_logo_blue.png",
+    "sha256": "392b4f8b16d3aa197781f91597681905c1320e377b0d81af530c87640b044bf6",
+    "bytes": 13382
+  },
+  {
+    "name": "comfy_cat.png",
+    "source": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/input/comfy_cat.png",
+    "sha256": "1ba80a6cbf67e3e717c60afb106af0aef704c33202f3e449175036695b1919b4",
+    "bytes": 204665
+  },
+  {
+    "name": "iced_drink_cup.png",
+    "source": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/input/iced_drink_cup.png",
+    "sha256": "68293a162813857cb205bc5111a7f67d1f41ba16ea465f08ef641da3bdf43cda",
+    "bytes": 4783056
+  },
+  {
+    "name": "sneaker_black.png",
+    "source": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/input/sneaker_black.png",
+    "sha256": "69bad4caf3c59f6957dc75543469caf280d73cb92f7597bf9302f7c768faf3c2",
+    "bytes": 3066836
+  }
+]

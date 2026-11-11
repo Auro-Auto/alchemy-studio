@@ -1,0 +1,410 @@
+[
+  {
+    "case": "mug",
+    "seed": 42,
+    "method": "global",
+    "elapsed_seconds": 4.084,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 18.6339356968723,
+    "raw_inside_mae_vs_vae": 71.07841347919472,
+    "raw_path": "mug/42/global/runs/20261108T151734Z_c5129c87/node_94_000_flux2_klein_00023_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/mug/42/global/finished/region_mask.png",
+    "raw_protected_mae_255": 18.842171,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 71.820466,
+    "locked_background_pixels": 5829404,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.176392,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.0
+    },
+    "original_size": [
+      3072,
+      2304
+    ],
+    "generated_size": [
+      832,
+      624
+    ],
+    "final_path": "mug/42/global/finished/region_composite.png"
+  },
+  {
+    "case": "mug",
+    "seed": 42,
+    "method": "latent_mask",
+    "elapsed_seconds": 4.088,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 5.347275776927149,
+    "raw_inside_mae_vs_vae": 66.30965867990251,
+    "raw_path": "mug/42/latent_mask/runs/20261108T151742Z_8e7bd18f/node_94_000_flux2_klein_00024_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/mug/42/latent_mask/finished/region_mask.png",
+    "raw_protected_mae_255": 6.556662,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 67.163958,
+    "locked_background_pixels": 5829404,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.176392,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.0
+    },
+    "original_size": [
+      3072,
+      2304
+    ],
+    "generated_size": [
+      832,
+      624
+    ],
+    "final_path": "mug/42/latent_mask/finished/region_composite.png"
+  },
+  {
+    "case": "mug",
+    "seed": 123,
+    "method": "global",
+    "elapsed_seconds": 4.081,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 15.849256845501639,
+    "raw_inside_mae_vs_vae": 64.99215420056312,
+    "raw_path": "mug/123/global/runs/20261108T151749Z_b6a8f04c/node_94_000_flux2_klein_00025_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/mug/123/global/finished/region_mask.png",
+    "raw_protected_mae_255": 15.423476,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 65.685732,
+    "locked_background_pixels": 5829404,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.176392,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.0
+    },
+    "original_size": [
+      3072,
+      2304
+    ],
+    "generated_size": [
+      832,
+      624
+    ],
+    "final_path": "mug/123/global/finished/region_composite.png"
+  },
+  {
+    "case": "mug",
+    "seed": 123,
+    "method": "latent_mask",
+    "elapsed_seconds": 4.081,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 4.930944494159869,
+    "raw_inside_mae_vs_vae": 62.80437064817803,
+    "raw_path": "mug/123/latent_mask/runs/20261108T151756Z_90a2e04e/node_94_000_flux2_klein_00026_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/mug/123/latent_mask/finished/region_mask.png",
+    "raw_protected_mae_255": 6.168563,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 63.684839,
+    "locked_background_pixels": 5829404,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.176392,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.0
+    },
+    "original_size": [
+      3072,
+      2304
+    ],
+    "generated_size": [
+      832,
+      624
+    ],
+    "final_path": "mug/123/latent_mask/finished/region_composite.png"
+  },
+  {
+    "case": "tumbler",
+    "seed": 42,
+    "method": "global",
+    "elapsed_seconds": 4.083,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 16.578581008192657,
+    "raw_inside_mae_vs_vae": 64.12721832211778,
+    "raw_path": "tumbler/42/global/runs/20261108T151804Z_06c9f7cc/node_94_000_flux2_klein_00027_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/tumbler/42/global/finished/region_mask.png",
+    "raw_protected_mae_255": 16.588143,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 64.125033,
+    "locked_background_pixels": 2948234,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.295808,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.007481513701609321
+    },
+    "original_size": [
+      1672,
+      2504
+    ],
+    "generated_size": [
+      592,
+      880
+    ],
+    "final_path": "tumbler/42/global/finished/region_composite.png"
+  },
+  {
+    "case": "tumbler",
+    "seed": 42,
+    "method": "latent_mask",
+    "elapsed_seconds": 4.091,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 6.013716689990962,
+    "raw_inside_mae_vs_vae": 61.06925439698216,
+    "raw_path": "tumbler/42/latent_mask/runs/20261108T151810Z_a250f8c3/node_94_000_flux2_klein_00028_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/tumbler/42/latent_mask/finished/region_mask.png",
+    "raw_protected_mae_255": 6.387456,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 61.077462,
+    "locked_background_pixels": 2948234,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.295808,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.007481513701609321
+    },
+    "original_size": [
+      1672,
+      2504
+    ],
+    "generated_size": [
+      592,
+      880
+    ],
+    "final_path": "tumbler/42/latent_mask/finished/region_composite.png"
+  },
+  {
+    "case": "tumbler",
+    "seed": 123,
+    "method": "global",
+    "elapsed_seconds": 4.078,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 31.11823959882212,
+    "raw_inside_mae_vs_vae": 61.134214272178816,
+    "raw_path": "tumbler/123/global/runs/20261108T151816Z_2703abbc/node_94_000_flux2_klein_00029_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/tumbler/123/global/finished/region_mask.png",
+    "raw_protected_mae_255": 31.067568,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 60.985217,
+    "locked_background_pixels": 2948234,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.295808,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.007481513701609321
+    },
+    "original_size": [
+      1672,
+      2504
+    ],
+    "generated_size": [
+      592,
+      880
+    ],
+    "final_path": "tumbler/123/global/finished/region_composite.png"
+  },
+  {
+    "case": "tumbler",
+    "seed": 123,
+    "method": "latent_mask",
+    "elapsed_seconds": 4.086,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 3.7551404559899706,
+    "raw_inside_mae_vs_vae": 53.33735462746291,
+    "raw_path": "tumbler/123/latent_mask/runs/20261108T151821Z_61b96451/node_94_000_flux2_klein_00030_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/tumbler/123/latent_mask/finished/region_mask.png",
+    "raw_protected_mae_255": 4.104212,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 53.239018,
+    "locked_background_pixels": 2948234,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.295808,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.007481513701609321
+    },
+    "original_size": [
+      1672,
+      2504
+    ],
+    "generated_size": [
+      592,
+      880
+    ],
+    "final_path": "tumbler/123/latent_mask/finished/region_composite.png"
+  },
+  {
+    "case": "sneaker",
+    "seed": 42,
+    "method": "global",
+    "elapsed_seconds": 4.078,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 4.5851589966031865,
+    "raw_inside_mae_vs_vae": 68.87163783305974,
+    "raw_path": "sneaker/42/global/runs/20261108T151827Z_b8f902de/node_94_000_flux2_klein_00031_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/sneaker/42/global/finished/region_mask.png",
+    "raw_protected_mae_255": 5.033017,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 68.464422,
+    "locked_background_pixels": 4033010,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.032476,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.011557702259789582
+    },
+    "original_size": [
+      2728,
+      1528
+    ],
+    "generated_size": [
+      960,
+      544
+    ],
+    "final_path": "sneaker/42/global/finished/region_composite.png"
+  },
+  {
+    "case": "sneaker",
+    "seed": 42,
+    "method": "latent_mask",
+    "elapsed_seconds": 4.078,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 0.3641495918212398,
+    "raw_inside_mae_vs_vae": 55.0206465462811,
+    "raw_path": "sneaker/42/latent_mask/runs/20261108T151833Z_593a2f60/node_94_000_flux2_klein_00032_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/sneaker/42/latent_mask/finished/region_mask.png",
+    "raw_protected_mae_255": 1.250215,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 54.852222,
+    "locked_background_pixels": 4033010,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.032476,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.011557702259789582
+    },
+    "original_size": [
+      2728,
+      1528
+    ],
+    "generated_size": [
+      960,
+      544
+    ],
+    "final_path": "sneaker/42/latent_mask/finished/region_composite.png"
+  },
+  {
+    "case": "sneaker",
+    "seed": 123,
+    "method": "global",
+    "elapsed_seconds": 4.073,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 5.890427192991143,
+    "raw_inside_mae_vs_vae": 64.03239045334007,
+    "raw_path": "sneaker/123/global/runs/20261108T151839Z_0b85b740/node_94_000_flux2_klein_00033_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/sneaker/123/global/finished/region_mask.png",
+    "raw_protected_mae_255": 5.564295,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 63.866172,
+    "locked_background_pixels": 4033010,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.032476,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.011557702259789582
+    },
+    "original_size": [
+      2728,
+      1528
+    ],
+    "generated_size": [
+      960,
+      544
+    ],
+    "final_path": "sneaker/123/global/finished/region_composite.png"
+  },
+  {
+    "case": "sneaker",
+    "seed": 123,
+    "method": "latent_mask",
+    "elapsed_seconds": 4.085,
+    "status": "success",
+    "raw_outside_mae_vs_vae": 0.3368357810854617,
+    "raw_inside_mae_vs_vae": 42.70145641284674,
+    "raw_path": "sneaker/123/latent_mask/runs/20261108T151844Z_57530182/node_94_000_flux2_klein_00034_.png",
+    "region_locked": true,
+    "background_locked": true,
+    "composite_policy": "explicit_edit_mask_source_pixel_restoration",
+    "composite_mask_path": "output/region_evaluation/v1/sneaker/123/latent_mask/finished/region_mask.png",
+    "raw_protected_mae_255": 1.253947,
+    "final_protected_mae_255": 0.0,
+    "raw_edit_mae_255": 42.669017,
+    "locked_background_pixels": 4033010,
+    "changed_locked_background_pixels": 0,
+    "editable_fraction": 0.032476,
+    "region_metric_scope": "Pixel change, not aesthetic quality or semantic preservation. Final zero is from restoration, not the model.",
+    "alignment": {
+      "method": "resize_inference_canvas_to_source_coordinates",
+      "aspect_ratio_rounding_error": 0.011557702259789582
+    },
+    "original_size": [
+      2728,
+      1528
+    ],
+    "generated_size": [
+      960,
+      544
+    ],
+    "final_path": "sneaker/123/latent_mask/finished/region_composite.png"
+  }
+]

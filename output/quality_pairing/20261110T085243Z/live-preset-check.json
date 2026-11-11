@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "宠物纪念马克杯 preset region and preview",
+    "猫咪运动鞋 preset region and preview",
+    "猫咪随行杯 preset region and preview",
+    "Real generation submitted preset ROI, preserved protected pixels"
+  ],
+  "errors": [],
+  "id": "65d518a6a6ba4086a5012125873935ef",
+  "elapsed_seconds": 9.079,
+  "locked_pixels": 3277852,
+  "passed": true
+}
