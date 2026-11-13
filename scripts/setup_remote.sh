@@ -32,7 +32,14 @@ fi
 if [ ! -x .venv/bin/python ]; then
     "$PYTHON_BIN" -m venv --system-site-packages .venv
 fi
+# A venv created from another venv sees the base interpreter's packages, not
+# its parent venv's packages. Provision Torch here when it was not inherited.
+if ! .venv/bin/python -c 'import importlib.util; raise SystemExit(importlib.util.find_spec("torch") is None)'; then
+    .venv/bin/python -m pip install 'torch==2.11.0' --index-url https://download.pytorch.org/whl/cu128 -c constraints.txt
+fi
 .venv/bin/python -c 'import torch; assert torch.__version__ == "2.11.0+cu128", "This reproduction requires tested Torch 2.11.0+cu128"; assert torch.cuda.is_available()'
+.venv/bin/python -m pip install 'torchvision==0.26.0+cu128' --index-url https://download.pytorch.org/whl/cu128 -c constraints.txt
+.venv/bin/python -c 'import torchvision; assert torchvision.__version__ == "0.26.0+cu128"'
 .venv/bin/python -m pip install -r backend/ComfyUI/requirements.txt -c constraints.txt --report logs/pip-install-report.json
 .venv/bin/python scripts/download_models.py
 .venv/bin/python -m pip freeze > logs/requirements-frozen.txt

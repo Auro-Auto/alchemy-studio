@@ -16,13 +16,13 @@
   },
   {
     "file": "README.md",
-    "bytes": 13962,
-    "sha256": "80296a4275a5cbe829dff0d52edb1c32338341b2b35eb0f663470b3f574739fb"
+    "bytes": 14394,
+    "sha256": "55577c8c8dc81f65b1fcb58b2e1c7ba781b63631290cab3a39264ce8c8c8228e"
   },
   {
     "file": "REPRODUCTION.md",
-    "bytes": 5366,
-    "sha256": "de73d833fc0f33c7ec95ea512f6512ec771176787c98e8486259627e707dd448"
+    "bytes": 5506,
+    "sha256": "c6114c0ef28551526d2573dfd4f76ddab27a1e623575a53a5cb803a1c0f65318"
   },
   {
     "file": "THIRD_PARTY_NOTICES.md",
@@ -31,13 +31,18 @@
   },
   {
     "file": "constraints.txt",
-    "bytes": 20,
-    "sha256": "578e132db97b51ac5abd36546ec603631d0d196e67be74af2a2b94108a1481f9"
+    "bytes": 46,
+    "sha256": "a2d6d9c61b7ec8c366971783c769330fc7d7fdff56e51ba6b781fc1b2071e414"
   },
   {
     "file": "docs/BASELINE.md",
     "bytes": 6246,
     "sha256": "d43ec4306eb5080c80dc8a7feb3ec1376416f94e34d1ba07f72c45fb76bb2a38"
+  },
+  {
+    "file": "docs/CLASSMATE_SETUP.md",
+    "bytes": 6261,
+    "sha256": "290ed92003a89abe21aae9959940a0c568f07acda20a48897d977c004e727091"
   },
   {
     "file": "docs/METHOD.md",
@@ -1275,6 +1280,11 @@
     "sha256": "3200e3f805f8ea5a836faa618affa780b7635e785c9f663c03caa4584c9ac233"
   },
   {
+    "file": "scripts/check_environment.py",
+    "bytes": 4755,
+    "sha256": "772dd1a13aefb5c0a0eebf2ef458751af1819996bdea7953b7e43a5d35068acc"
+  },
+  {
     "file": "scripts/connect_studio.ps1",
     "bytes": 1883,
     "sha256": "c4f48423efd70887998cec33898f47416f599d0b8586a86899f84799c844b804"
@@ -1298,6 +1308,11 @@
     "file": "scripts/evaluate_studio.py",
     "bytes": 3417,
     "sha256": "5ebe83b6ad4bce031b7cb389e57ffcbb8ce18756d61a349e0ea87643d18f14f5"
+  },
+  {
+    "file": "scripts/install.sh",
+    "bytes": 1279,
+    "sha256": "c3e454cc660580e512ea191b789f382b3f7dcbac70c5832645c34d9e47e3959a"
   },
   {
     "file": "scripts/make_comparison.py",
@@ -1336,8 +1351,8 @@
   },
   {
     "file": "scripts/setup_remote.sh",
-    "bytes": 2021,
-    "sha256": "1fa60af83a43b15e8c5b471ea57878a67eb6ee4f282e96d52ffc71238b9a6bbf"
+    "bytes": 2638,
+    "sha256": "a91e262c27bdc49d6080500cffed11f205546a21dd169bbccd607634775c893d"
   },
   {
     "file": "scripts/setup_studio.sh",

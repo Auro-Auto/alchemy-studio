@@ -141,6 +141,14 @@ MAE 是合成前相对 A 的 VAE 重建图测得的区域外误差，数值为�
 
 ## 从空目录开始复现
 
+**同学用 Windows 游戏本，请先看 [Windows / WSL 安装指南](docs/CLASSMATE_SETUP.md)。** 仓库当前的启动器使用 Linux 环境，完成环境准备后可以执行统一安装入口。
+
+~~~bash
+bash scripts/install.sh
+~~~
+
+安装前可先运行 python3.10 scripts/check_environment.py，安装后用 .venv/bin/python scripts/check_environment.py --ready 排查本机依赖和文件。以下保留分步安装过程。
+
 ### 准备环境
 
 | 项目 | 已验证或所需配置 |
@@ -154,20 +162,20 @@ MAE 是合成前相对 A 的 VAE 重建图测得的区域外误差，数值为�
 
 ### 克隆，安装，启动
 
-在 Linux 或 WSL2 中运行。已有对应 CUDA PyTorch 环境时，可以跳过 .cuda-env 创建步骤，把它的 Python 绝对路径传给安装器。
+在 Linux 或 WSL2 中运行。已有对应 CUDA PyTorch 环境时，可以跳过 .venv 创建步骤，把它的 Python 绝对路径传给安装器。
 
 ~~~bash
 git clone https://github.com/Auro-Auto/alchemy-studio.git
 cd alchemy-studio
 
 # 1. 创建 CUDA Python 环境
-python3.10 -m venv .cuda-env
-.cuda-env/bin/python -m pip install --upgrade pip
-.cuda-env/bin/python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu128
-.cuda-env/bin/python -c 'import torch; print(torch.__version__, torch.cuda.is_available())'
+python3.10 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+.venv/bin/python -c 'import torch; print(torch.__version__, torch.cuda.is_available())'
 
 # 2. 固定 ComfyUI 版本，下载并校验生成权重
-bash scripts/setup_remote.sh "$(pwd)/.cuda-env/bin/python"
+bash scripts/setup_remote.sh "$(pwd)/.venv/bin/python"
 
 # 3. 安装工作台依赖、分割模型，并执行 CPU 测试
 bash scripts/setup_studio.sh

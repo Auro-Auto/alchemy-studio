@@ -1,5 +1,7 @@
 # 从空目录复现
 
+Windows 游戏本的环境准备、统一安装入口、低显存尝试与验证范围见 [同学安装指南](docs/CLASSMATE_SETUP.md)。
+
 ## 环境准备
 
 已验证 Linux / WSL2 Ubuntu 22.04、Python 3.10、PyTorch 2.11.0+cu128、RTX 5070 Ti 16GB。8GB 显卡未实测。准备 Git、curl、Python venv、NVIDIA 驱动和 Node.js 20.19+ 或 22.12+，建议预留 25GB 以上磁盘。WSL2 内先确认 nvidia-smi 可以看到 GPU。
@@ -8,10 +10,10 @@
 git clone https://github.com/Auro-Auto/alchemy-studio.git
 cd alchemy-studio
 # 已有指定 CUDA PyTorch 环境可跳过下面四行。
-python3.10 -m venv .cuda-env
-.cuda-env/bin/python -m pip install --upgrade pip
-.cuda-env/bin/python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu128
-.cuda-env/bin/python -c 'import torch; print(torch.__version__, torch.cuda.is_available())'
+python3.10 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+.venv/bin/python -c 'import torch; print(torch.__version__, torch.cuda.is_available())'
 ~~~
 
 最后一行应输出 2.11.0+cu128 和 True。PyTorch 会下载 CUDA 运行库，驱动与 GPU 可用性需要在自己的机器确认。
@@ -19,7 +21,7 @@ python3.10 -m venv .cuda-env
 ## 安装固定版本与模型
 
 ~~~bash
-bash scripts/setup_remote.sh "$(pwd)/.cuda-env/bin/python"
+bash scripts/setup_remote.sh "$(pwd)/.venv/bin/python"
 ~~~
 
 也可传入已有 CUDA Python 的绝对路径。脚本创建项目 .venv，复用该解释器的系统包，安装 ComfyUI 依赖，固定 commit bdb0816a292d221efeb6ec4ae41bcdff3f91fc86（0.44.0）。已有其他版本 checkout 时会退出并保留它。
