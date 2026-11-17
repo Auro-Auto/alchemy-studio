@@ -155,6 +155,24 @@ def test_upload_normalizes_exif_alpha_and_rejects_invalid(project):
         assert client.post("/api/uploads", files={"file": ("too-large.png", b"x" * (MAX_UPLOAD_BYTES + 1), "image/png")}).status_code == 413
 
 
+def test_upload_compresses_excess_pixels_instead_of_failing(project, monkeypatch):
+    import studio.app as studio_app
+
+    monkeypatch.setattr(studio_app, "MAX_IMAGE_PIXELS", 10_000)
+    app = create_app(project, inference_runner=StubRunner(), vision_module=StubVision(), backend_probe=online)
+    with TestClient(app) as client:
+        large = io.BytesIO()
+        Image.new("RGB", (400, 200), "blue").save(large, format="PNG")
+        response = client.post("/api/uploads", files={"file": ("huge.png", large.getvalue(), "image/png")})
+        assert response.status_code == 200
+        asset = response.json()
+        assert asset["compressed"] is True
+        assert asset["width"] * asset["height"] <= 10_000
+        assert abs((asset["width"] / asset["height"]) - 2.0) < 0.05
+        saved = Image.open(project / asset["id"])
+        assert saved.size == (asset["width"], asset["height"])
+
+
 def test_safe_paths_and_same_origin_frontend(project):
     app = create_app(project, inference_runner=StubRunner(), vision_module=StubVision(), backend_probe=online)
     with TestClient(app) as client:

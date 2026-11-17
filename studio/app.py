@@ -23,6 +23,7 @@ from .creative import INSTRUCTIONS, STYLES
 from .engine import JobEngine, asset_id, asset_url, atomic_json, safe_asset, utc_now
 from .prompts import compile_prompt
 from .regions import validate_rectangles
+from .vision import fit_within_max_pixels
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MAX_UPLOAD_BYTES = 20 * 1024 * 1024
@@ -155,23 +156,19 @@ class UploadBodyLimit:
 
 def inspect_image(path):
     with warnings.catch_warnings():
-        warnings.simplefilter("error", Image.DecompressionBombWarning)
+        warnings.simplefilter("ignore", Image.DecompressionBombWarning)
         with Image.open(path) as image:
             if image.format not in IMAGE_FORMATS or getattr(image, "n_frames", 1) != 1:
                 raise ValueError("只支持静态 PNG、JPEG、WebP 图片。")
-            if image.width * image.height > MAX_IMAGE_PIXELS:
-                raise ValueError("图片像素过多，请缩小后再试。")
             image.verify()
 
 
 def store_upload(root, content, filename):
     with warnings.catch_warnings():
-        warnings.simplefilter("error", Image.DecompressionBombWarning)
+        warnings.simplefilter("ignore", Image.DecompressionBombWarning)
         with Image.open(io.BytesIO(content)) as original:
             if original.format not in IMAGE_FORMATS or getattr(original, "n_frames", 1) != 1:
                 raise ValueError("只支持静态 PNG、JPEG、WebP 图片。")
-            if original.width * original.height > MAX_IMAGE_PIXELS:
-                raise ValueError("图片像素过多，请缩小后再试。")
             original.load()
             oriented = ImageOps.exif_transpose(original)
             if "A" in oriented.getbands() or "transparency" in oriented.info:
@@ -180,19 +177,27 @@ def store_upload(root, content, filename):
                 normalized.paste(rgba, mask=rgba.getchannel("A"))
             else:
                 normalized = oriented.convert("RGB")
+            orig_width, orig_height = normalized.width, normalized.height
+            normalized, compressed = fit_within_max_pixels(normalized, MAX_IMAGE_PIXELS)
             normalized.info.clear()
             path = root / "data" / "uploads" / f"{uuid.uuid4().hex}.png"
             path.parent.mkdir(parents=True, exist_ok=True)
             temporary = path.with_suffix(".png.tmp")
             normalized.save(temporary, format="PNG")
             temporary.replace(path)
-            atomic_json(path.with_suffix(".json"), {
+            metadata = {
                 "original_filename": Path(filename or "upload").name,
                 "source_sha256": hashlib.sha256(content).hexdigest(), "source_bytes": len(content),
                 "normalized_format": "RGB PNG", "exif_transposed": True,
                 "width": normalized.width, "height": normalized.height, "created_at": utc_now(),
-            })
-            return {"id": asset_id(root, path), "url": asset_url(root, path), "width": normalized.width, "height": normalized.height}
+            }
+            if compressed:
+                metadata["compressed_from"] = [orig_width, orig_height]
+            atomic_json(path.with_suffix(".json"), metadata)
+            return {
+                "id": asset_id(root, path), "url": asset_url(root, path),
+                "width": normalized.width, "height": normalized.height, "compressed": compressed,
+            }
 
 
 def meme_presets(root):
