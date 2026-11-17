@@ -5,6 +5,7 @@ import asyncio
 import hashlib
 import io
 import json
+import logging
 import math
 import os
 import uuid
@@ -15,14 +16,16 @@ from typing import Literal
 
 from fastapi import FastAPI, File, HTTPException, Query, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
 from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator, model_validator
 
 from .creative import INSTRUCTIONS, STYLES
+from .enhance import PromptEnhanceError, enhance_prompt, enhance_prompt_stream
 from .engine import JobEngine, asset_id, asset_url, atomic_json, safe_asset, utc_now
 from .prompts import compile_prompt
 from .regions import validate_rectangles
+from .vision import fit_within_max_pixels
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MAX_UPLOAD_BYTES = 20 * 1024 * 1024
@@ -109,6 +112,28 @@ class MemePreset(JobRequest):
     recipe: Literal["meme"] = "meme"
 
 
+class PromptEnhanceRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    prompt: str = Field(min_length=1, max_length=6000)
+    recipe: Literal["ceramic", "sneaker", "plush", "crystal", "architecture", "meme", "custom"] = "custom"
+    style: str = Field(default="original", max_length=64)
+    edit_mode: Literal["global", "region"] = "global"
+
+    @field_validator("prompt")
+    @classmethod
+    def require_non_blank_prompt(cls, value):
+        if not value.strip():
+            raise ValueError("请先输入需要增强的提示词。")
+        return value
+
+    @field_validator("style")
+    @classmethod
+    def validate_style(cls, value):
+        if value not in STYLES:
+            raise ValueError("未知画风。")
+        return value
+
+
 class UploadTooLarge(Exception):
     pass
 
@@ -155,23 +180,19 @@ class UploadBodyLimit:
 
 def inspect_image(path):
     with warnings.catch_warnings():
-        warnings.simplefilter("error", Image.DecompressionBombWarning)
+        warnings.simplefilter("ignore", Image.DecompressionBombWarning)
         with Image.open(path) as image:
             if image.format not in IMAGE_FORMATS or getattr(image, "n_frames", 1) != 1:
                 raise ValueError("只支持静态 PNG、JPEG、WebP 图片。")
-            if image.width * image.height > MAX_IMAGE_PIXELS:
-                raise ValueError("图片像素过多，请缩小后再试。")
             image.verify()
 
 
 def store_upload(root, content, filename):
     with warnings.catch_warnings():
-        warnings.simplefilter("error", Image.DecompressionBombWarning)
+        warnings.simplefilter("ignore", Image.DecompressionBombWarning)
         with Image.open(io.BytesIO(content)) as original:
             if original.format not in IMAGE_FORMATS or getattr(original, "n_frames", 1) != 1:
                 raise ValueError("只支持静态 PNG、JPEG、WebP 图片。")
-            if original.width * original.height > MAX_IMAGE_PIXELS:
-                raise ValueError("图片像素过多，请缩小后再试。")
             original.load()
             oriented = ImageOps.exif_transpose(original)
             if "A" in oriented.getbands() or "transparency" in oriented.info:
@@ -180,19 +201,27 @@ def store_upload(root, content, filename):
                 normalized.paste(rgba, mask=rgba.getchannel("A"))
             else:
                 normalized = oriented.convert("RGB")
+            orig_width, orig_height = normalized.width, normalized.height
+            normalized, compressed = fit_within_max_pixels(normalized, MAX_IMAGE_PIXELS)
             normalized.info.clear()
             path = root / "data" / "uploads" / f"{uuid.uuid4().hex}.png"
             path.parent.mkdir(parents=True, exist_ok=True)
             temporary = path.with_suffix(".png.tmp")
             normalized.save(temporary, format="PNG")
             temporary.replace(path)
-            atomic_json(path.with_suffix(".json"), {
+            metadata = {
                 "original_filename": Path(filename or "upload").name,
                 "source_sha256": hashlib.sha256(content).hexdigest(), "source_bytes": len(content),
                 "normalized_format": "RGB PNG", "exif_transposed": True,
                 "width": normalized.width, "height": normalized.height, "created_at": utc_now(),
-            })
-            return {"id": asset_id(root, path), "url": asset_url(root, path), "width": normalized.width, "height": normalized.height}
+            }
+            if compressed:
+                metadata["compressed_from"] = [orig_width, orig_height]
+            atomic_json(path.with_suffix(".json"), metadata)
+            return {
+                "id": asset_id(root, path), "url": asset_url(root, path),
+                "width": normalized.width, "height": normalized.height, "compressed": compressed,
+            }
 
 
 def meme_presets(root):
@@ -255,8 +284,11 @@ def presets(root):
         item = {"id": preset_id, "title": title, "subtitle": subtitle, "image_a": {"id": asset_id(root, a), "url": asset_url(root, a)}, "image_b": {"id": asset_id(root, b), "url": asset_url(root, b)}, "recipe": recipe, "prompt": prompt, "preview_url": asset_url(root, previews[-1]) if previews else None, "preview_kind": "previous_inference"}
         prompt_file = root / "workflows" / f"{preview_dir}_api.json"
         if prompt_file.is_file():
-            source = json.loads(prompt_file.read_text(encoding="utf-8"))
-            item["preview_prompt"] = source.get("109", {}).get("inputs", {}).get("text")
+            try:
+                source = json.loads(prompt_file.read_text(encoding="utf-8"))
+                item["preview_prompt"] = source.get("109", {}).get("inputs", {}).get("text")
+            except (OSError, ValueError):
+                pass
         if preset_id in PROTECTED_PRESETS:
             item.update(PROTECTED_PRESETS[preset_id])
             preview = root / "output" / "quality_presets" / f"{preset_id}.jpg"
@@ -274,10 +306,15 @@ def presets(root):
     return result
 
 
-def create_app(project_root=None, *, inference_runner=None, vision_module=None, backend_probe=None):
+def create_app(
+    project_root=None, *, inference_runner=None, vision_module=None, backend_probe=None,
+    prompt_enhancer=None, prompt_stream_enhancer=None,
+):
     root = Path(project_root or os.environ.get("ALCHEMY_PROJECT_ROOT", PROJECT_ROOT)).resolve()
     server = os.environ.get("COMFY_SERVER", "http://127.0.0.1:8188")
     engine = JobEngine(root, server, runner=inference_runner, vision=vision_module, probe=backend_probe)
+    enhancer = prompt_enhancer or enhance_prompt
+    stream_enhancer = prompt_stream_enhancer or enhance_prompt_stream
 
     @asynccontextmanager
     async def lifespan(app):
@@ -332,6 +369,50 @@ def create_app(project_root=None, *, inference_runner=None, vision_module=None, 
                 item["preview_url"] = asset_url(root, preview)
             styles.append(item)
         return {"styles": styles, "instructions": [instruction._asdict() for instruction in INSTRUCTIONS]}
+
+    def ensure_gpu_idle_for_enhance():
+        if any(job["status"] == "running" for job in engine.jobs.values()):
+            raise HTTPException(409, "当前有生图任务正在使用显存，请等待其完成后再增强提示词。")
+
+    @app.post("/api/prompts/enhance")
+    async def enhance_prompt_endpoint(request: PromptEnhanceRequest):
+        ensure_gpu_idle_for_enhance()
+        try:
+            return await enhancer(
+                request.prompt,
+                recipe=request.recipe,
+                style=request.style,
+                edit_mode=request.edit_mode,
+            )
+        except ValueError as exc:
+            raise HTTPException(400, str(exc)) from exc
+        except PromptEnhanceError as exc:
+            raise HTTPException(503, str(exc)) from exc
+
+    @app.post("/api/prompts/enhance/stream")
+    async def enhance_prompt_stream_endpoint(request: PromptEnhanceRequest):
+        ensure_gpu_idle_for_enhance()
+
+        async def event_stream():
+            try:
+                async for event in stream_enhancer(
+                    request.prompt,
+                    recipe=request.recipe,
+                    style=request.style,
+                    edit_mode=request.edit_mode,
+                ):
+                    yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
+            except (ValueError, PromptEnhanceError) as exc:
+                yield f"data: {json.dumps({'type': 'error', 'detail': str(exc)}, ensure_ascii=False)}\n\n"
+            except Exception:
+                logging.getLogger("alchemy.studio").exception("Unexpected error during prompt enhancement stream")
+                yield f"data: {json.dumps({'type': 'error', 'detail': '提示词增强发生未知错误，请稍后重试。'}, ensure_ascii=False)}\n\n"
+
+        return StreamingResponse(
+            event_stream(),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+        )
 
     @app.post("/api/uploads")
     async def upload(file: UploadFile = File(...)):

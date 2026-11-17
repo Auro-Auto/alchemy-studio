@@ -223,6 +223,8 @@ class JobEngine:
                 job = json.loads(path.read_text(encoding="utf-8"))
                 if not re.fullmatch(r"[0-9a-f]{32}", job.get("id", "")) or path.parent.name != job["id"]:
                     raise ValueError("Invalid persisted job ID")
+                if not isinstance(job.get("status"), str) or not isinstance(job.get("created_at"), str):
+                    raise ValueError("Missing required job fields")
                 if job["status"] == "running":
                     job.update(status="failed", stage="interrupted_restart", error="服务在上次任务运行时重启；旧 ComfyUI 任务可能仍在运行，未自动重提。", finished_at=utc_now())
                     self.save(job)

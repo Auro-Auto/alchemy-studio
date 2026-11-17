@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import RegionEditor from './RegionEditor.jsx';
 import Canvas from './Canvas.jsx';
-import { ArrowLeftRight, ArrowRight, ArrowUpRight, Check, ChevronDown, Download, Expand, FileJson, History, ImagePlus, Layers, LoaderCircle, Maximize2, Minimize2, RefreshCw, ScanLine, Settings2, Square, TriangleAlert, Upload, X, ZoomIn } from 'lucide-react';
+import { ArrowLeftRight, ArrowRight, ArrowUpRight, Check, ChevronDown, Download, Expand, FileJson, History, ImagePlus, Layers, LoaderCircle, Maximize2, Minimize2, RefreshCw, ScanLine, Settings2, Sparkles, Square, TriangleAlert, Undo2, Upload, X, ZoomIn } from 'lucide-react';
 
 const RECIPES = [
   { id: 'ceramic', name: '陶瓷' },
@@ -195,6 +195,10 @@ export default function App() {
   const [creativePanel, setCreativePanel] = useState(null);
   const [mode, setMode] = useState('structured');
   const [prompt, setPrompt] = useState('');
+  const [promptHistory, setPromptHistory] = useState([]);
+  const [enhancing, setEnhancing] = useState(false);
+  const [enhanceStage, setEnhanceStage] = useState('');
+  const [enhanceTimeoutPrompt, setEnhanceTimeoutPrompt] = useState(false);
   const [isolate, setIsolate] = useState(false);
   const [background, setBackground] = useState(false);
   const [candidates, setCandidates] = useState(2);
@@ -228,8 +232,11 @@ export default function App() {
   const styleTrigger = useRef(null);
   const instructionTrigger = useRef(null);
   const promptInput = useRef(null);
+  const enhanceAbortRef = useRef(null);
+  const enhanceLastActivityRef = useRef(0);
   const running = !!job && !FINISHED.has(job.status);
-  const busy = submitting || running;
+  const busy = submitting || running || enhancing;
+  const presetsLoadingRef = useRef(false);
   const uploading = uploads.a || uploads.b;
   const knownStyle = resolveStyle(style, creativeOptions.styles);
   const chosenStyle = knownStyle || STYLES[0];
@@ -272,7 +279,7 @@ export default function App() {
     knownAssets.current[preset.image_a.id] = preset.image_a;
     knownAssets.current[preset.image_b.id] = preset.image_b;
     setImages({ a: preset.image_a, b: preset.image_b });
-    setRecipe(preset.recipe || 'ceramic'); setPrompt(preset.prompt || '');
+    setRecipe(preset.recipe || 'ceramic'); setPrompt(preset.prompt || ''); setPromptHistory([]);
     setStyle(preset.style || 'original');
     setCreativePanel(null);
     if (preset.mode === 'structured' || preset.mode === 'baseline') setMode(preset.mode);
@@ -329,12 +336,18 @@ export default function App() {
     }
   }, []);
 
+  useEffect(() => () => enhanceAbortRef.current?.abort(), []);
   useEffect(() => {
     refreshStatus(); loadPresets(); refreshHistory(); loadCreativeOptions();
     const timer = window.setInterval(refreshStatus, 10000);
     return () => window.clearInterval(timer);
   }, [refreshStatus, loadPresets, refreshHistory, loadCreativeOptions]);
-  useEffect(() => { if (status && !initialized.current) loadPresets(); }, [status, loadPresets]);
+  useEffect(() => {
+    if (status && !initialized.current && !presetsLoadingRef.current) {
+      presetsLoadingRef.current = true;
+      loadPresets().finally(() => { presetsLoadingRef.current = false; });
+    }
+  }, [status, loadPresets]);
   useEffect(() => { if (!toast) return; const timer = window.setTimeout(() => setToast(''), 4500); return () => window.clearTimeout(timer); }, [toast]);
   useEffect(() => setResultVariant('composite'), [job?.id, selected?.id]);
   useEffect(() => {
@@ -359,7 +372,7 @@ export default function App() {
     };
     timer = window.setTimeout(poll, 400);
     return () => { stopped = true; window.clearTimeout(timer); };
-  }, [job?.id, job?.status, refreshHistory, refreshStatus]);
+  }, [job?.id, running, refreshHistory, refreshStatus]);
 
   useEffect(() => {
     if (job?.status === 'success' && completionHandled.current !== job.id) {
@@ -478,6 +491,126 @@ export default function App() {
       promptInput.current?.focus();
       promptInput.current?.setSelectionRange(next.length, next.length);
     });
+  }
+
+  useEffect(() => {
+    if (!enhancing) {
+      setEnhanceTimeoutPrompt(false);
+      return;
+    }
+    const timer = window.setInterval(() => {
+      if (Date.now() - enhanceLastActivityRef.current >= 30000) {
+        setEnhanceTimeoutPrompt(true);
+      }
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [enhancing]);
+
+  async function enhancePrompt() {
+    const trimmed = prompt.trim();
+    if (!trimmed || busy || enhancing) return;
+    const originalPrompt = prompt;
+    const controller = new AbortController();
+    enhanceAbortRef.current = controller;
+    enhanceLastActivityRef.current = Date.now();
+    setEnhanceTimeoutPrompt(false);
+    setEnhancing(true);
+    setEnhanceStage('正在连接 Qwen3-4B 模型…');
+    try {
+      const response = await fetch('/api/prompts/enhance/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
+        body: JSON.stringify({
+          prompt: trimmed,
+          recipe,
+          style: chosenStyle.id,
+          edit_mode: editRegions.length ? 'region' : 'global',
+        }),
+      });
+      if (!response.ok || !response.body) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.detail || `请求失败（${response.status}）`);
+      }
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+      let receivedDone = false;
+      let startedStreaming = false;
+      const processPart = (part) => {
+        const line = part.split('\n').find((item) => item.startsWith('data: '));
+        if (!line) return;
+        let event;
+        try {
+          event = JSON.parse(line.slice(6));
+        } catch {
+          return;
+        }
+        if (event.type === 'stage') {
+          enhanceLastActivityRef.current = Date.now();
+          setEnhanceTimeoutPrompt(false);
+          setEnhanceStage(event.message || '正在处理…');
+        } else if (event.type === 'delta') {
+          enhanceLastActivityRef.current = Date.now();
+          setEnhanceTimeoutPrompt(false);
+          if (!startedStreaming) {
+            startedStreaming = true;
+            setEnhanceStage('正在逐字生成结构化提示词…');
+          }
+          setPrompt(event.text);
+          if (promptInput.current) {
+            promptInput.current.scrollTop = promptInput.current.scrollHeight;
+          }
+        } else if (event.type === 'stalled') {
+          setEnhanceTimeoutPrompt(true);
+        } else if (event.type === 'done') {
+          receivedDone = true;
+          setPromptHistory((prev) => [...prev, originalPrompt]);
+          setPrompt(event.enhanced_prompt);
+          setToast(`已用 ${event.model} 完成结构化增强，不满意可点击“回退”。`);
+        } else if (event.type === 'error') {
+          throw new Error(event.detail || '提示词增强失败。');
+        }
+      };
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          buffer += decoder.decode();
+          break;
+        }
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split('\n\n');
+        buffer = parts.pop() || '';
+        for (const part of parts) processPart(part);
+      }
+      if (buffer.trim()) processPart(buffer);
+      if (!receivedDone) throw new Error('增强流意外中断，已恢复原提示词。');
+    } catch (error) {
+      setPrompt(originalPrompt);
+      setToast(error.name === 'AbortError' ? '已中止提示词增强，已恢复原提示词。' : error.message);
+    } finally {
+      enhanceAbortRef.current = null;
+      setEnhancing(false);
+      setEnhanceTimeoutPrompt(false);
+      setEnhanceStage('');
+    }
+  }
+
+  function abortEnhance() {
+    enhanceAbortRef.current?.abort();
+  }
+
+  function continueEnhance() {
+    enhanceLastActivityRef.current = Date.now();
+    setEnhanceTimeoutPrompt(false);
+  }
+
+  function revertPrompt() {
+    if (!promptHistory.length || busy || enhancing) return;
+    const previous = promptHistory[promptHistory.length - 1];
+    setPromptHistory((prev) => prev.slice(0, -1));
+    setPrompt(previous);
+    setToast('已回退到增强前的提示词。');
   }
 
   const filteredPresets = presetCategory === 'all' ? presets : presets.filter((preset) => preset.category === presetCategory);
@@ -616,18 +749,41 @@ export default function App() {
                 disabled={busy} onSelect={(id) => { setStyle(id); setCreativePanel(null); styleTrigger.current?.focus(); }} />}
               <div className="prompt-heading">
                 <label className="prompt-label" htmlFor="extra-prompt">生成指令</label>
-                {creativeOptions.instructions.length > 0 && <button className="text-button" ref={instructionTrigger}
-                  aria-expanded={creativePanel === 'instructions'} aria-controls="creative-instructions" disabled={busy}
-                  onClick={() => setCreativePanel((current) => current === 'instructions' ? null : 'instructions')}>
-                  常用指令 <ChevronDown size={14} />
-                </button>}
+                <div className="prompt-actions">
+                  {promptHistory.length > 0 && <button className="text-button" type="button"
+                    disabled={busy || enhancing} onClick={revertPrompt} title="回退到增强前的提示词">
+                    <Undo2 size={14} /> 回退
+                  </button>}
+                  <button className="text-button" type="button"
+                    disabled={busy || enhancing || !prompt.trim()} onClick={enhancePrompt} title="调用本地模型优化当前提示词">
+                    {enhancing ? <LoaderCircle className="spin" size={14} /> : <Sparkles size={14} />}
+                    {enhancing ? '增强中' : '增强'}
+                  </button>
+                  {creativeOptions.instructions.length > 0 && <button className="text-button" ref={instructionTrigger}
+                    aria-expanded={creativePanel === 'instructions'} aria-controls="creative-instructions" disabled={busy}
+                    onClick={() => setCreativePanel((current) => current === 'instructions' ? null : 'instructions')}>
+                    常用指令 <ChevronDown size={14} />
+                  </button>}
+                </div>
               </div>
               {creativePanel === 'instructions' && <CreativePanel id="creative-instructions" label="指令选项"
                 options={creativeOptions.instructions} renderOption={(option) => (
                   <button key={option.id} className="creative-choice" title={option.prompt}
                     disabled={busy || prompt.includes(option.prompt.trim())} onClick={() => appendInstruction(option)}>{option.name}</button>
                 )} />}
-              <textarea id="extra-prompt" ref={promptInput} value={prompt} disabled={busy} onChange={(event) => setPrompt(event.target.value)} placeholder="描述你想生成的物品" rows={4} />
+              {enhancing && <div className={`enhance-banner ${enhanceTimeoutPrompt ? 'is-timeout' : ''}`} role="status" aria-live="polite">
+                <div className="enhance-banner-info">
+                  <span className="enhance-dot" aria-hidden="true" />
+                  <span>{enhanceTimeoutPrompt ? '提示词增强已经超时，是否中止？' : (enhanceStage || '正在增强提示词…')}</span>
+                </div>
+                {enhanceTimeoutPrompt && <div className="enhance-banner-actions">
+                  <button type="button" className="enhance-action-abort" onClick={abortEnhance}>中止</button>
+                  <button type="button" className="enhance-action-wait" onClick={continueEnhance}>继续等待</button>
+                </div>}
+              </div>}
+              <div className={`prompt-box ${enhancing ? 'is-enhancing' : ''}`}>
+                <textarea id="extra-prompt" ref={promptInput} value={prompt} disabled={busy || enhancing} onChange={(event) => setPrompt(event.target.value)} placeholder="描述你想生成的物品" rows={5} />
+              </div>
               <details className="advanced-options"><summary><Settings2 size={16} />更多设置<ChevronDown size={16} /></summary><div className="advanced-body">
                 <div className="vision-options"><Switch checked={isolate} onChange={setIsolate} disabled={busy || (!status?.segmentation_available && !isolate)} title={!status?.segmentation_available ? '分割模型未就绪；已开启的选项仍可关闭' : '分离参考图背景，减少背景干扰'}><ScanLine size={16} />主体提纯</Switch><Switch checked={background} onChange={setBackground} disabled={busy || !!editRegions.length || (!status?.segmentation_available && !background)} title={editRegions.length ? '当前使用手绘区域控制，区域以外保持原样' : '与主体提纯同时开启时，保留原图 A 场景、提纯参考图 B；使用主体蒙版合成'}><Layers size={16} />保留原图背景</Switch></div>
                 <div className="field"><span id="mode-label">融合方式</span><div className="segmented" role="group" aria-labelledby="mode-label"><button className={mode === 'structured' ? 'selected' : ''} disabled={busy} onClick={() => setMode('structured')} title="指定原料角色、融合部位与材质">结构化配方</button><button className={mode === 'baseline' ? 'selected' : ''} disabled={busy} onClick={() => setMode('baseline')} title="使用简单融合指令">基础对照</button></div></div>

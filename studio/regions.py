@@ -11,6 +11,9 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageFilter, ImageOps
+
+from .vision import MAX_IMAGE_PIXELS, fit_within_max_pixels
+import warnings
 from scripts.build_workflow import node
 
 
@@ -93,10 +96,14 @@ def validate_rectangles(rectangles):
 
 
 def _rgb(path):
-    with Image.open(path) as source:
-        oriented = ImageOps.exif_transpose(source).convert("RGBA")
-        base = Image.new("RGBA", oriented.size, "white")
-        return Image.alpha_composite(base, oriented).convert("RGB")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", Image.DecompressionBombWarning)
+        with Image.open(path) as source:
+            oriented = ImageOps.exif_transpose(source).convert("RGBA")
+            base = Image.new("RGBA", oriented.size, "white")
+            rgb = Image.alpha_composite(base, oriented).convert("RGB")
+            resized, _ = fit_within_max_pixels(rgb, MAX_IMAGE_PIXELS)
+            return resized
 
 
 def prepare_regions(

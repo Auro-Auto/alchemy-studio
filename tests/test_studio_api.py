@@ -155,6 +155,58 @@ def test_upload_normalizes_exif_alpha_and_rejects_invalid(project):
         assert client.post("/api/uploads", files={"file": ("too-large.png", b"x" * (MAX_UPLOAD_BYTES + 1), "image/png")}).status_code == 413
 
 
+def test_upload_compresses_excess_pixels_instead_of_failing(project, monkeypatch):
+    import studio.app as studio_app
+
+    monkeypatch.setattr(studio_app, "MAX_IMAGE_PIXELS", 10_000)
+    app = create_app(project, inference_runner=StubRunner(), vision_module=StubVision(), backend_probe=online)
+    with TestClient(app) as client:
+        large = io.BytesIO()
+        Image.new("RGB", (400, 200), "blue").save(large, format="PNG")
+        response = client.post("/api/uploads", files={"file": ("huge.png", large.getvalue(), "image/png")})
+        assert response.status_code == 200
+        asset = response.json()
+        assert asset["compressed"] is True
+        assert asset["width"] * asset["height"] <= 10_000
+        assert abs((asset["width"] / asset["height"]) - 2.0) < 0.05
+        saved = Image.open(project / asset["id"])
+        assert saved.size == (asset["width"], asset["height"])
+
+
+def test_prompt_enhance_endpoint_and_errors(project):
+    from studio.enhance import PromptEnhanceError
+
+    async def fake_enhancer(prompt, *, recipe="custom", style="original", edit_mode="global"):
+        if prompt == "fail":
+            raise PromptEnhanceError("offline")
+        return {"enhanced_prompt": f"{prompt}（已增强:{recipe}/{style}/{edit_mode}）", "model": "qwen3:8b"}
+
+    async def fake_stream_enhancer(prompt, *, recipe="custom", style="original", edit_mode="global"):
+        yield {"type": "stage", "stage": "loading", "message": "loading"}
+        yield {"type": "delta", "text": f"{prompt}（部分）"}
+        yield {"type": "done", "enhanced_prompt": f"{prompt}（流式完成）", "model": "qwen_3_4b_fp4_flux2"}
+
+    app = create_app(
+        project,
+        inference_runner=StubRunner(),
+        vision_module=StubVision(),
+        backend_probe=online,
+        prompt_enhancer=fake_enhancer,
+        prompt_stream_enhancer=fake_stream_enhancer,
+    )
+    with TestClient(app) as client:
+        ok = client.post("/api/prompts/enhance", json={"prompt": "一只陶瓷柴犬杯", "recipe": "ceramic", "style": "felt", "edit_mode": "region"})
+        assert ok.status_code == 200
+        assert ok.json() == {"enhanced_prompt": "一只陶瓷柴犬杯（已增强:ceramic/felt/region）", "model": "qwen3:8b"}
+        assert client.post("/api/prompts/enhance", json={"prompt": ""}).status_code == 422
+        assert client.post("/api/prompts/enhance", json={"prompt": "   "}).status_code == 422
+        assert client.post("/api/prompts/enhance", json={"prompt": "ok", "style": "no_such_style"}).status_code == 422
+        assert client.post("/api/prompts/enhance", json={"prompt": "fail"}).status_code == 503
+        stream_res = client.post("/api/prompts/enhance/stream", json={"prompt": "一只陶瓷柴犬杯"})
+        assert stream_res.status_code == 200
+        assert '"type": "delta"' in stream_res.text and '"type": "done"' in stream_res.text
+
+
 def test_safe_paths_and_same_origin_frontend(project):
     app = create_app(project, inference_runner=StubRunner(), vision_module=StubVision(), backend_probe=online)
     with TestClient(app) as client:
