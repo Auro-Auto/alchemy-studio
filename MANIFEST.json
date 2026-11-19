@@ -16,8 +16,8 @@
   },
   {
     "file": "README.md",
-    "bytes": 15096,
-    "sha256": "c781c876a1cbb72ffceefb50bcaec125418f7cdf9e039f1c7c43b6c8b29d5f16"
+    "bytes": 15162,
+    "sha256": "21afa93e9158a771f1de75394c7e57128b865142dcbf28ea676cb4b461566e65"
   },
   {
     "file": "REPRODUCTION.md",
@@ -46,13 +46,13 @@
   },
   {
     "file": "docs/METHOD.md",
-    "bytes": 15899,
-    "sha256": "b71a9cb7443b73dd05239634197b48651fa6e77b7a16aa2c21ba7fe7b6bbd97d"
+    "bytes": 15881,
+    "sha256": "7c537bf466d7d36731d8f409624b0882342d80fdcca3765eea56708dfd5f7251"
   },
   {
     "file": "docs/TEAM_ROLES.md",
-    "bytes": 19692,
-    "sha256": "975d6a2299ef61a1a60de0da4edacff38322b6e135e78832619016b724c9eedc"
+    "bytes": 20010,
+    "sha256": "b1c3698d64ff1c8725e416014dfd3f6c94db0d9440d8673b142e386a366310ef"
   },
   {
     "file": "docs/assets/hero.jpg",
