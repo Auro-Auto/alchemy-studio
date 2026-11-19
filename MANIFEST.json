@@ -16,8 +16,8 @@
   },
   {
     "file": "README.md",
-    "bytes": 14394,
-    "sha256": "55577c8c8dc81f65b1fcb58b2e1c7ba781b63631290cab3a39264ce8c8c8228e"
+    "bytes": 15096,
+    "sha256": "c781c876a1cbb72ffceefb50bcaec125418f7cdf9e039f1c7c43b6c8b29d5f16"
   },
   {
     "file": "REPRODUCTION.md",
@@ -46,8 +46,13 @@
   },
   {
     "file": "docs/METHOD.md",
-    "bytes": 15758,
-    "sha256": "8ab8c4a77fe40c4a2d470bf5453218304e7830ddbcac4f967e1eb83478fd09e8"
+    "bytes": 15899,
+    "sha256": "b71a9cb7443b73dd05239634197b48651fa6e77b7a16aa2c21ba7fe7b6bbd97d"
+  },
+  {
+    "file": "docs/TEAM_ROLES.md",
+    "bytes": 19692,
+    "sha256": "975d6a2299ef61a1a60de0da4edacff38322b6e135e78832619016b724c9eedc"
   },
   {
     "file": "docs/assets/hero.jpg",
@@ -1381,8 +1386,8 @@
   },
   {
     "file": "studio/app.py",
-    "bytes": 20763,
-    "sha256": "7e3768c394ff00d1a881a70c92134accdb430a631599ffe85e09e3d2e8dbc71b"
+    "bytes": 20886,
+    "sha256": "57a0fbfbbf1d220d0afe628530418dcba8789899c8a2d049f9f0ca5c946b7509"
   },
   {
     "file": "studio/creative.py",
@@ -1406,18 +1411,18 @@
   },
   {
     "file": "studio/regions.py",
-    "bytes": 12023,
-    "sha256": "328d5cd75346a269c46e3eaa0a70ea82a816983c79ab1430c32e4a1b462b6d0f"
+    "bytes": 11914,
+    "sha256": "c9762a415d07761912c276bb0958bef8da67a6026050c3360c92ec90e2de559e"
   },
   {
     "file": "studio/vision.py",
-    "bytes": 25229,
-    "sha256": "bb253a3cd1dc6699d1a5db7b876ad36bcb6d0d6367dd12e4a2adaddab306193f"
+    "bytes": 26020,
+    "sha256": "eda528113d78ce3a07d3aba0e5b4c2082fc6e46332a47f59c022ffb71cf2ef72"
   },
   {
     "file": "tests/test_local_detail.py",
-    "bytes": 4306,
-    "sha256": "87f045a913c45172295a8dda30314f68a18ad3b8b0cb7c4bdad651e1b3a28f48"
+    "bytes": 6592,
+    "sha256": "a52080150d474bea36b1276c1f6ad8393867cfd66239c86b000e7e834c53cd46"
   },
   {
     "file": "tests/test_regions.py",
@@ -1426,13 +1431,13 @@
   },
   {
     "file": "tests/test_studio_api.py",
-    "bytes": 27343,
-    "sha256": "98dc693c0661f3531c37559d16e929b8877a22c28de181ca46f21c4d7bd9e10c"
+    "bytes": 28241,
+    "sha256": "c686d723a935b017f623b98651d861299fe36b53fd3f382068797600c36106d7"
   },
   {
     "file": "tests/test_vision.py",
-    "bytes": 15929,
-    "sha256": "c8bbb0f497ab6968451132fb0ff29e8cf96d053a9ef5b185d7e96609538d1d1c"
+    "bytes": 16329,
+    "sha256": "6fcad8859a4fcfd380f9f3a2d2c993450a7e4c2363464cb5172fd084ca6a6e61"
   },
   {
     "file": "third_party/workflow_templates-LICENSE",
