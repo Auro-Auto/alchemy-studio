@@ -16,8 +16,8 @@
   },
   {
     "file": "README.md",
-    "bytes": 15811,
-    "sha256": "d971baef5d996b1533241617087c66c85f06e3300e001c07f4a2c3af4b84a484"
+    "bytes": 14698,
+    "sha256": "dccbc3dac6d044c2c17bf62bf60949e69abde3c2954daaa8407f09211dc8d4bc"
   },
   {
     "file": "REPRODUCTION.md",
@@ -36,28 +36,28 @@
   },
   {
     "file": "docs/BASELINE.md",
-    "bytes": 6246,
-    "sha256": "d43ec4306eb5080c80dc8a7feb3ec1376416f94e34d1ba07f72c45fb76bb2a38"
+    "bytes": 6222,
+    "sha256": "7d3888ddeb20b19447ef1c39c80906501104f66a541cd0c45108e03bb4521328"
   },
   {
     "file": "docs/CLASSMATE_SETUP.md",
-    "bytes": 6261,
-    "sha256": "290ed92003a89abe21aae9959940a0c568f07acda20a48897d977c004e727091"
+    "bytes": 6239,
+    "sha256": "d4e59aa78126fd4484fa28c6e956fe0c5d352bc4909b1c2724915a3bc597e71b"
   },
   {
     "file": "docs/METHOD.md",
-    "bytes": 15881,
-    "sha256": "7c537bf466d7d36731d8f409624b0882342d80fdcca3765eea56708dfd5f7251"
+    "bytes": 15851,
+    "sha256": "1d8453523732e3e86f3662d26460b227ef7ed0f7c9f4132df736e1726500a212"
   },
   {
     "file": "docs/PROMPT_ENHANCE_VALIDATION.md",
-    "bytes": 7079,
-    "sha256": "0e148ac6f9491894801bdc5a8acaa15aaa7cccb055ec2ab4fb5bf67fc66520dc"
+    "bytes": 7061,
+    "sha256": "7299a3dbefd48c8c777e52ee0438fcbd4212d03a5b43af80e7974f3fd8651368"
   },
   {
     "file": "docs/TEAM_ROLES.md",
-    "bytes": 20010,
-    "sha256": "b1c3698d64ff1c8725e416014dfd3f6c94db0d9440d8673b142e386a366310ef"
+    "bytes": 15277,
+    "sha256": "e63243a41b7d184fbb6431da040435413c7e57459b8543e71ab9365996c92cde"
   },
   {
     "file": "docs/assets/hero.jpg",

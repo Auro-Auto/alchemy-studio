@@ -1,4 +1,4 @@
-# 同学在 Windows 游戏本上安装
+# Windows 安装
 
 目前的正式复现路径是 Windows + WSL2 Ubuntu 22.04 + NVIDIA GPU，或原生 Linux。下载源码后，需要先安装环境和模型。当前启动器使用 Linux 路径。
 
