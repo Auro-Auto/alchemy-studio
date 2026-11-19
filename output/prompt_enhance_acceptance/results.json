@@ -194,7 +194,7 @@
         "seconds": 12.823
       }
     ],
-    "review": "Five fixed cases manually reviewed for intent, constraints, role assignment and style. Passed; not a benchmark accuracy estimate.",
+    "review": "Five fixed cases received Codex-assisted qualitative review for intent, constraints, role assignment and style. Passed; not a benchmark accuracy estimate.",
     "gpu": {
       "device_name": "NVIDIA GeForce RTX 5070 Ti",
       "total_mib": 16303,
