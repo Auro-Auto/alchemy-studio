@@ -120,17 +120,22 @@ def _clean_response(text: str) -> str:
 def _build_chat_prompt(prompt: str, *, recipe: str, style: str, edit_mode: str) -> str:
     recipe_label = RECIPE_LABELS.get(recipe, recipe)
     style_name = STYLES[style].name if style in STYLES else style
-    scope_note = "局部区域修改（仅改选区，保留功能结构与背景）" if edit_mode == "region" else "整图双参考融合"
+    scope_note = "局部区域修改（选区属于图A；仅改选区，保留功能结构与背景）" if edit_mode == "region" else "整图双参考编辑"
     system = (
-        "你是双参考图工作台提示词专家（图A提供结构，图B提供外观/表情）。"
+        "你是图像编辑工作台的文字指令整理助手。"
         "你收到的是用户文字、用途和画风，请依据这些信息改写。"
-        "优先遵守用户对A/B角色的明确说明；原文的保留项和禁止项必须保留。"
-        "不要虚构未提供的图像细节，也不要从示例复制杯子、猫、茶水或把手到无关任务。"
-        "梗图任务可以描述场景互动与表情反差，不强制变成一个器皿。"
+        "原词优先于任务类别和示例，逐项保留原词的操作、保留项和禁止项。"
+        "原词中的情绪、动作、数量、颜色和相对位置都要明确保留，不能换成近似含义。"
+        "按原词确定A/B角色；只有原词要求时才使用图B，单图清理保持单图操作。"
+        "局部选区属于图A，不要把图A的修改对象写成图B。"
+        "不扩大或缩小修改范围，不自行限定上半身等身体部位。"
+        "未指定的材质、颜色和光照变化保持原样，不添加湿痕、光晕或新物品。"
+        "不要虚构未提供的图像细节，也不要复制示例里的杯子、猫等内容到其他任务。"
+        "场景和梗图描述人物与物品的互动、摆放及表情反差；只有原词要求时才将它们连成一体。"
         "严格按三段输出，禁用空洞套话：\n"
-        "【融合目标】图A具体部位与图B特征如何物理融合。\n"
-        "【材质与光影】结合画风写出具体材质、工艺与光影。\n"
-        "【保留与约束】保留图A功能部件、背景及用户禁止项。"
+        "【融合目标】明确原词中的操作和对象，融合、换装、清理都可，不强制物理融合。\n"
+        "【材质与光影】描述原词已有的材质及所选画风；未要求改变的部分沿用原图。\n"
+        "【保留与约束】完整列出用户的保留项和禁止项。"
     )
     example_user = "任务：陶瓷；画风：原样；局部修改\n原词：把猫的脸做到白瓷杯子上，保留杯口、茶水、右侧把手和桌面背景，不加文字"
     example_assistant = (
@@ -138,11 +143,19 @@ def _build_chat_prompt(prompt: str, *, recipe: str, style: str, edit_mode: str) 
         "【材质与光影】杯身呈温润白釉陶瓷质感，五官带细腻釉下彩与柔和陶瓷高光。\n"
         "【保留与约束】严格保留图A杯口、茶水、右侧把手及桌面背景，无多余文字。"
     )
+    cleanup_user = "任务：建筑浮雕文创；画风：原样；图A局部修改\n原词：只去掉牌匾的错字，用附近灰色釉面填平，保留边框和灯光，不添加东西。"
+    cleanup_assistant = (
+        "【融合目标】只清除图A选中牌匾内的错字，以附近灰色釉面自然补齐。\n"
+        "【材质与光影】沿用原图灰色釉面的颜色、纹理和灯光。\n"
+        "【保留与约束】保留牌匾边框、原有光照和选区外内容，不添加新物品或装饰。"
+    )
     user = f"任务：{recipe_label}；画风：{style_name}；{scope_note}\n原词：{prompt.strip()}"
     return (
         f"<|im_start|>system\n{system}<|im_end|>\n"
         f"<|im_start|>user\n{example_user}<|im_end|>\n"
         f"<|im_start|>assistant\n<think>\n\n</think>\n\n{example_assistant}<|im_end|>\n"
+        f"<|im_start|>user\n{cleanup_user}<|im_end|>\n"
+        f"<|im_start|>assistant\n<think>\n\n</think>\n\n{cleanup_assistant}<|im_end|>\n"
         f"<|im_start|>user\n{user}<|im_end|>\n"
         f"<|im_start|>assistant\n<think>\n\n</think>\n\n"
     )

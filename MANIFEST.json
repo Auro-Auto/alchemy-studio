@@ -16,8 +16,8 @@
   },
   {
     "file": "README.md",
-    "bytes": 15455,
-    "sha256": "894b6e6aeb158c5677242b7d1a7ec1fa683792ad1e1ef0283514e0e3422ab3c2"
+    "bytes": 15811,
+    "sha256": "d971baef5d996b1533241617087c66c85f06e3300e001c07f4a2c3af4b84a484"
   },
   {
     "file": "REPRODUCTION.md",
@@ -51,8 +51,8 @@
   },
   {
     "file": "docs/PROMPT_ENHANCE_VALIDATION.md",
-    "bytes": 4965,
-    "sha256": "5150fa4649e3c55c1c943360796c4aff170da46d7ef1040e426fec58493bafbb"
+    "bytes": 7059,
+    "sha256": "92db6c93e8f62e9613269b9540dc5e994f69d2e953a1e315b644ae1b450a9d99"
   },
   {
     "file": "docs/TEAM_ROLES.md",
@@ -403,6 +403,16 @@
     "file": "output/previews/studio-method-comparison.jpg",
     "bytes": 221867,
     "sha256": "322279affb73f8ca233ede0bebcc2b44e219ae3eab556b62c7a6812dbc5b418c"
+  },
+  {
+    "file": "output/prompt_enhance_acceptance/pair-board.jpg",
+    "bytes": 93168,
+    "sha256": "0f4c4c4504f01a0d83bfef0cdb56c94cee4e579d063f0e47fa6b073c71fcaf4c"
+  },
+  {
+    "file": "output/prompt_enhance_acceptance/results.json",
+    "bytes": 16222,
+    "sha256": "d1aa9aeca37bed288ea1294c494416f459bc29ab07ce94f2becd50b1f2e5ef9a"
   },
   {
     "file": "output/quality_pairing/20261110T085243Z/cases.json",
@@ -1421,8 +1431,8 @@
   },
   {
     "file": "studio/enhance.py",
-    "bytes": 16076,
-    "sha256": "7d83a77b5e789fd559e3bba1a710c15f10b1d9e874c09a101ecb648463243d32"
+    "bytes": 17339,
+    "sha256": "87960d71000dd626d042a68167aaed61482ef5757075097df0c1977f4b6305b3"
   },
   {
     "file": "studio/local_detail.py",
