@@ -5,7 +5,8 @@ from PIL import Image
 import pytest
 
 from studio.local_detail import finish_detail, prepare_detail
-from studio.regions import prepare_regions
+from studio.regions import finish_region, prepare_regions
+from studio import vision
 
 
 def _fixture(tmp_path):
@@ -85,3 +86,48 @@ def test_local_finish_rejects_wrong_model_canvas_and_edit_outside_crop(tmp_path)
     bad_detail["metadata"]["crop_box"] = [0, 0, 5, 5]
     with pytest.raises(ValueError, match="未覆盖"):
         finish_detail(candidate, source, region["mask_path"], bad_detail, tmp_path / "failed")
+
+
+def test_oversized_reference_uses_one_canvas_for_regions_and_local_detail(tmp_path, monkeypatch):
+    monkeypatch.setattr(vision, "MAX_IMAGE_PIXELS", 120_000)
+    source = tmp_path / "oversized.png"
+    pixels = np.zeros((480, 640, 4), dtype=np.uint8)
+    pixels[80:420, 160:500] = [30, 100, 180, 255]
+    Image.fromarray(pixels, "RGBA").save(source)
+
+    # A direct input asset bypasses upload normalization. Use its real alpha mask
+    # so this exercises the same preparation path without requiring ONNX.
+    prepared = vision.prepare_reference(source, tmp_path / "prepared", "a", True)
+    with vision._open_image(source) as image:
+        expected = np.asarray(vision._rgb(image))
+    size = (expected.shape[1], expected.shape[0])
+    assert size == (400, 300)
+    region = prepare_regions(
+        source, tmp_path / "region", [[.35, .40, .65, .70]], [],
+        subject_mask=prepared["mask_path"], megapixels=.05,
+    )
+    with Image.open(region["mask_path"]) as image:
+        assert image.size == size
+        protected = np.asarray(image) == 0
+
+    candidate = tmp_path / "candidate.png"
+    Image.new("RGB", tuple(region["metadata"]["inference_size"]), "orange").save(candidate)
+    regional = finish_region(
+        candidate, source, region["mask_path"], tmp_path / "regional",
+        expected_size=region["metadata"]["inference_size"],
+    )
+    with Image.open(regional["image_path"]) as image:
+        assert image.size == size
+        np.testing.assert_array_equal(np.asarray(image)[protected], expected[protected])
+
+    detail = prepare_detail(source, prepared, region, tmp_path / "detail", .05)
+    Image.new("RGB", tuple(detail["metadata"]["inference_size"]), "orange").save(candidate)
+    finished = finish_detail(candidate, source, region["mask_path"], detail, tmp_path / "finished")
+    with Image.open(finished["image_path"]) as image:
+        assert image.size == size
+        np.testing.assert_array_equal(np.asarray(image)[protected], expected[protected])
+
+    # The shared normalizer still rejects Pillow decompression bombs.
+    monkeypatch.setattr(Image, "MAX_IMAGE_PIXELS", 1_000)
+    with pytest.raises(Image.DecompressionBombError):
+        prepare_regions(source, tmp_path / "bomb", [[.1, .1, .9, .9]], [])

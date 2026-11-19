@@ -74,6 +74,13 @@ class VisionTests(unittest.TestCase):
         self.assertIsNone(result["mask_path"])
         self.assertEqual(self.read(result["image_path"]).getpixel((2, 2)), (8, 19, 71))
 
+    def test_open_image_compresses_over_max_pixels(self):
+        source = self.save("oversize.png", Image.new("RGB", (300, 150), (12, 34, 56)))
+        with patch.object(vision, "MAX_IMAGE_PIXELS", 5_000):
+            opened = vision._open_image(source)
+        self.assertLessEqual(opened.width * opened.height, 5_000)
+        self.assertAlmostEqual(opened.width / opened.height, 2.0, delta=0.05)
+
     def test_background_lock_preserves_background_and_new_ears(self):
         source, mask = self.source_and_mask()
         generated = self.subject()

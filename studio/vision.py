@@ -16,8 +16,10 @@ from collections import deque
 from functools import lru_cache
 import hashlib
 import importlib.util
+import math
 from pathlib import Path
 import threading
+import warnings
 
 import numpy as np
 from PIL import Image, ImageChops, ImageFilter, ImageOps
@@ -93,12 +95,30 @@ def _session():
         raise SegmentationUnavailable(f"Unable to load local U2Netp: {exc}") from exc
 
 
+def fit_within_max_pixels(image: Image.Image, max_pixels: int = MAX_IMAGE_PIXELS) -> tuple[Image.Image, bool]:
+    """Proportionally downscale an image when its pixel count exceeds max_pixels."""
+    total = image.width * image.height
+    if total <= max_pixels:
+        return image, False
+    scale = math.sqrt(max_pixels / total)
+    new_w = max(1, int(image.width * scale))
+    new_h = max(1, int(image.height * scale))
+    while new_w * new_h > max_pixels and (new_w > 1 or new_h > 1):
+        if new_w >= new_h and new_w > 1:
+            new_w -= 1
+        elif new_h > 1:
+            new_h -= 1
+    return image.resize((new_w, new_h), Image.Resampling.LANCZOS), True
+
+
 def _open_image(path: Path) -> Image.Image:
-    with Image.open(path) as image:
-        if image.width * image.height > MAX_IMAGE_PIXELS:
-            raise ValueError("Image exceeds the 20 megapixel CPU processing limit.")
-        has_alpha = "A" in image.getbands() or "transparency" in image.info
-        return ImageOps.exif_transpose(image).convert("RGBA" if has_alpha else "RGB")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", Image.DecompressionBombWarning)
+        with Image.open(path) as image:
+            has_alpha = "A" in image.getbands() or "transparency" in image.info
+            normalized = ImageOps.exif_transpose(image).convert("RGBA" if has_alpha else "RGB")
+            resized, _ = fit_within_max_pixels(normalized, MAX_IMAGE_PIXELS)
+            return resized
 
 
 def _rgb(image: Image.Image) -> Image.Image:

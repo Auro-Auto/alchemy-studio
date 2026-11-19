@@ -10,8 +10,9 @@ import math
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageFilter, ImageOps
+from PIL import Image, ImageFilter
 from scripts.build_workflow import node
+from .vision import _open_image, _rgb as normalize_rgb
 
 
 RESOLUTION_STEPS = 16
@@ -93,10 +94,8 @@ def validate_rectangles(rectangles):
 
 
 def _rgb(path):
-    with Image.open(path) as source:
-        oriented = ImageOps.exif_transpose(source).convert("RGBA")
-        base = Image.new("RGBA", oriented.size, "white")
-        return Image.alpha_composite(base, oriented).convert("RGB")
+    with _open_image(path) as source:
+        return normalize_rgb(source)
 
 
 def prepare_regions(
