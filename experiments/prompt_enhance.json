@@ -1,0 +1,37 @@
+[
+  {
+    "name": "ceramic_identity",
+    "prompt": "把图B猫咪的花纹和脸做成图A白色马克杯正面的浅浮雕，只留一张脸。保留敞口、茶水、右侧把手和木桌，不加盖子和吸管。",
+    "recipe": "ceramic",
+    "style": "original",
+    "edit_mode": "region"
+  },
+  {
+    "name": "campus_architecture",
+    "prompt": "将图B望江北门的三段灰瓦飞檐、四根朱红柱子融进图A杯身。中间高两边低，柱间留白，匾额无文字。保留杯口和把手。",
+    "recipe": "architecture",
+    "style": "clay",
+    "edit_mode": "region"
+  },
+  {
+    "name": "meme_scene",
+    "prompt": "图A是堆满复习资料的书桌，图B浣熊端杯淡定坐着。让纸堆像火山冒火，浣熊却继续喝饮料，用画面讲DDL笑话，不生成文字。",
+    "recipe": "meme",
+    "style": "pixel",
+    "edit_mode": "global"
+  },
+  {
+    "name": "portrait_outfit",
+    "prompt": "保留图A人物的脸、发型和原姿势，只把图B的蓝色雨衣换到人物身上。不要修改背景，不要增加帽子、道具或文字。",
+    "recipe": "custom",
+    "style": "film",
+    "edit_mode": "region"
+  },
+  {
+    "name": "local_remove_text",
+    "prompt": "只清掉选中牌匾内的伪字，用附近灰色釉面自然填平，保留牌匾边框、屋檐、红柱和原有光照。不要添加装饰。",
+    "recipe": "architecture",
+    "style": "original",
+    "edit_mode": "region"
+  }
+]

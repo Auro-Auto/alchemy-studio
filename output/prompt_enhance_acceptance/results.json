@@ -1,0 +1,351 @@
+{
+  "tested_at_utc": "2026-11-19",
+  "environment": {
+    "encoder": "qwen_3_4b_fp4_flux2.safetensors",
+    "encoder_sha256": "3eab03a77adb0ee5304a4e677d5c10ac22f9049c1d7c894adca4f8bb39206ca8",
+    "comfy_commit": "bdb0816a292d221efeb6ec4ae41bcdff3f91fc86",
+    "device": "NVIDIA GeForce RTX 5070 Ti, 16303 MiB",
+    "python": "3.10.20",
+    "enhance_source_sha256": "87960d71000dd626d042a68167aaed61482ef5757075097df0c1977f4b6305b3",
+    "torch": "2.11.0+cu128",
+    "comfy_version": "0.44.0"
+  },
+  "regression": {
+    "passed": 86,
+    "subtests_passed": 5,
+    "warnings": 2,
+    "seconds": 5.27
+  },
+  "initial_round": {
+    "records": [
+      {
+        "name": "ceramic_identity",
+        "request": {
+          "prompt": "把图B猫咪的花纹和脸做成图A白色马克杯正面的浅浮雕，只留一张脸。保留敞口、茶水、右侧把手和木桌，不加盖子和吸管。",
+          "recipe": "ceramic",
+          "style": "original",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】将图B猫咪面部与花纹以浅浮雕形式融入图A白色马克杯正面，仅保留单张猫脸及对应纹样。\n【材质与光影】采用温润白釉陶瓷材质，浮雕部分带细腻釉下彩与柔和陶瓷高光。\n【保留与约束】严格保留图A敞口、茶水、右侧把手及木桌背景，不添加盖子和吸管。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 18.937
+      },
+      {
+        "name": "campus_architecture",
+        "request": {
+          "prompt": "将图B望江北门的三段灰瓦飞檐、四根朱红柱子融进图A杯身。中间高两边低，柱间留白，匾额无文字。保留杯口和把手。",
+          "recipe": "architecture",
+          "style": "clay",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】将图B望江北门的三段灰瓦飞檐与四根朱红柱子以黏土质感融入图A杯身，形成中间高、两边低的阶梯式结构，柱间留白。\n【材质与光影】整体呈现黏土质感，表面有细腻的陶土颗粒感，光影柔和，仿若未完全烧制前的原始状态。\n【保留与约束】严格保留图A杯口和把手，不添加任何文字内容，背景保持原样。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 18.8
+      },
+      {
+        "name": "meme_scene",
+        "request": {
+          "prompt": "图A是堆满复习资料的书桌，图B浣熊端杯淡定坐着。让纸堆像火山冒火，浣熊却继续喝饮料，用画面讲DDL笑话，不生成文字。",
+          "recipe": "meme",
+          "style": "pixel",
+          "edit_mode": "global"
+        },
+        "enhanced_prompt": "【融合目标】将图B浣熊身体与图A书桌整体构图融合，纸堆以像素化火山形态呈现，浣熊保持原姿态继续喝水。\n【材质与光影】整体为像素风格画面，书桌采用低多边形建模，纸堆有像素火光效果，浣熊皮毛呈像素色块。\n【保留与约束】完整保留图A书桌结构、纸堆、浣熊身体及饮料，不生成任何文字内容。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 17.656
+      },
+      {
+        "name": "portrait_outfit",
+        "request": {
+          "prompt": "保留图A人物的脸、发型和原姿势，只把图B的蓝色雨衣换到人物身上。不要修改背景，不要增加帽子、道具或文字。",
+          "recipe": "custom",
+          "style": "film",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】将图B蓝色雨衣仅限于人物上半身区域进行替换，保留图A人物脸部、发型与原姿势不变。\n【材质与光影】整体呈现胶片抓拍质感，雨衣为深蓝织物材质，有轻微反光与水渍痕迹。\n【保留与约束】完整保留图A的人物功能结构与背景元素，不添加任何帽子、道具或文字。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 16.141
+      },
+      {
+        "name": "local_remove_text",
+        "request": {
+          "prompt": "只清掉选中牌匾内的伪字，用附近灰色釉面自然填平，保留牌匾边框、屋檐、红柱和原有光照。不要添加装饰。",
+          "recipe": "architecture",
+          "style": "original",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】将图B中选中区域的伪字以灰调釉面自然覆盖，保留边框、屋檐、红柱及原有光照。\n【材质与光影】整体为青瓷釉面质感，选区呈现灰白釉面与深浅不一的光晕过渡。\n【保留与约束】完整保留牌匾边框、屋檐、红柱及原有光照，不添加任何装饰元素。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 18.23
+      }
+    ],
+    "review": "Failed semantic acceptance: invented outfit scope/material, A/B confusion in cleanup, and style/scene drift. All five outputs retained."
+  },
+  "revised_round": {
+    "records": [
+      {
+        "name": "ceramic_identity",
+        "request": {
+          "prompt": "把图B猫咪的花纹和脸做成图A白色马克杯正面的浅浮雕，只留一张脸。保留敞口、茶水、右侧把手和木桌，不加盖子和吸管。",
+          "recipe": "ceramic",
+          "style": "original",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】将图B猫咪的花纹与脸以浅浮雕形式融合至图A白马克杯正面，仅保留单张正脸。\n【材质与光影】沿用图A白色陶瓷表面质感及原有光照效果。\n【保留与约束】保留敞口、茶水、右侧把手和木桌，不加盖子和吸管。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 13.704
+      },
+      {
+        "name": "campus_architecture",
+        "request": {
+          "prompt": "将图B望江北门的三段灰瓦飞檐、四根朱红柱子融进图A杯身。中间高两边低，柱间留白，匾额无文字。保留杯口和把手。",
+          "recipe": "architecture",
+          "style": "clay",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】将图B望江北门三段灰瓦飞檐与四根朱红柱子融合至图A杯身正中央，形成中间高、两边低的建筑感。\n【材质与光影】沿用黏土质感，飞檐与柱子保持原有灰瓦与朱红颜色，杯身保留原材质与光影。\n【保留与约束】保留杯口和把手，不添加任何文字或装饰，柱间留白，匾额无文字。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 16.525
+      },
+      {
+        "name": "meme_scene",
+        "request": {
+          "prompt": "图A是堆满复习资料的书桌，图B浣熊端杯淡定坐着。让纸堆像火山冒火，浣熊却继续喝饮料，用画面讲DDL笑话，不生成文字。",
+          "recipe": "meme",
+          "style": "pixel",
+          "edit_mode": "global"
+        },
+        "enhanced_prompt": "【融合目标】将图A书桌纸堆与图B浣熊画面结合，纸堆呈现火山喷发效果，浣熊继续端杯喝饮料。\n【材质与光影】沿用像素画风，纸堆呈纸质质感，浣熊保持原图像素细节与表情。\n【保留与约束】保留图A书桌整体构图和图B浣熊姿态，不生成文字内容。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 14.661
+      },
+      {
+        "name": "portrait_outfit",
+        "request": {
+          "prompt": "保留图A人物的脸、发型和原姿势，只把图B的蓝色雨衣换到人物身上。不要修改背景，不要增加帽子、道具或文字。",
+          "recipe": "custom",
+          "style": "film",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】保留图A人物脸部、发型和原姿势，仅将图B蓝色雨衣替换至人物身上。\n【材质与光影】沿用图A人物原有材质与图B雨衣的质感及光影。\n【保留与约束】不修改背景，不添加帽子、道具或文字，仅替换雨衣。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 12.93
+      },
+      {
+        "name": "local_remove_text",
+        "request": {
+          "prompt": "只清掉选中牌匾内的伪字，用附近灰色釉面自然填平，保留牌匾边框、屋檐、红柱和原有光照。不要添加装饰。",
+          "recipe": "architecture",
+          "style": "original",
+          "edit_mode": "region"
+        },
+        "enhanced_prompt": "【融合目标】仅清除图A选中牌匾内的伪字，用附近灰色釉面自然填平。\n【材质与光影】沿用原图灰色釉面的颜色、纹理和原有光照。\n【保留与约束】保留牌匾边框、屋檐、红柱及整体功能结构，不添加任何装饰。",
+        "model": "qwen_3_4b_fp4_flux2",
+        "section_checks": {
+          "【融合目标】": true,
+          "【材质与光影】": true,
+          "【保留与约束】": true
+        },
+        "seconds": 12.823
+      }
+    ],
+    "review": "Five fixed cases manually reviewed for intent, constraints, role assignment and style. Passed; not a benchmark accuracy estimate.",
+    "gpu": {
+      "device_name": "NVIDIA GeForce RTX 5070 Ti",
+      "total_mib": 16303,
+      "sampling_source": "nvidia-smi",
+      "requested_interval_seconds": 0.5,
+      "observed_sample_intervals_seconds": {
+        "min": 0.1917,
+        "median": 0.5001,
+        "max": 0.5005
+      },
+      "elapsed_seconds": 70.710564,
+      "returncode": 0,
+      "device": {
+        "baseline_mib": 618,
+        "peak_mib": 5149,
+        "peak_over_baseline_mib": 4531,
+        "sample_count": 143
+      },
+      "last_device_used_mib": 618,
+      "process": null,
+      "sampling_backend_notes": [
+        "nvml initialization: No module named 'pynvml'"
+      ],
+      "scope": "Sampled whole-card memory, not per-process/model usage or an 8GB compatibility claim."
+    }
+  },
+  "image_pair": {
+    "config": {
+      "image_a": "input/plain_mug.jpg",
+      "image_b": "input/real_cat.png",
+      "recipe": "ceramic",
+      "style": "original",
+      "mode": "structured",
+      "prompt": "把图B猫咪的花纹和脸做成图A白色马克杯正面的浅浮雕，只留一张脸。保留敞口、茶水、右侧把手和木桌，不加盖子和吸管。",
+      "isolate_subject": false,
+      "lock_background": false,
+      "edit_mode": "region",
+      "region_detail": true,
+      "edit_regions": [
+        [
+          0.28,
+          0.48,
+          0.7,
+          0.9
+        ]
+      ],
+      "protect_regions": [],
+      "candidates": 1,
+      "seed": 42,
+      "megapixels": 0.5
+    },
+    "raw_prompt": "把图B猫咪的花纹和脸做成图A白色马克杯正面的浅浮雕，只留一张脸。保留敞口、茶水、右侧把手和木桌，不加盖子和吸管。",
+    "enhanced_prompt": "【融合目标】将图B猫咪的花纹与脸以浅浮雕形式融合至图A白马克杯正面，仅保留单张正脸。\n【材质与光影】沿用图A白色陶瓷表面质感及原有光照效果。\n【保留与约束】保留敞口、茶水、右侧把手和木桌，不加盖子和吸管。",
+    "jobs": [
+      {
+        "id": "58689f8180d7471f86ecba0ad142ee4e",
+        "status": "success",
+        "elapsed_seconds": 20.369,
+        "created_at": "2026-11-19T03:35:07.414+00:00",
+        "finished_at": "2026-11-19T03:35:27.783+00:00"
+      },
+      {
+        "id": "a470d2720f6a468b81064da0e8332031",
+        "status": "success",
+        "elapsed_seconds": 17.216,
+        "created_at": "2026-11-19T03:35:28.047+00:00",
+        "finished_at": "2026-11-19T03:35:45.263+00:00"
+      }
+    ],
+    "preview": "pair-board.jpg",
+    "review": "Both preserve the open rim, tea, right handle and table with a single relief cat face. Enhanced output has finer forehead detail but drifts to blue eyes and brownish markings; the green-eyed black-and-white reference is closer to the raw-prompt result. No claim of universal quality/identity improvement or speedup.",
+    "original_png_sha256": {
+      "pair_raw.png": "7846430fa56204e7f21a4fbe986f50aab5f04b167d272cd04e6fbf093d0deb97",
+      "pair_enhanced.png": "d9af4f839307ec77e5a7d83da7f648f004ed85d9c021320816e621fb39eb0685"
+    }
+  },
+  "lifecycle": {
+    "passed": true,
+    "seconds": 102.742,
+    "jobs": [
+      {
+        "id": "58689f8180d7471f86ecba0ad142ee4e",
+        "status": "success",
+        "elapsed_seconds": 20.369,
+        "created_at": "2026-11-19T03:35:07.414+00:00",
+        "finished_at": "2026-11-19T03:35:27.783+00:00"
+      },
+      {
+        "id": "a470d2720f6a468b81064da0e8332031",
+        "status": "success",
+        "elapsed_seconds": 17.216,
+        "created_at": "2026-11-19T03:35:28.047+00:00",
+        "finished_at": "2026-11-19T03:35:45.263+00:00"
+      },
+      {
+        "id": "10b8faaa69eb46d4951a14c35d1329d8",
+        "status": "success",
+        "elapsed_seconds": 20.326,
+        "created_at": "2026-11-19T03:35:45.569+00:00",
+        "finished_at": "2026-11-19T03:36:22.780+00:00"
+      },
+      {
+        "id": "bb95c7e112ad46b680bccd3b41003a00",
+        "status": "success",
+        "elapsed_seconds": 20.349,
+        "created_at": "2026-11-19T03:36:29.530+00:00",
+        "finished_at": "2026-11-19T03:36:49.879+00:00"
+      }
+    ],
+    "queued_during_enhancement": {
+      "job_id": "10b8faaa69eb46d4951a14c35d1329d8",
+      "status": "queued",
+      "active_jobs": 1,
+      "status_and_history_accessible": true
+    },
+    "post_cache_enhancement_completed": true,
+    "cancel": {
+      "aborted_after_real_delta": true,
+      "all_children_reaped": true,
+      "child_count": 1
+    },
+    "gpu": {
+      "device_name": "NVIDIA GeForce RTX 5070 Ti",
+      "total_mib": 16303,
+      "sampling_source": "nvidia-smi",
+      "requested_interval_seconds": 0.5,
+      "observed_sample_intervals_seconds": {
+        "min": 0.2514,
+        "median": 0.5001,
+        "max": 0.5077
+      },
+      "elapsed_seconds": 102.790988,
+      "returncode": 0,
+      "device": {
+        "baseline_mib": 618,
+        "peak_mib": 9900,
+        "peak_over_baseline_mib": 9282,
+        "sample_count": 207
+      },
+      "last_device_used_mib": 8524,
+      "process": null,
+      "sampling_backend_notes": [
+        "nvml initialization: No module named 'pynvml'"
+      ],
+      "scope": "Sampled whole-card memory, not per-process/model usage or an 8GB compatibility claim."
+    }
+  },
+  "limitations": [
+    "Single RTX 5070 Ti 16GB host; 8GB not physically tested.",
+    "Five text cases and one fixed-seed image pair only.",
+    "Image pair uses edit regions but no explicit protect rectangles.",
+    "Original raw logs/full-resolution images retained outside the public repository."
+  ]
+}
