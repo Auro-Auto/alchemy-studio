@@ -38,10 +38,13 @@ def _crop_window(edit_box, subject_box, size):
 
 
 def _read_mask(path, size):
-    with Image.open(path) as image:
-        if image.size != size:
-            raise ValueError("局部高清蒙版尺寸与原图不一致。")
-        return image.convert("L")
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", Image.DecompressionBombWarning)
+        with Image.open(path) as image:
+            if image.size != size:
+                raise ValueError("局部高清蒙版尺寸与原图不一致。")
+            return image.convert("L")
 
 
 def _contains(outer, inner):

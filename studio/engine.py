@@ -142,6 +142,7 @@ class JobEngine:
         self.probe = probe or probe_backend
         self.jobs = {}
         self.queue = asyncio.Queue()
+        self.gpu_lock = asyncio.Lock()
         self.worker = None
         self.lock_file = None
         self.started = {}
@@ -223,6 +224,8 @@ class JobEngine:
                 job = json.loads(path.read_text(encoding="utf-8"))
                 if not re.fullmatch(r"[0-9a-f]{32}", job.get("id", "")) or path.parent.name != job["id"]:
                     raise ValueError("Invalid persisted job ID")
+                if not isinstance(job.get("status"), str) or not isinstance(job.get("created_at"), str):
+                    raise ValueError("Missing required job fields")
                 if job["status"] == "running":
                     job.update(status="failed", stage="interrupted_restart", error="服务在上次任务运行时重启；旧 ComfyUI 任务可能仍在运行，未自动重提。", finished_at=utc_now())
                     self.save(job)
@@ -304,10 +307,15 @@ class JobEngine:
             try:
                 if job["status"] != "queued":
                     continue
-                self.started[job_id] = time.monotonic()
-                job.update(status="running", started_at=utc_now())
-                self.save(job)
-                await self.execute(job)
+                async with self.gpu_lock:
+                    # An enhancement stream may have held the GPU while this
+                    # queued task was cancelled. Recheck before starting work.
+                    if self.cancelled(job):
+                        continue
+                    self.started[job_id] = time.monotonic()
+                    job.update(status="running", started_at=utc_now())
+                    self.save(job)
+                    await self.execute(job)
             except asyncio.CancelledError:
                 if job["status"] == "running":
                     job.update(status="failed", stage="interrupted_shutdown", error="服务停止；仅停止本任务客户端，未向 ComfyUI 发送全局中断。", finished_at=utc_now())

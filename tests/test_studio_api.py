@@ -173,6 +173,40 @@ def test_upload_compresses_excess_pixels_instead_of_failing(project, monkeypatch
         assert saved.size == (asset["width"], asset["height"])
 
 
+def test_prompt_enhance_endpoint_and_errors(project):
+    from studio.enhance import PromptEnhanceError
+
+    async def fake_enhancer(prompt, *, recipe="custom", style="original", edit_mode="global"):
+        if prompt == "fail":
+            raise PromptEnhanceError("offline")
+        return {"enhanced_prompt": f"{prompt}（已增强:{recipe}/{style}/{edit_mode}）", "model": "qwen3:8b"}
+
+    async def fake_stream_enhancer(prompt, *, recipe="custom", style="original", edit_mode="global"):
+        yield {"type": "stage", "stage": "loading", "message": "loading"}
+        yield {"type": "delta", "text": f"{prompt}（部分）"}
+        yield {"type": "done", "enhanced_prompt": f"{prompt}（流式完成）", "model": "qwen_3_4b_fp4_flux2"}
+
+    app = create_app(
+        project,
+        inference_runner=StubRunner(),
+        vision_module=StubVision(),
+        backend_probe=online,
+        prompt_enhancer=fake_enhancer,
+        prompt_stream_enhancer=fake_stream_enhancer,
+    )
+    with TestClient(app) as client:
+        ok = client.post("/api/prompts/enhance", json={"prompt": "一只陶瓷柴犬杯", "recipe": "ceramic", "style": "felt", "edit_mode": "region"})
+        assert ok.status_code == 200
+        assert ok.json() == {"enhanced_prompt": "一只陶瓷柴犬杯（已增强:ceramic/felt/region）", "model": "qwen3:8b"}
+        assert client.post("/api/prompts/enhance", json={"prompt": ""}).status_code == 422
+        assert client.post("/api/prompts/enhance", json={"prompt": "   "}).status_code == 422
+        assert client.post("/api/prompts/enhance", json={"prompt": "ok", "style": "no_such_style"}).status_code == 422
+        assert client.post("/api/prompts/enhance", json={"prompt": "fail"}).status_code == 503
+        stream_res = client.post("/api/prompts/enhance/stream", json={"prompt": "一只陶瓷柴犬杯"})
+        assert stream_res.status_code == 200
+        assert '"type": "delta"' in stream_res.text and '"type": "done"' in stream_res.text
+
+
 def test_safe_paths_and_same_origin_frontend(project):
     app = create_app(project, inference_runner=StubRunner(), vision_module=StubVision(), backend_probe=online)
     with TestClient(app) as client:
@@ -490,3 +524,174 @@ def test_comfy_runner_adds_mask_upload_without_replacing_reference_bindings(proj
     assert captured[captured.index("--image-a") + 1] == f"76={project / 'input/a.png'}"
     assert captured[captured.index("--image-b") + 1] == f"81={project / 'input/b.png'}"
     assert result["images"] == [output_path.resolve()]
+
+
+def test_enhancement_holds_gpu_until_new_job_can_run(project):
+    from concurrent.futures import ThreadPoolExecutor
+
+    started = threading.Event()
+    release = threading.Event()
+    runner = StubRunner()
+
+    async def enhancing(prompt, **kwargs):
+        started.set()
+        while not release.is_set():
+            await asyncio.sleep(.01)
+        return {'enhanced_prompt': prompt + ' enhanced', 'model': 'stub'}
+
+    app = create_app(project, inference_runner=runner, vision_module=StubVision(), backend_probe=online,
+                     prompt_enhancer=enhancing)
+    with TestClient(app) as client, ThreadPoolExecutor(max_workers=1) as pool:
+        request = pool.submit(client.post, '/api/prompts/enhance', json={'prompt': 'test'})
+        try:
+            assert started.wait(3)
+            submitted = client.post('/api/jobs', json=config())
+            assert submitted.status_code == 202
+            job_id = submitted.json()['id']
+            time.sleep(.08)
+            assert client.get('/api/jobs/' + job_id).json()['status'] == 'queued'
+            assert runner.calls == []
+            assert client.get('/api/status').status_code == 200
+            assert client.get('/api/jobs?compact=true').status_code == 200
+            assert client.post('/api/prompts/enhance', json={'prompt': 'second'}).status_code == 409
+            client.post('/api/jobs/' + job_id + '/cancel')
+        finally:
+            release.set()
+        assert request.result(timeout=3).status_code == 200
+        assert client.get('/api/jobs/' + job_id).json()['status'] == 'cancelled'
+        assert runner.calls == []
+        followup = client.post('/api/jobs', json=config()).json()['id']
+        assert finished(client, followup)['status'] == 'success'
+
+
+def test_streaming_enhancement_failure_releases_gpu_for_waiting_job(project):
+    from concurrent.futures import ThreadPoolExecutor
+    from studio.enhance import PromptEnhanceError
+
+    started = threading.Event()
+    release = threading.Event()
+    closed = threading.Event()
+    runner = StubRunner()
+
+    async def enhancing(prompt, **kwargs):
+        try:
+            yield {'type': 'stage', 'message': 'started'}
+            started.set()
+            while not release.is_set():
+                await asyncio.sleep(.01)
+            raise PromptEnhanceError('mock enhancement failure')
+        finally:
+            closed.set()
+
+    app = create_app(project, inference_runner=runner, vision_module=StubVision(), backend_probe=online,
+                     prompt_stream_enhancer=enhancing)
+    with TestClient(app) as client, ThreadPoolExecutor(max_workers=1) as pool:
+        request = pool.submit(client.post, '/api/prompts/enhance/stream', json={'prompt': 'test'})
+        try:
+            assert started.wait(3)
+            submitted = client.post('/api/jobs', json=config())
+            assert submitted.status_code == 202
+            job_id = submitted.json()['id']
+            time.sleep(.08)
+            assert runner.calls == []
+            assert client.get('/api/jobs/' + job_id).json()['status'] == 'queued'
+        finally:
+            release.set()
+        response = request.result(timeout=3)
+        assert 'mock enhancement failure' in response.text
+        assert closed.is_set()
+        assert finished(client, job_id)['status'] == 'success'
+        assert not app.state.engine.gpu_lock.locked()
+
+
+def test_enhancement_rejects_running_image_and_later_recovers(project):
+    gate = threading.Event()
+    runner = StubRunner(gate=gate)
+
+    async def enhancing(prompt, **kwargs):
+        return {'enhanced_prompt': prompt, 'model': 'stub'}
+
+    app = create_app(project, inference_runner=runner, vision_module=StubVision(), backend_probe=online,
+                     prompt_enhancer=enhancing)
+    with TestClient(app) as client:
+        job_id = client.post('/api/jobs', json=config()).json()['id']
+        try:
+            wait_for(lambda: runner.active)
+            assert client.post('/api/prompts/enhance', json={'prompt': 'test'}).status_code == 409
+            assert client.post('/api/prompts/enhance/stream', json={'prompt': 'test'}).status_code == 409
+        finally:
+            gate.set()
+        assert finished(client, job_id)['status'] == 'success'
+        assert client.post('/api/prompts/enhance', json={'prompt': 'test'}).status_code == 200
+
+
+def test_asgi_disconnect_waits_for_real_enhancement_child_before_gpu_unlock(project, monkeypatch):
+    from studio import enhance
+    import studio.app as app_module
+
+    dummy = project / 'encoder.safetensors'
+    dummy.write_bytes(b'fixture')
+    comfy = project / 'ComfyUI'
+    comfy.mkdir()
+    monkeypatch.setattr(enhance, 'COMFY_ROOT', comfy)
+    monkeypatch.setattr(enhance, 'QWEN_ENCODER_PATH', dummy)
+    monkeypatch.setattr(enhance, '_WORKER_SCRIPT', r'''
+import json, sys, time
+sys.stdin.read()
+print(json.dumps({'type': 'stage', 'message': 'real child started'}), flush=True)
+time.sleep(60)
+''')
+    real_exec = asyncio.create_subprocess_exec
+    processes = []
+
+    async def capture(*args, **kwargs):
+        process = await real_exec(*args, **kwargs)
+        processes.append(process)
+        return process
+
+    async def release_comfy(server):
+        pass
+
+    monkeypatch.setattr(asyncio, 'create_subprocess_exec', capture)
+    monkeypatch.setattr(app_module, 'release_comfy_models', release_comfy)
+    runner = StubRunner()
+    app = create_app(project, inference_runner=runner, vision_module=StubVision(), backend_probe=online)
+
+    async def run():
+        async with app.router.lifespan_context(app):
+            disconnected = asyncio.Event()
+            request_sent = False
+            body = json.dumps({'prompt': 'test'}).encode()
+            scope = {
+                'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.0'},
+                'method': 'POST', 'scheme': 'http', 'http_version': '1.1',
+                'path': '/api/prompts/enhance/stream', 'raw_path': b'/api/prompts/enhance/stream',
+                'query_string': b'', 'root_path': '', 'headers': [(b'content-type', b'application/json')],
+                'client': ('127.0.0.1', 1234), 'server': ('testserver', 80),
+            }
+
+            async def receive():
+                nonlocal request_sent
+                if not request_sent:
+                    request_sent = True
+                    return {'type': 'http.request', 'body': body, 'more_body': False}
+                await disconnected.wait()
+                return {'type': 'http.disconnect'}
+
+            async def send(message):
+                if message['type'] == 'http.response.body' and b'real child started' in message.get('body', b''):
+                    assert app.state.engine.gpu_lock.locked()
+                    disconnected.set()
+
+            await asyncio.wait_for(app(scope, receive, send), timeout=5)
+            assert disconnected.is_set()
+            assert processes and processes[0].returncode is not None
+            assert not app.state.engine.gpu_lock.locked()
+            accepted = app.state.engine.create(config())
+            deadline = asyncio.get_running_loop().time() + 3
+            while app.state.engine.jobs[accepted['id']]['status'] in {'queued', 'running'}:
+                assert asyncio.get_running_loop().time() < deadline
+                await asyncio.sleep(.01)
+            assert app.state.engine.jobs[accepted['id']]['status'] == 'success'
+
+    asyncio.run(run())

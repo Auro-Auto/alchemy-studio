@@ -16,8 +16,8 @@
   },
   {
     "file": "README.md",
-    "bytes": 15096,
-    "sha256": "c781c876a1cbb72ffceefb50bcaec125418f7cdf9e039f1c7c43b6c8b29d5f16"
+    "bytes": 15455,
+    "sha256": "894b6e6aeb158c5677242b7d1a7ec1fa683792ad1e1ef0283514e0e3422ab3c2"
   },
   {
     "file": "REPRODUCTION.md",
@@ -46,13 +46,18 @@
   },
   {
     "file": "docs/METHOD.md",
-    "bytes": 15899,
-    "sha256": "b71a9cb7443b73dd05239634197b48651fa6e77b7a16aa2c21ba7fe7b6bbd97d"
+    "bytes": 15881,
+    "sha256": "7c537bf466d7d36731d8f409624b0882342d80fdcca3765eea56708dfd5f7251"
+  },
+  {
+    "file": "docs/PROMPT_ENHANCE_VALIDATION.md",
+    "bytes": 4965,
+    "sha256": "5150fa4649e3c55c1c943360796c4aff170da46d7ef1040e426fec58493bafbb"
   },
   {
     "file": "docs/TEAM_ROLES.md",
-    "bytes": 19692,
-    "sha256": "975d6a2299ef61a1a60de0da4edacff38322b6e135e78832619016b724c9eedc"
+    "bytes": 20010,
+    "sha256": "b1c3698d64ff1c8725e416014dfd3f6c94db0d9440d8673b142e386a366310ef"
   },
   {
     "file": "docs/assets/hero.jpg",
@@ -83,6 +88,11 @@
     "file": "experiments/fusion_smoke.json",
     "bytes": 1894,
     "sha256": "8a74b0cd8e336dcdcf101b9fb8c467354974d02c810e2d9d664b7faad3f7674a"
+  },
+  {
+    "file": "experiments/prompt_enhance.json",
+    "bytes": 1455,
+    "sha256": "e4e2543c12739160d0e5f4be70433b69f20532a3e0dc2c55957eebdfe33713e7"
   },
   {
     "file": "experiments/studio_ablation.json",
@@ -1305,6 +1315,11 @@
     "sha256": "4e9f214601278cebd95b0dfef2877df8d4af64a4e1d2244bc8b8f231940c7fe6"
   },
   {
+    "file": "scripts/evaluate_prompt_enhance.py",
+    "bytes": 3818,
+    "sha256": "f07b6e511de6a41446927edcfd5219e54ccf0c3136984254c4ded0177039c987"
+  },
+  {
     "file": "scripts/evaluate_regions.py",
     "bytes": 8207,
     "sha256": "20b97095110f84dcdf8ace596e35d12486eb3789f8845b35133ca9e51025b1df"
@@ -1370,6 +1385,11 @@
     "sha256": "8278dc8bb4de03965ca2bf2f83a9cfbd683abe256b127a165736b17a89d386a8"
   },
   {
+    "file": "scripts/start_local_wsl.ps1",
+    "bytes": 6844,
+    "sha256": "98d411a9f2175afc876ad8c36ba708dee8a7613459b6c7d9235729e4ff224960"
+  },
+  {
     "file": "scripts/start_studio.py",
     "bytes": 2366,
     "sha256": "65fd17f997f68271285b18d2ba371f6723b7958cf12bfa06e12135285228c72b"
@@ -1386,8 +1406,8 @@
   },
   {
     "file": "studio/app.py",
-    "bytes": 20886,
-    "sha256": "57a0fbfbbf1d220d0afe628530418dcba8789899c8a2d049f9f0ca5c946b7509"
+    "bytes": 25312,
+    "sha256": "03b39970d21a9724c78b678a48970bb251052f20e082f495cd3eb2cf54da1fba"
   },
   {
     "file": "studio/creative.py",
@@ -1396,13 +1416,18 @@
   },
   {
     "file": "studio/engine.py",
-    "bytes": 25484,
-    "sha256": "4c56f81e8b02b830b20e9b2a1fa0a5d2e2052d2838d241ac1ee15a5f603cf3f2"
+    "bytes": 25987,
+    "sha256": "a7aea7fa85d4847e60426628c8808824c37f91661d339794c07ac5b12c8af5b7"
+  },
+  {
+    "file": "studio/enhance.py",
+    "bytes": 16076,
+    "sha256": "7d83a77b5e789fd559e3bba1a710c15f10b1d9e874c09a101ecb648463243d32"
   },
   {
     "file": "studio/local_detail.py",
-    "bytes": 8654,
-    "sha256": "8e65e197740f462bd97fccd07559e68220d317efe82571276625ef6fd413fb3e"
+    "bytes": 8798,
+    "sha256": "3e15d8c29f40bbfb4075e7a16da20eec6161c9b26a95fe514df155241d5e8b05"
   },
   {
     "file": "studio/prompts.py",
@@ -1420,6 +1445,11 @@
     "sha256": "eda528113d78ce3a07d3aba0e5b4c2082fc6e46332a47f59c022ffb71cf2ef72"
   },
   {
+    "file": "tests/test_enhance.py",
+    "bytes": 9564,
+    "sha256": "0028e911e2168df54900e8c137f1d58149949adc735b207cf8075a8d24edee67"
+  },
+  {
     "file": "tests/test_local_detail.py",
     "bytes": 6592,
     "sha256": "a52080150d474bea36b1276c1f6ad8393867cfd66239c86b000e7e834c53cd46"
@@ -1431,8 +1461,8 @@
   },
   {
     "file": "tests/test_studio_api.py",
-    "bytes": 28241,
-    "sha256": "c686d723a935b017f623b98651d861299fe36b53fd3f382068797600c36106d7"
+    "bytes": 37648,
+    "sha256": "927c9c8b8875d4534cfbe27baaefd616daa6f161986815715ebd34787abb7ccd"
   },
   {
     "file": "tests/test_vision.py",
@@ -1471,8 +1501,8 @@
   },
   {
     "file": "web/src/App.jsx",
-    "bytes": 49241,
-    "sha256": "5a1954da11085e773543c283e213f806bf5451a517b98a523d2d38f86aa2b80c"
+    "bytes": 55816,
+    "sha256": "21e8f95c490f4c8991cdfb15f88e3ef98d245383242d7ee961757a97ec1fc8ea"
   },
   {
     "file": "web/src/Canvas.jsx",
@@ -1496,8 +1526,8 @@
   },
   {
     "file": "web/src/styles.css",
-    "bytes": 27093,
-    "sha256": "6f022fc8c82b5f505a1c7974311d4c2e3c877bb0cd3ed3bd4c172b157f0884a8"
+    "bytes": 29170,
+    "sha256": "f30b66c9f1d8e34a79094521dd1892f8343b924f1e0ab50330d05cbc45b8dba1"
   },
   {
     "file": "web/vite.config.js",
@@ -1583,5 +1613,10 @@
     "file": "启动万物炼金台.cmd",
     "bytes": 122,
     "sha256": "571fa81a1b5dde31e3e7d2a33eadd2155aadc0972e40c1415394740ff7e6190c"
+  },
+  {
+    "file": "本机一键启动万物炼金台.cmd",
+    "bytes": 123,
+    "sha256": "417b686ed4b995cf357a75deb3e43a482f029819617bc0684e3aedca6ba25053"
   }
 ]
