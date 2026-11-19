@@ -53,7 +53,7 @@ payload = json.loads(sys.stdin.read())
 comfy_root = Path(payload["comfy_root"])
 sys.path.insert(0, str(comfy_root))
 
-emit({"type": "stage", "stage": "loading", "message": "正在加载 Qwen3-4B 模型…"})
+emit({"type": "stage", "stage": "loading", "message": "准备增强…"})
 
 import comfy.sd
 import torch
@@ -64,7 +64,7 @@ clip = comfy.sd.load_clip(
     clip_type=comfy.sd.CLIPType.FLUX2,
 )
 
-emit({"type": "stage", "stage": "generating", "message": "正在逐字生成结构化提示词…"})
+emit({"type": "stage", "stage": "generating", "message": "正在增强…"})
 
 stream_ids = []
 last_emitted = ""
@@ -235,10 +235,9 @@ async def release_comfy_models(server: str, *, timeout: float = 30.0) -> None:
                     return
                 await asyncio.sleep(.2)
     except (httpx.HTTPError, ValueError, TypeError) as exc:
-        raise PromptEnhanceError("无法完成 ComfyUI 显存交接，请检查服务连接与队列状态。") from exc
+        raise PromptEnhanceError("显存释放失败，请检查服务连接后重试。") from exc
     raise PromptEnhanceError(
-        "提示词增强使用保守启动门槛（至少 75% 显存空闲且生图缓存已回落）；"
-        "当前未满足，请稍后重试或关闭占用显存的程序。"
+        "显存尚未释放，请稍后重试或关闭占用显存的程序。"
     )
 
 
@@ -262,7 +261,7 @@ async def enhance_prompt_stream(
 
     model_path = Path(os.environ.get("ALCHEMY_ENHANCE_MODEL_PATH", QWEN_ENCODER_PATH))
     if not COMFY_ROOT.is_dir() or not model_path.is_file():
-        raise PromptEnhanceError("未找到生图共用的 Qwen3-4B 模型文件（qwen_3_4b_fp4_flux2.safetensors）。")
+        raise PromptEnhanceError("增强模型未安装，请完成模型安装后重试。")
 
     payload = {
         "comfy_root": str(COMFY_ROOT),
@@ -303,7 +302,7 @@ async def enhance_prompt_stream(
                     idle_warnings += 1
                     if idle_warnings > max_idle_warnings:
                         raise
-                    yield {"type": "stalled", "message": "提示词增强响应较慢，仍在等待模型输出…"}
+                    yield {"type": "stalled", "message": "响应较慢，正在等待…"}
                     continue
                 if not raw_line:
                     break

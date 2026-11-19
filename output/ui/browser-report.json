@@ -1,34 +1,32 @@
 {
-  "server": "http://127.0.0.1:18890",
+  "date": "2026-11-19",
+  "passed": true,
+  "new_model_inference": false,
+  "transport": "Local HTTP API/SSE fixtures",
+  "images": "Retained GPU outputs",
   "checks": [
-    {
-      "name": "initial assets",
-      "broken": []
-    },
-    {
-      "name": "comparison control",
-      "sliders": 1
-    },
-    {
-      "name": "image modal escape",
-      "closed": true
-    },
-    {
-      "name": "real image upload",
-      "passed": true
-    },
-    {
-      "name": "live generation and downloads",
-      "id": "f704bfcd73134bc787eba8c99cf12184",
-      "status": "success",
-      "candidates": 2,
-      "seconds": 9.518
-    },
-    {
-      "name": "mobile horizontal overflow",
-      "pixels": 0
-    }
+    "Default studio loads with short project/preset names; 1440px layout has no page overflow.",
+    "All 22 styles across five groups and 19 short instruction names are available; selecting an instruction preserves existing text.",
+    "Region edit/protect drawing, save and cancel preserve confirmed regions.",
+    "1280px laptop and 390px mobile studio/region layouts have no page overflow.",
+    "Retained GPU result reopens from history; comparison and presentation modes render. Filtered empty state is specific.",
+    "Empty history and API error display short, actionable messages.",
+    "Chunked HTTP SSE success, exact undo, HTTP/event errors, dropped stream, immediate cancellation, 30s silence and continue-wait all restore usable controls. No model inference performed.",
+    "200% browser zoom equivalent (720 CSS px at 2x scale, 1440 physical px) has no horizontal page overflow."
   ],
-  "errors": [],
-  "success": true
+  "screenshots": {
+    "desktop": "studio-desktop.png",
+    "laptop": "studio-laptop.png",
+    "mobile": "studio-mobile.png",
+    "region": "studio-region-editor.png",
+    "region-mobile": "studio-region-mobile.png",
+    "history": "studio-history.png",
+    "compare": "studio-compare.png",
+    "presentation": "studio-presentation.png"
+  },
+  "console_errors": [],
+  "regression": {
+    "tests_passed": 86,
+    "subtests_passed": 5
+  }
 }

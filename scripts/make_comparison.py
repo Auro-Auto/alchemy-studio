@@ -7,8 +7,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def font(size):
     candidates = [Path('C:/Windows/Fonts/msyh.ttc'),
-                  Path('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')]
-    return ImageFont.truetype(str(next(p for p in candidates if p.exists())), size)
+                  Path('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'),
+                  Path('/usr/share/fonts/truetype/wqy/wqy-microhei.ttc')]
+    path = next((path for path in candidates if path.is_file()), None)
+    if path is None:
+        raise FileNotFoundError('Install Microsoft YaHei or Noto Sans CJK to render Chinese labels.')
+    return ImageFont.truetype(str(path), size)
 
 
 def result(case):
@@ -32,19 +36,19 @@ def main():
     out.mkdir(exist_ok=True)
     image = Image.new('RGB', (1500, 620), '#edf0f4')
     draw = ImageDraw.Draw(image)
-    draw.text((28, 18), '万物炼金台 · 同输入、同种子、同分辨率的提示词对照', fill='#14243b', font=font(30))
-    panel(image, ROOT/'input/comfy_cat.png', 24, 78, 300, 245, '输入：猫角色')
-    panel(image, ROOT/'input/iced_drink_cup.png', 24, 337, 300, 245, '输入：饮料杯')
-    panel(image, result('fusion_smoke/20261108T044556Z_b9703c3c/001_cat_tumbler_generic'), 350, 78, 550, 504, '普通融合指令：贴图倾向')
-    panel(image, result('cat_tumbler'), 926, 78, 550, 504, '指定结构与材质：立体猫杯')
+    draw.text((28, 18), '提示词对比', fill='#14243b', font=font(30))
+    panel(image, ROOT/'input/comfy_cat.png', 24, 78, 300, 245, '参考角色')
+    panel(image, ROOT/'input/iced_drink_cup.png', 24, 337, 300, 245, '参考物品')
+    panel(image, result('fusion_smoke/20261108T044556Z_b9703c3c/001_cat_tumbler_generic'), 350, 78, 550, 504, '基础提示词')
+    panel(image, result('cat_tumbler'), 926, 78, 550, 504, '结构化提示词')
     image.save(out/'prompt_comparison.jpg', quality=94)
     image = Image.new('RGB', (1500, 690), '#edf0f4')
     draw = ImageDraw.Draw(image)
-    draw.text((28, 18), '万物炼金台 · 远程 GPU 实际生成样例', fill='#14243b', font=font(30))
-    panel(image, result('cat_tumbler'), 24, 78, 452, 570, '角色 × 饮料杯：猫耳陶瓷杯')
-    panel(image, result('cat_sneaker'), 500, 78, 476, 277, '角色 × 运动鞋：猫耳运动鞋')
-    panel(image, result('real_cat_mug_refined'), 500, 371, 476, 277, '实拍猫 × 白瓷杯：单猫脸浮雕')
-    panel(image, result('real_cat_mug'), 1000, 78, 476, 570, '保留的失败样例：重复猫脸')
+    draw.text((28, 18), '效果展示', fill='#14243b', font=font(30))
+    panel(image, result('cat_tumbler'), 24, 78, 452, 570, '猫咪随行杯')
+    panel(image, result('cat_sneaker'), 500, 78, 476, 277, '猫咪运动鞋')
+    panel(image, result('real_cat_mug_refined'), 500, 371, 476, 277, '猫脸浮雕杯')
+    panel(image, result('real_cat_mug'), 1000, 78, 476, 570, '重复猫脸（失败）')
     image.save(out/'gallery.jpg', quality=94)
     print('Saved comparison figures to output/previews')
 

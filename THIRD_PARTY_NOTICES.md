@@ -1,8 +1,8 @@
-# 第三方来源与授权
+# 第三方许可
 
-代码、模型、素材适用各自授权。项目原创代码尚未单独授予开源许可证。
+第三方代码、模型与素材按各自许可使用。项目原创代码未另行授予开源许可证。
 
-| 上游 | 用途 | 已记录许可 |
+| 来源 | 用途 | 许可 |
 | --- | --- | --- |
 | ComfyUI | 独立安装的推理引擎 | GPL-3.0 |
 | Comfy workflow_templates | 原始与派生工作流 | MIT，文本见 third_party/workflow_templates-LICENSE |
@@ -20,8 +20,8 @@
 - 柴犬、O RLY? 鸮、《呐喊》的公共领域声明、署名与处理方式见 input/meme_sources.json。
 - fine_raccoon.svg 及其 PNG 为原创浣熊端杯情境图。
 
-来源清单应随素材保留，生成物涉及参考素材时应考虑相应授权条件。川大相关作品是课程概念打样，不代表校方官方文创或背书。
+分发素材时保留来源清单，并遵守参考素材的授权条件。川大相关作品为课程概念打样，不代表校方官方文创或背书。
 
-## 研究参考
+## 参考项目
 
-交互与预设研究参考 Fooocus、InvokeAI、IOPaint、Memegen 与 OpenAI 官方图像提示示例，当前前端与提示目录由本项目实现。早期上游调研见 docs/upstream_research.json。
+交互与预设参考 Fooocus、InvokeAI、IOPaint、Memegen 与 OpenAI 官方图像提示示例。[项目调研](docs/upstream_research.json)

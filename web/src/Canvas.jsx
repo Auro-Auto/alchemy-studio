@@ -36,7 +36,7 @@ export default function Canvas({ Photo, image, original, compare, busy, checking
   return <>
     <div className="result-canvas" ref={viewport}>
       {image ? <div className={`canvas-frame ${natural ? 'sized' : ''}`} style={frameStyle}>
-        {compare && <Photo src={original.url} alt="原料 A 原图" className="canvas-image" draggable={false} />}
+        {compare && <Photo src={original.url} alt="原图 A" className="canvas-image" draggable={false} />}
         <div className="canvas-layer" style={compare ? { clipPath: `inset(0 0 0 ${split}%)` } : undefined}>
           <Photo src={image.url} alt={image.label} className="canvas-image" onLoad={measure} draggable={false} fetchPriority="high" />
         </div>
@@ -49,7 +49,7 @@ export default function Canvas({ Photo, image, original, compare, busy, checking
         </>}
       </div> : <div className="canvas-empty">
         {busy ? <LoaderCircle className="spin" size={28} /> : <ImagePlus size={32} strokeWidth={1.4} />}
-        <p>{busy ? '正在生成图片' : checking ? '正在载入画布' : emptyText}</p>
+        <p>{busy ? '正在生成图片' : checking ? '加载中' : emptyText}</p>
       </div>}
     </div>
     <div className="canvas-status">

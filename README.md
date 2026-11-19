@@ -6,9 +6,9 @@
 
 </div>
 
-![柴犬运动鞋、羊毛毡猫头鹰杯与望江北门浮雕杯，均为项目实机生成](docs/assets/hero.jpg)
+![柴犬运动鞋、羊毛毡猫头鹰杯与望江北门浮雕杯](docs/assets/hero.jpg)
 
-给运动鞋借来柴犬的脸，把猫头鹰做成毛茸茸的马克杯，或者把四川大学望江北门烧进白瓷杯身。上传 A、B 两张图，选好用途和画风，再决定哪些地方可以改、哪些细节要保留。
+上传两张参考图，把角色、材质或校园地标融入日常物品。选择风格，框定修改范围，保留需要的结构与细节。
 
 ## 效果展示
 
@@ -18,19 +18,17 @@
 
 ![四组热梗示例，包含猫头鹰杯、柴犬鞋、淡定浣熊和期末的望江红门](output/styles_memes/meme-gallery.jpg)
 
-四组都在工作台的“热梗”分类里。选中后会载入两张原料、指令、种子和画风，可以直接生成，也可以改成自己的场景。
+在“示例 → 热梗”中选择场景，或替换图片、修改指令。
 
 ### 校园文创
 
-A 是杯子，B 是望江北门。保留杯口、把手、杯盖和吸管，把灰瓦飞檐与朱红方柱转成杯身浅浮雕。
+A 是杯子，B 是望江北门。把灰瓦飞檐与朱红方柱转成杯身浅浮雕，沿用原杯已有的杯口、把手、杯盖或吸管。
 
 ![望江北门原始参考与马克杯、随行杯生成效果](output/scu_detail/architecture/wangjiang-design-board.jpg)
 
-实景照片由 Kcx36 拍摄，CC BY-SA 4.0，已裁切缩放。这里展示的是课程概念打样。素材记录见 [川大图源清单](input/scu_sources.json)。
-
 ## 风格对比
 
-下面使用**同一对参考图、同一段用户描述、同一个种子 42**，切换画风预设。
+固定参考图、描述与种子 42，切换画风。
 
 ![原样、漫画、黏土、水墨、像素、复古海报六种风格对比](output/styles_memes/style-comparison.jpg)
 
@@ -51,15 +49,13 @@ A 是杯子，B 是望江北门。保留杯口、把手、杯盖和吸管，把�
 
 ![22 种画风完整图鉴](output/creative_styles/style-atlas.jpg)
 
-图鉴来自项目实际运行。画风由材质、笔触、色彩与布光提示控制，具体主体上的效果会有差异。
-
 </details>
 
 ## 提示词增强
 
-复用原有 Qwen3-4B 权重，把文字要求整理为“融合目标 / 材质与光影 / 保留与约束”。支持流式显示、中止和撤回原文，无需额外下载模型。它根据文字整理要求，不读取参考图片。
+将文字要求整理为“融合目标 / 材质与光影 / 保留与约束”，支持流式显示、中止和回退。增强器复用 Qwen3-4B 权重，只读取文字。
 
-RTX 5070 Ti 16GB 实测五类指令约需 13–17 秒，增强与生图交替、排队和取消后恢复均通过。增强仍可能改变角色颜色，下面保留同种子对照；左为原提示，右为增强提示。详细记录见 [实机验收](docs/PROMPT_ENHANCE_VALIDATION.md)。
+五类指令在 RTX 5070 Ti 16GB 上耗时约 13–17 秒。增强仍可能改变角色颜色，可编辑结果或回退原文。[增强测试](docs/PROMPT_ENHANCE_VALIDATION.md)
 
 ![原提示与增强提示的同种子对照](output/prompt_enhance_acceptance/pair-board.jpg)
 
@@ -70,24 +66,24 @@ RTX 5070 Ti 16GB 实测五类指令约需 13–17 秒，增强与生图交替、
 1. **放入两张图**。A 通常提供结构或场景，B 提供外观、材质或表情；人物换装等指令会明确两张图的用途。可接受的高像素图片会自动等比缩至 20MP 内，上传仍受 20MB 文件上限与解压保护限制。
 2. **挑用途与画风**。可以做陶瓷、球鞋、毛绒、水晶、建筑浮雕、梗图，也可以自定义要求。
 3. **点常用指令**。选中的内容追加到输入框，已有文字保留，之后还能继续编辑。
-4. **限定修改区域**。希望杯口、把手和背景保留时，在 A 上画修改区、保护区；较大变形可用整图生成。
+4. **选择编辑区域**。希望杯口、把手和背景保留时，在 A 上画修改区、保护区；较大变形可用整图生成。
 5. **生成，再重炼**。比较候选、查看原始生成与最终合成，下载图片，或把结果作为下一轮 A 继续修改。
 
 ### 常用指令
 
 | 想做什么 | 可以直接点 |
 | --- | --- |
-| 融合两样东西 | 保形换色、只换材质、把两样东西长在一起、给成品拍产品照 |
-| 人物与宠物变身 | 把人物做成盲盒、宠物纪念小像、保留脸和姿势只换装、宠物上身变吉祥物、口袋天气兽 |
-| 做点好玩的 | 让物品露出同款表情、DDL 一切都好、热梗换主角、梗图闯进校园 |
-| 做校园文创 | 望江北门上杯身、校园地标做徽章、校园明信片 |
+| 融合两样东西 | 保形换色、只换材质、形态融合、产品照 |
+| 人物与宠物变身 | 人物盲盒、宠物纪念小像、人物换装、宠物吉祥物、口袋天气兽 |
+| 做点好玩的 | 表情移植、DDL 一切都好、热梗换主角、校园梗图 |
+| 做校园文创 | 地标浮雕、校园徽章、校园明信片 |
 | 继续改细节 | 只改选中区域、清掉多余文字、保留功能部件 |
 
-指令模板可以和画风组合。涉及局部修改时，需要先在画布中选定区域；涉及换装或梗图的模板会载入对应用途。所有模板都在 [creative.py](studio/creative.py)，可自行扩展。
+画风可与指令组合，局部编辑需先框选区域。模板位于 [creative.py](studio/creative.py)。
 
 ## 项目创新
 
-项目关注一个具体问题——**融合可以大胆，功能部件和编辑范围需要可控。**
+区域约束、像素恢复与局部采样控制融合范围，并支持在结果上继续编辑。
 
 ### 区域控制
 
@@ -95,29 +91,27 @@ RTX 5070 Ti 16GB 实测五类指令约需 13–17 秒，增强与生图交替、
 
 缩小到 latent 网格时，一个网格只要覆盖禁改像素，就会被保护。这种保守映射能保住较细的保护条，也会压缩可编辑空间；有效区域过小时会提示用户调整。实现位于 [regions.py](studio/regions.py)。
 
-下图取自同输入、同种子的马克杯实验。整图生成多出左侧把手，区域约束后的输出沿用原杯结构。
+同输入、同种子对比中，整图生成多出一个把手，区域约束保留了原杯结构。
 
 ![同一马克杯的原图、整图生成、区域约束及最终恢复对比，seed 123](docs/assets/region-protection.jpg)
 
 ### 像素恢复
 
-生成结果映回 A 的画布后，用源分辨率蒙版合成，并检查蒙版为零的位置是否与原 A 完全一致。原始生成、最终结果、蒙版和参数分别保存，便于检查采样与合成各自的作用。
-
-**最终保护区零变化来自原像素恢复。** 它能保证指定像素保留，接缝是否自然、角色是否还原仍需另外判断。
+生成结果映回 A 的画布后，以源分辨率蒙版恢复禁改像素。保护区与规范化后的 A 一致；该保证来自最终像素合成，接缝与角色还原度仍取决于生成结果。任务分别保存原始生成、最终结果、蒙版和参数。
 
 ### 局部高清与连续编辑
 
 局部高清提取包含编辑范围和必要上下文的窗口，重新对齐蒙版、集中采样，再映回原图。这样可以在相同像素预算下，把更多采样分辨率分配给局部细节。实现位于 [local_detail.py](studio/local_detail.py)。
 
-例如在已经生成的望江浮雕杯上，只选中牌匾，清掉不需要的字形。
+在望江浮雕杯上框选牌匾，即可继续清理多余字形。
 
 ![望江浮雕杯牌匾局部重炼前后，左侧原结果，右侧清理后的结果](output/scu_detail/rework/plaque-comparison.jpg)
 
-这次记录中，6,984,100 个保护像素的变化数为 0。该结果对应这一张图和选区，完整记录见 [重炼实验](output/scu_detail/rework/summary.json)。
+牌匾重炼实验中，6,984,100 个保护像素均未变化。[实验记录](output/scu_detail/rework/summary.json)
 
 ### 候选对比与任务记录
 
-每次任务记录实际提示词、参考图、随机种子、像素预算、蒙版和所有候选。预设样例、历史结果与本次生成分别标记。风格和用途独立选择，19 条指令明确图像角色与修改目标。
+任务保存提示词、参考图、随机种子、像素预算、蒙版与全部候选，可回看、比较或继续编辑。
 
 ~~~mermaid
 flowchart LR
@@ -135,28 +129,28 @@ flowchart LR
 
 区域约束消融采用 **3 类物体 × 2 个种子**，成对固定参考图、提示词、模型和像素预算。
 
-| 测量项 | 这六对实验的结果 |
+| 测量项 | 六组均值或结果 |
 | --- | --- |
 | 整图生成的非编辑区平均 MAE | 15.273 |
 | 区域约束原始输出的非编辑区平均 MAE | 3.194 |
 | 最终恢复结果中，保护像素发生变化的数量 | 六张均为 0 |
 | 自动化检查 | 86 项测试、5 个子测试通过 |
 
-MAE 是合成前相对 A 的 VAE 重建图测得的区域外误差，数值为六对样例等权平均，不能解释为审美或身份还原度。模型仍可能偏离角色、生成伪字或出现不自然边缘，失败图也保留在实验中。完整协议、数据和对照见 [方法说明](docs/METHOD.md)、[实验记录](output/region_evaluation/v3/results.json) 和 [完整对照图](output/region_evaluation/v3/comparison.jpg)。
+MAE 为合成前非编辑区相对 A 的 VAE 重建图的像素误差，按六组等权平均，不代表审美或身份还原度。角色、文字与接缝仍可能出现偏差。[方法](docs/METHOD.md) · [数据](output/region_evaluation/v3/results.json) · [对照图](output/region_evaluation/v3/comparison.jpg)
 
 ## 安装与运行
 
-**同学用 Windows 游戏本，请先看 [Windows / WSL 安装指南](docs/CLASSMATE_SETUP.md)。** 仓库当前的启动器使用 Linux 环境，完成环境准备后可以执行统一安装入口。
+Windows 用户先完成 [WSL 环境配置](docs/CLASSMATE_SETUP.md)。在 Linux 或 WSL2 中运行安装器：
 
 ~~~bash
 bash scripts/install.sh
 ~~~
 
-安装前可先运行 python3.10 scripts/check_environment.py，安装后用 .venv/bin/python scripts/check_environment.py --ready 排查本机依赖和文件。以下保留分步安装过程。
+安装前运行 `python3.10 scripts/check_environment.py` 检查环境；安装后运行 `.venv/bin/python scripts/check_environment.py --ready` 检查依赖与模型文件。
 
 ### 准备环境
 
-| 项目 | 已验证或所需配置 |
+| 项目 | 配置 |
 | --- | --- |
 | 推理系统 | Linux / WSL2，Ubuntu 22.04 |
 | Python 与 PyTorch | Python 3.10，PyTorch 2.11.0+cu128 |
@@ -195,13 +189,13 @@ cd ..
 
 浏览器打开 **http://127.0.0.1:8890**。
 
-第一次会下载约 **8.26GB 生成权重**及约 **4.57MB 分割权重**，并需要加载模型。下载器校验文件大小和哈希，后续启动复用已有文件。仓库已经包含示例原料和效果预览。
+首次安装下载约 **8.26GB 生成权重**及约 **4.57MB 分割权重**，并校验大小与哈希。后续启动复用已有文件。
 
 ### 快速体验
 
 在底部“示例”中选“热梗”→“早八的第一口”，打开“风格”，选择“立体”→“羊毛毡”，点击“生成图片”。
 
-这个示例会填好参考图、指令和种子。生成后切换“前后对比”，或点击“重炼此图”继续改局部。也可以先选“期末的望江红门”，试试校园场景和梗图组合。
+示例自动填入参考图、指令和种子。生成后可切换“前后对比”，或点击“继续编辑”修改局部。
 
 ### 远程访问
 
@@ -217,7 +211,7 @@ ssh -N -L 127.0.0.1:18890:127.0.0.1:8890 USER@GPU_HOST
 .\scripts\connect_studio.ps1 -SshAlias my-gpu-pc -RemoteDirectory '~/projects/alchemy-studio'
 ~~~
 
-更多模型来源、校验、原生工作流用法与故障处理见 [完整复现说明](REPRODUCTION.md)。应用面向本机和 SSH 使用，尚未提供公网多用户认证。
+[安装指南](REPRODUCTION.md) 包含模型下载、原生工作流与故障排查。应用用于本机或 SSH 访问，未提供公网多用户认证。
 
 <details>
 <summary><strong>模型文件</strong></summary>
@@ -229,7 +223,7 @@ ssh -N -L 127.0.0.1:18890:127.0.0.1:8890 USER@GPU_HOST
 | flux2-vae.safetensors | backend/ComfyUI/models/vae/ |
 | u2netp.onnx | models/segmentation/ |
 
-权重清单见 [models.json](models.json)，分割下载与校验见 [prepare_segmentation.py](scripts/prepare_segmentation.py)。镜像不可达时，完整复现说明提供上游来源。
+[权重清单](models.json) · [分割模型下载](scripts/prepare_segmentation.py) · [备用下载源](REPRODUCTION.md#模型下载)
 
 </details>
 
@@ -243,7 +237,7 @@ ssh -N -L 127.0.0.1:18890:127.0.0.1:8890 USER@GPU_HOST
 .venv/bin/python scripts/evaluate_regions.py --subject-mask --output output/region_evaluation/new_run
 ~~~
 
-CPU 测试使用替身推理，检查接口、蒙版、合成与队列。真实推理由单独的 GPU 实验验证。
+CPU 测试覆盖接口、蒙版、合成与队列；生成效果与显存测试需运行 GPU 实验。
 
 </details>
 
@@ -269,14 +263,12 @@ CPU 测试使用替身推理，检查接口、蒙版、合成与队列。真实�
 | [studio/local_detail.py](studio/local_detail.py) | 局部高清窗口与坐标映射 |
 | [web/src/](web/src/) | 工作台、区域编辑器、画风选择与历史 |
 | [scripts/](scripts/) · [workflows/](workflows/) | 安装、运行、批量实验与原生工作流 |
-| [output/](output/) · [docs/METHOD.md](docs/METHOD.md) | 结果、实验数据与方法说明 |
+| [output/](output/) · [docs/METHOD.md](docs/METHOD.md) | 生成结果与实验方法 |
 
 ## 模型与素材
 
-图像生成采用 FLUX.2 Klein 4B 与 ComfyUI，前端与接口采用 React、FastAPI。
+生成采用 [FLUX.2 Klein](https://huggingface.co/black-forest-labs/FLUX.2-klein-4B)、[ComfyUI](https://github.com/Comfy-Org/ComfyUI) 与 [官方工作流模板](https://github.com/Comfy-Org/workflow_templates)，分割采用 U²-Net 的 U2Netp / rembg ONNX 权重；前端与接口采用 React、FastAPI。
 
-生成使用 [BFL FLUX.2 Klein](https://huggingface.co/black-forest-labs/FLUX.2-klein-4B)、[ComfyUI](https://github.com/Comfy-Org/ComfyUI) 和 [官方工作流模板](https://github.com/Comfy-Org/workflow_templates)。分割采用 U²-Net 的 U2Netp，由 rembg 发布 ONNX 权重。本项目基于预训练模型实现上述编辑流程。
+交互与画风参考 Fooocus、InvokeAI、Memegen 和 OpenAI 官方图像提示示例。
 
-交互和画风研究参考 Fooocus、InvokeAI、Memegen 和 OpenAI 官方图像提示示例。预览和演示图来自项目实际运行；README 的组合图仅将已有结果排版展示。
-
-各资源适用各自授权。实拍猫数据集声明 CC BY-NC-SA 4.0，望江北门照片为 CC BY-SA 4.0。来源、署名与处理记录见 [通用素材](input/sources.json)、[补充素材](input/additional_sources.json)、[川大素材](input/scu_sources.json)、[热梗素材](input/meme_sources.json) 和 [第三方说明](THIRD_PARTY_NOTICES.md)。原创代码尚未单独授予开源许可证。
+望江北门照片由 Kcx36 拍摄，CC BY-SA 4.0，已裁切缩放；实拍猫数据集声明 CC BY-NC-SA 4.0。川大相关作品为课程概念打样，不代表校方官方文创或背书。来源与授权见 [通用素材](input/sources.json)、[补充素材](input/additional_sources.json)、[川大素材](input/scu_sources.json)、[热梗素材](input/meme_sources.json) 和 [第三方许可](THIRD_PARTY_NOTICES.md)。原创代码未另行授予开源许可证。

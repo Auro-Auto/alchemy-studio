@@ -40,7 +40,7 @@ export default function RegionEditor({ image, editRegions, protectRegions, onSav
 
   function pointerDown(event) {
     if (!natural || (event.pointerType === 'mouse' && event.button !== 0) || drag.current) return;
-    if (rectangles.length >= 12) { setMessage('每类最多绘制 12 个区域。'); return; }
+    if (rectangles.length >= 12) { setMessage('每类最多 12 个区域。'); return; }
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
     const start = pointInImage(event.clientX, event.clientY, event.currentTarget.getBoundingClientRect());
@@ -105,23 +105,23 @@ export default function RegionEditor({ image, editRegions, protectRegions, onSav
 
   return <div className="modal-backdrop" onClick={onClose}>
     <section className="region-modal" role="dialog" aria-modal="true" aria-labelledby="region-title" ref={dialog} onClick={(event) => event.stopPropagation()} onKeyDown={handleKeyDown}>
-      <div className="modal-header"><h2 id="region-title">限定修改区域</h2><button ref={firstButton} className="icon-button" aria-label="关闭区域编辑器" onClick={onClose}><X size={20} /></button></div>
+      <div className="modal-header"><h2 id="region-title">编辑区域</h2><button ref={firstButton} className="icon-button" aria-label="关闭区域编辑器" onClick={onClose}><X size={20} /></button></div>
       <div className="region-toolbar">
         <div role="group" aria-label="区域绘制工具"><button className={`region-tool ${tool === 'edit' ? 'selected' : ''}`} aria-label="修改区" aria-pressed={tool === 'edit'} onClick={() => setTool('edit')}><i className="edit-swatch" />修改区{edits.length > 0 && <span>{edits.length}</span>}</button><button className={`region-tool ${tool === 'protect' ? 'selected' : ''}`} aria-label="保护区" aria-pressed={tool === 'protect'} onClick={() => setTool('protect')}><i className="protect-swatch" />保护区{protects.length > 0 && <span>{protects.length}</span>}</button></div>
         <div className="region-edit-actions">
-          <button ref={undoButton} className="text-button" aria-keyshortcuts="Control+Z Meta+Z" title="撤销最近一次框选" disabled={!strokes.length || !!drawing} onClick={undo}><Undo2 size={15} />撤销</button>
+          <button ref={undoButton} className="text-button" aria-keyshortcuts="Control+Z Meta+Z" title="撤销框选（Ctrl+Z）" disabled={!strokes.length || !!drawing} onClick={undo}><Undo2 size={15} />撤销</button>
           <button className="text-button" onClick={clear}>清空</button>
         </div>
       </div>
       <div className="region-workspace" ref={workspace}>
-        <div className={`region-board tool-${tool}`} style={{ width, height }} data-testid="region-canvas" aria-label="在原图上拖动绘制矩形" onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={() => { drag.current = null; setDrawing(null); }}>
-          <img src={image.url} alt="原图 A 区域编辑" draggable="false" onLoad={(event) => setNatural({ width: event.currentTarget.naturalWidth, height: event.currentTarget.naturalHeight })} onError={() => setMessage('原图加载失败，请关闭后重试。')} />
+        <div className={`region-board tool-${tool}`} style={{ width, height }} data-testid="region-canvas" aria-label="在原图上框选区域" onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={() => { drag.current = null; setDrawing(null); }}>
+          <img src={image.url} alt="原图 A 区域编辑" draggable="false" onLoad={(event) => setNatural({ width: event.currentTarget.naturalWidth, height: event.currentTarget.naturalHeight })} onError={() => setMessage('图片加载失败，请重试。')} />
           {edits.map((rect, index) => <Rectangle key={`edit-${index}`} rect={rect} kind="edit" />)}
           {protects.map((rect, index) => <Rectangle key={`protect-${index}`} rect={rect} kind="protect" />)}
           {drawing && <Rectangle rect={drawing.rect} kind={drawing.tool} draft />}
         </div>
       </div>
-      <div className="region-footer"><span role={message ? 'alert' : undefined}>{message || (!edits.length && !protects.length ? '在图片上拖动框选区域。' : '')}</span><div><button className="secondary-button" onClick={onClose}>取消</button><button className="primary-button" disabled={!edits.length || !natural || !!drawing} onClick={() => onSave(edits, protects)}>完成</button></div></div>
+      <div className="region-footer"><span role={message ? 'alert' : undefined}>{message || (!edits.length && !protects.length ? '拖动框选区域' : '')}</span><div><button className="secondary-button" onClick={onClose}>取消</button><button className="primary-button" disabled={!edits.length || !natural || !!drawing} onClick={() => onSave(edits, protects)}>完成</button></div></div>
     </section>
   </div>;
 }

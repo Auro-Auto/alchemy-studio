@@ -57,15 +57,15 @@ async function api(path, options = {}, timeout = 25000) {
     const response = await fetch(`/api${path}`, { ...options, signal: controller.signal });
     const text = await response.text();
     let data;
-    try { data = text ? JSON.parse(text) : {}; } catch { throw new Error('服务返回了无法解析的响应，请检查应用服务。'); }
+    try { data = text ? JSON.parse(text) : {}; } catch { throw new Error('服务响应异常，请重试。'); }
     if (!response.ok) {
       const detail = data.detail || data.error || `请求失败（${response.status}）`;
       throw new Error(typeof detail === 'string' ? detail : JSON.stringify(detail));
     }
     return data;
   } catch (error) {
-    if (error.name === 'AbortError') throw new Error('连接超时，请检查服务或 SSH 隧道。');
-    if (error instanceof TypeError) throw new Error('无法连接工作台服务，请检查服务与 SSH 隧道。');
+    if (error.name === 'AbortError') throw new Error('连接超时，请检查连接后重试。');
+    if (error instanceof TypeError) throw new Error('无法连接服务，请检查连接。');
     throw error;
   } finally { window.clearTimeout(timer); }
 }
@@ -83,19 +83,19 @@ function timeLabel(value) {
   return Number.isNaN(date.getTime()) ? '时间未知' : date.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
 }
 function stageLabel(job) {
-  if (!job) return '等待配方';
+  if (!job) return '等待生成';
   if (job.status === 'success') return '生成完成';
   if (job.status === 'cancelled') return '任务已取消';
-  if (job.status === 'failed') return '这次生成未完成';
+  if (job.status === 'failed') return '生成失败';
   const stage = job.stage || '';
   if (/[\u4e00-\u9fff]/.test(stage)) return stage;
   const value = stage.toLowerCase();
-  if (/cancel/.test(value)) return '等待当前阶段结束后取消';
-  if (/segment|isolat|prepar|preprocess/.test(value)) return '整理原料与提纯主体';
-  if (/rank|scor|finish|composit|postprocess/.test(value)) return '整理候选与处理背景';
-  if (/generat|sampl|infer|render|comfy/.test(value)) return '融合形态与外观';
-  if (/queue|wait/.test(value) || job.status === 'queued') return '已进入生成队列';
-  return '正在执行配方';
+  if (/cancel/.test(value)) return '正在取消';
+  if (/segment|isolat|prepar|preprocess/.test(value)) return '处理图片';
+  if (/rank|scor|finish|composit|postprocess/.test(value)) return '合成结果';
+  if (/generat|sampl|infer|render|comfy/.test(value)) return '正在生成';
+  if (/queue|wait/.test(value) || job.status === 'queued') return '等待中';
+  return '处理中';
 }
 
 function Photo({ src, alt, className = '', ...props }) {
@@ -141,19 +141,19 @@ function UploadCard({ role, image, sourceUrl, uploading, disabled, onUpload }) {
   const [dragging, setDragging] = useState(false);
   const select = () => !disabled && !uploading && input.current?.click();
   return <div className={`ingredient-card ${dragging ? 'dragging' : ''} ${uploading ? 'is-uploading' : ''}`}>
-    <div className="ingredient-title" title={role === 'A' ? '保留这张图中物品的形状与用途' : '参考这张图中主体的外观与配色'}>
+    <div className="ingredient-title">
       <span className="role-badge">{role}</span><strong>{role === 'A' ? '原图' : '参考图'}</strong>
       {sourceUrl && <a className="ingredient-source" href={sourceUrl} target="_blank" rel="noreferrer">素材出处</a>}
     </div>
-    <div className={`drop-zone ${image ? 'has-image' : ''}`} role="button" tabIndex={disabled ? -1 : 0} aria-label={`上传${role === 'A' ? '结构' : '灵感'}原料 ${role}`} aria-disabled={disabled || uploading}
+    <div className={`drop-zone ${image ? 'has-image' : ''}`} role="button" tabIndex={disabled ? -1 : 0} aria-label={`上传${role === 'A' ? '原图' : '参考图'} ${role}`} aria-disabled={disabled || uploading}
       onClick={select} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(); } }}
       onDragOver={(event) => { event.preventDefault(); if (!disabled) setDragging(true); }} onDragLeave={() => setDragging(false)}
       onDrop={(event) => { event.preventDefault(); setDragging(false); if (!disabled && !uploading && event.dataTransfer.files[0]) onUpload(event.dataTransfer.files[0]); }}>
-      {image ? <Photo src={image.url} alt={`${role} ${role === 'A' ? '结构参考图' : '外观参考图'}`} /> : <div className="upload-empty"><ImagePlus size={25} strokeWidth={1.4} /><span>选择图片</span></div>}
+      {image ? <Photo src={image.url} alt={`${role} ${role === 'A' ? '原图' : '参考图'}`} /> : <div className="upload-empty"><ImagePlus size={25} strokeWidth={1.4} /><span>选择图片</span></div>}
       {image && <span className="replace-label" aria-hidden="true" title="更换图片"><Upload size={14} /></span>}
       {uploading && <div className="upload-loading"><LoaderCircle className="spin" size={22} /><span>上传中</span></div>}
     </div>
-    <input ref={input} type="file" accept="image/*" aria-label={`选择原料 ${role} 文件`} className="visually-hidden" disabled={disabled || uploading} onChange={(event) => { if (event.target.files[0]) onUpload(event.target.files[0]); event.target.value = ''; }} />
+    <input ref={input} type="file" accept="image/*" aria-label={`选择图片 ${role}`} className="visually-hidden" disabled={disabled || uploading} onChange={(event) => { if (event.target.files[0]) onUpload(event.target.files[0]); event.target.value = ''; }} />
   </div>;
 }
 
@@ -367,7 +367,7 @@ export default function App() {
         if (stopped) return;
         setJob(data); setJobError('');
         if (FINISHED.has(data.status)) { setCancelling(false); refreshHistory(); refreshStatus(); return; }
-      } catch (error) { if (!stopped) setJobError(`进度连接暂时中断：${error.message} 服务端任务可能仍在运行。`); }
+      } catch (error) { if (!stopped) setJobError(`进度连接中断，任务可能仍在运行。${error.message}`); }
       if (!stopped) timer = window.setTimeout(poll, 1200);
     };
     timer = window.setTimeout(poll, 400);
@@ -399,11 +399,11 @@ export default function App() {
 
   async function generate() {
     if (submittingRef.current || busy || uploading || pendingPresetStyle) return;
-    if (!status?.comfy_connected) { setToast('生成服务尚未连接，请先检查连接状态。'); return; }
-    if (!images.a || !images.b) { setToast('先放入两张原料图片。'); return; }
+    if (!status?.comfy_connected) { setToast('生成服务未连接，请重新连接。'); return; }
+    if (!images.a || !images.b) { setToast('请先添加两张图片。'); return; }
     const seedValue = Number(seed);
     if (!/^\d+$/.test(seed) || !Number.isSafeInteger(seedValue) || seedValue < 0) { setToast('种子请输入 0 到 9007199254740991 之间的整数。'); return; }
-    if ((isolate || (background && !editRegions.length)) && !status.segmentation_available) { setToast('主体分割模型尚未就绪，请关闭主体提纯和背景保留。'); return; }
+    if ((isolate || (background && !editRegions.length)) && !status.segmentation_available) { setToast('分割模型未就绪，请关闭“提取主体”和“保留背景”。'); return; }
     const config = {
       image_a: images.a.id, image_b: images.b.id, recipe, style: chosenStyle.id, mode, prompt: prompt.trim(),
       isolate_subject: isolate, lock_background: background, candidates, seed: seedValue, megapixels,
@@ -417,19 +417,19 @@ export default function App() {
       const created = await api('/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(config) });
       setJob({ id: created.id, status: 'queued', stage: 'queued', progress: 0, config, candidates: [], preprocessing: {}, created_at: new Date().toISOString() });
       setSelectedCandidate(0); setPreview(null); setView('studio'); refreshHistory();
-    } catch (error) { setJobError(`${error.message} 若提交时连接中断，请先查看实验记录，确认是否已创建任务。`); refreshHistory(); }
+    } catch (error) { setJobError(`${error.message} 请先检查历史记录，确认任务是否已提交。`); refreshHistory(); }
     finally { submittingRef.current = false; setSubmitting(false); }
   }
 
   async function cancelJob() {
     if (!job || cancelling) return;
     setCancelling(true);
-    try { const data = await api(`/jobs/${encodeURIComponent(job.id)}/cancel`, { method: 'POST' }); setJob(data); setToast('已请求取消，将在安全的阶段边界停止。'); if (FINISHED.has(data.status)) { setCancelling(false); refreshHistory(); } }
+    try { const data = await api(`/jobs/${encodeURIComponent(job.id)}/cancel`, { method: 'POST' }); setJob(data); if (FINISHED.has(data.status)) { setCancelling(false); refreshHistory(); } }
     catch (error) { setJobError(error.message); setCancelling(false); }
   }
 
   async function openJob(item) {
-    if (busy || uploading) { setToast('当前实验结束后，可回看其他实验。'); return; }
+    if (busy || uploading) { setToast('请等待当前任务结束。'); return; }
     try {
       const data = await api(`/jobs/${encodeURIComponent(item.id)}`);
       const config = data.config;
@@ -516,7 +516,7 @@ export default function App() {
     enhanceLastActivityRef.current = Date.now();
     setEnhanceTimeoutPrompt(false);
     setEnhancing(true);
-    setEnhanceStage('正在连接 Qwen3-4B 模型…');
+    setEnhanceStage('准备增强…');
     try {
       const response = await fetch('/api/prompts/enhance/stream', {
         method: 'POST',
@@ -550,13 +550,13 @@ export default function App() {
         if (event.type === 'stage') {
           enhanceLastActivityRef.current = Date.now();
           setEnhanceTimeoutPrompt(false);
-          setEnhanceStage(event.message || '正在处理…');
+          setEnhanceStage(event.stage === 'loading' ? '准备增强…' : '正在增强…');
         } else if (event.type === 'delta') {
           enhanceLastActivityRef.current = Date.now();
           setEnhanceTimeoutPrompt(false);
           if (!startedStreaming) {
             startedStreaming = true;
-            setEnhanceStage('正在逐字生成结构化提示词…');
+            setEnhanceStage('正在增强…');
           }
           setPrompt(event.text);
           if (promptInput.current) {
@@ -568,7 +568,6 @@ export default function App() {
           receivedDone = true;
           setPromptHistory((prev) => [...prev, originalPrompt]);
           setPrompt(event.enhanced_prompt);
-          setToast(`已用 ${event.model} 完成结构化增强，不满意可点击“回退”。`);
         } else if (event.type === 'error') {
           throw new Error(event.detail || '提示词增强失败。');
         }
@@ -585,10 +584,10 @@ export default function App() {
         for (const part of parts) processPart(part);
       }
       if (buffer.trim()) processPart(buffer);
-      if (!receivedDone) throw new Error('增强流意外中断，已恢复原提示词。');
+      if (!receivedDone) throw new Error('增强中断，已恢复原指令。');
     } catch (error) {
       setPrompt(originalPrompt);
-      setToast(error.name === 'AbortError' ? '已中止提示词增强，已恢复原提示词。' : error.message);
+      setToast(error.name === 'AbortError' ? '已中止，原指令已恢复。' : error.message);
     } finally {
       enhanceAbortRef.current = null;
       setEnhancing(false);
@@ -611,7 +610,6 @@ export default function App() {
     const previous = promptHistory[promptHistory.length - 1];
     setPromptHistory((prev) => prev.slice(0, -1));
     setPrompt(previous);
-    setToast('已回退到增强前的提示词。');
   }
 
   const filteredPresets = presetCategory === 'all' ? presets : presets.filter((preset) => preset.category === presetCategory);
@@ -632,9 +630,9 @@ export default function App() {
       <a className="brand" href="#" onClick={(event) => { event.preventDefault(); setView('studio'); }}><img className="brand-mark" src="/favicon.svg" alt="" />万物炼金台</a>
       <nav className="main-nav" aria-label="主导航">
         <button className={view === 'studio' ? 'active' : ''} onClick={() => setView('studio')}>生成</button>
-        <button className={view === 'history' ? 'active' : ''} onClick={() => { setView('history'); refreshHistory(); }}>实验记录</button>
+        <button className={view === 'history' ? 'active' : ''} onClick={() => { setView('history'); refreshHistory(); }}>历史记录</button>
       </nav>
-      <div className="header-actions"><span className={`connection-badge ${connected ? 'connected' : ''}`} title={status?.gpu || connectionError || '正在检测服务'}><i />{checking ? '连接中' : connected ? '已连接' : '未连接'}</span><button className={`demo-button ${demo ? 'active' : ''}`} aria-label={demo ? '退出演示' : '演示模式'} onClick={toggleDemo}>{demo ? <Minimize2 size={17} /> : <Maximize2 size={17} />}<span>{demo ? '退出演示' : '演示模式'}</span></button></div>
+      <div className="header-actions"><span className={`connection-badge ${connected ? 'connected' : ''}`}><i />{checking ? '连接中' : connected ? '已连接' : '未连接'}</span><button className={`demo-button ${demo ? 'active' : ''}`} aria-label={demo ? '退出演示' : '演示模式'} onClick={toggleDemo}>{demo ? <Minimize2 size={17} /> : <Maximize2 size={17} />}<span>{demo ? '退出演示' : '演示模式'}</span></button></div>
     </header>
 
     <main className={view === 'studio' ? 'studio-main' : 'history-main'}>
@@ -653,11 +651,11 @@ export default function App() {
               <div className="canvas-tools">
                 {hasComposite && !viewingOriginal && <div className="result-variants" role="group" aria-label="生成处理阶段">
                   <button className={showRaw ? 'selected' : ''} aria-pressed={showRaw} onClick={() => setResultVariant('raw')}
-                    title={selected.raw_window_url ? '将原始生成窗口放回原图位置，尚未融合' : undefined}>原始生成</button>
+                    >原始生成</button>
                   <button className={!showRaw ? 'selected' : ''} aria-pressed={!showRaw} onClick={() => setResultVariant('composite')}>最终结果</button>
                 </div>}
                 {refinementSource && !viewingOriginal && !showRaw && !demo && <button className="region-open-button"
-                  disabled={busy || uploading} onClick={() => setRegionEditor('result')}>重炼此图</button>}
+                  disabled={busy || uploading} onClick={() => setRegionEditor('result')}>继续编辑</button>}
                 <button className="icon-button" disabled={!canvasImage} onClick={() => setModal({ url: canvasImage.url, downloadUrl: canvasDownloadUrl, title: canvasImage.label })}
                   aria-label={viewingOriginal ? '放大原图' : '放大结果'} title="全图预览"><Expand size={17} /></button>
                 {canvasDownloadUrl && <a className="download-button" href={canvasDownloadUrl} download
@@ -665,7 +663,7 @@ export default function App() {
               </div>
             </div>
             <Canvas key={canvasImage?.url} Photo={Photo} image={canvasImage} original={original}
-              compare={compare} busy={busy} checking={checking} emptyText={images.a ? '生成后在这里查看结果' : '上传图片或选择示例'} />
+              compare={compare} busy={busy} checking={checking} emptyText={images.a ? '等待生成' : '上传图片或选择示例'} />
           </div>
 
           <section className="filmstrip" aria-label="图片胶卷">
@@ -721,17 +719,17 @@ export default function App() {
               <UploadCard role="B" image={images.b} sourceUrl={referenceSourceUrl} uploading={uploads.b} disabled={busy} onUpload={(file) => upload('b', file)} />
             </div>
             <div className="region-action-row">
-              <button className={`region-open-button ${editRegions.length ? 'selected' : ''}`} aria-label="限定修改区域" aria-pressed={!!editRegions.length}
+              <button className={`region-open-button ${editRegions.length ? 'selected' : ''}`} aria-label="编辑区域" aria-pressed={!!editRegions.length}
                 disabled={!images.a || busy || uploading} onClick={() => setRegionEditor('source')}>
-                <ScanLine size={16} />{editRegions.length ? '已限定修改区域' : '限定修改区域'}
+                <ScanLine size={16} />编辑区域
               </button>
               {editRegions.length > 0 && <>
                 <button className={`region-open-button ${regionDetail ? 'selected' : ''}`}
-                  aria-pressed={regionDetail} title="用相同像素预算，集中处理修改区及周围画面"
+                  aria-pressed={regionDetail} title="提高选区细节"
                   disabled={busy || uploading} onClick={() => setRegionDetail((current) => !current)}>
                   <ZoomIn size={15} />局部高清
                 </button>
-                <button className="icon-button" aria-label="取消区域限定" title="恢复整图生成"
+                <button className="icon-button" aria-label="清除选区" title="清除选区"
                   disabled={busy || uploading} onClick={clearRegions}><X size={16} /></button>
               </>}
             </div>
@@ -752,11 +750,11 @@ export default function App() {
                 <label className="prompt-label" htmlFor="extra-prompt">生成指令</label>
                 <div className="prompt-actions">
                   {promptHistory.length > 0 && <button className="text-button" type="button"
-                    disabled={busy || enhancing} onClick={revertPrompt} title="回退到增强前的提示词">
+                    disabled={busy || enhancing} onClick={revertPrompt} title="恢复原指令">
                     <Undo2 size={14} /> 回退
                   </button>}
                   <button className="text-button" type="button"
-                    disabled={busy || enhancing || !prompt.trim()} onClick={enhancePrompt} title="调用本地模型优化当前提示词">
+                    disabled={busy || enhancing || !prompt.trim()} onClick={enhancePrompt} title="整理生成指令">
                     {enhancing ? <LoaderCircle className="spin" size={14} /> : <Sparkles size={14} />}
                     {enhancing ? '增强中' : '增强'}
                   </button>
@@ -775,7 +773,7 @@ export default function App() {
               {enhancing && <div className={`enhance-banner ${enhanceTimeoutPrompt ? 'is-timeout' : ''}`} role="status" aria-live="polite">
                 <div className="enhance-banner-info">
                   <span className="enhance-dot" aria-hidden="true" />
-                  <span>{enhanceTimeoutPrompt ? '提示词增强已经超时，是否中止？' : (enhanceStage || '正在增强提示词…')}</span>
+                  <span>{enhanceTimeoutPrompt ? '增强暂未响应' : (enhanceStage || '正在增强提示词…')}</span>
                 </div>
                 <div className="enhance-banner-actions">
                   <button type="button" className="enhance-action-abort" onClick={abortEnhance}>中止</button>
@@ -783,12 +781,12 @@ export default function App() {
                 </div>
               </div>}
               <div className={`prompt-box ${enhancing ? 'is-enhancing' : ''}`}>
-                <textarea id="extra-prompt" ref={promptInput} value={prompt} disabled={busy || enhancing} onChange={(event) => setPrompt(event.target.value)} placeholder="描述你想生成的物品" rows={5} />
+                <textarea id="extra-prompt" ref={promptInput} value={prompt} disabled={busy || enhancing} onChange={(event) => setPrompt(event.target.value)} placeholder="描述你想要的效果" rows={5} />
               </div>
               <details className="advanced-options"><summary><Settings2 size={16} />更多设置<ChevronDown size={16} /></summary><div className="advanced-body">
-                <div className="vision-options"><Switch checked={isolate} onChange={setIsolate} disabled={busy || (!status?.segmentation_available && !isolate)} title={!status?.segmentation_available ? '分割模型未就绪；已开启的选项仍可关闭' : '分离参考图背景，减少背景干扰'}><ScanLine size={16} />主体提纯</Switch><Switch checked={background} onChange={setBackground} disabled={busy || !!editRegions.length || (!status?.segmentation_available && !background)} title={editRegions.length ? '当前使用手绘区域控制，区域以外保持原样' : '与主体提纯同时开启时，保留原图 A 场景、提纯参考图 B；使用主体蒙版合成'}><Layers size={16} />保留原图背景</Switch></div>
-                <div className="field"><span id="mode-label">融合方式</span><div className="segmented" role="group" aria-labelledby="mode-label"><button className={mode === 'structured' ? 'selected' : ''} disabled={busy} onClick={() => setMode('structured')} title="指定原料角色、融合部位与材质">结构化配方</button><button className={mode === 'baseline' ? 'selected' : ''} disabled={busy} onClick={() => setMode('baseline')} title="使用简单融合指令">基础对照</button></div></div>
-                <div className="form-row"><label>候选数量<select aria-label="候选数量" value={candidates} disabled={busy} onChange={(event) => setCandidates(Number(event.target.value))}><option value={1}>1 张</option><option value={2}>2 张</option><option value={3}>3 张</option></select></label><label>像素预算<select aria-label="像素预算" value={megapixels} disabled={busy} onChange={(event) => setMegapixels(Number(event.target.value))}><option value={0.5}>0.5 MP</option><option value={1}>1.0 MP</option></select></label></div>
+                <div className="vision-options"><Switch checked={isolate} onChange={setIsolate} disabled={busy || (!status?.segmentation_available && !isolate)} title={!status?.segmentation_available ? '请先安装分割模型' : '提取图片主体'}><ScanLine size={16} />提取主体</Switch><Switch checked={background} onChange={setBackground} disabled={busy || !!editRegions.length || (!status?.segmentation_available && !background)} title={editRegions.length ? '选区外保持不变' : '保留原图背景'}><Layers size={16} />保留背景</Switch></div>
+                <div className="field"><span id="mode-label">融合方式</span><div className="segmented" role="group" aria-labelledby="mode-label"><button className={mode === 'structured' ? 'selected' : ''} disabled={busy} onClick={() => setMode('structured')} title="按用途组织生成指令">结构化配方</button><button className={mode === 'baseline' ? 'selected' : ''} disabled={busy} onClick={() => setMode('baseline')} title="使用简短生成指令">基础对照</button></div></div>
+                <div className="form-row"><label>候选数量<select aria-label="候选数量" value={candidates} disabled={busy} onChange={(event) => setCandidates(Number(event.target.value))}><option value={1}>1 张</option><option value={2}>2 张</option><option value={3}>3 张</option></select></label><label>分辨率<select aria-label="分辨率" value={megapixels} disabled={busy} onChange={(event) => setMegapixels(Number(event.target.value))}><option value={0.5}>0.5 MP</option><option value={1}>1.0 MP</option></select></label></div>
                 <label className="seed-field">随机种子<div><input inputMode="numeric" value={seed} disabled={busy} onChange={(event) => setSeed(event.target.value)} aria-label="随机种子" /><button className="icon-button" disabled={busy} onClick={() => setSeed(String(crypto.getRandomValues(new Uint32Array(1))[0]))} aria-label="更换随机种子" title="更换随机种子"><RefreshCw size={15} /></button></div></label>
               </div></details>
             </section>
@@ -806,7 +804,7 @@ export default function App() {
               {busy && <div className="progress-track" role="progressbar" aria-label="生成进度" aria-valuenow={Math.round(progress)}><span style={{ width: `${progress}%` }} /></div>}
               {(job?.error || jobError) && <p className="error-message" role="alert">{job?.error || jobError}</p>}
             </section>}
-            {running ? <button className="secondary-button cancel-button" onClick={cancelJob} disabled={cancelling}><Square size={13} />{cancelling ? '等待取消' : '取消任务'}</button>
+            {running ? <button className="secondary-button cancel-button" onClick={cancelJob} disabled={cancelling}><Square size={13} />{cancelling ? '取消中' : '取消任务'}</button>
               : <button className="generate-button" onClick={generate} disabled={!connected || !images.a || !images.b || busy || uploading || pendingPresetStyle}>
                 {submitting && <LoaderCircle className="spin" size={17} />}{submitting ? '正在提交' : '生成图片'}
               </button>}
@@ -835,10 +833,10 @@ export default function App() {
           </div>
         </aside>
       </div> : <section className="history-view">
-        <div className="history-heading"><h1>实验记录</h1><button className="secondary-button" disabled={historyLoading} onClick={refreshHistory}><RefreshCw size={16} className={historyLoading ? 'spin' : ''} />刷新</button></div>
-        <div className="history-toolbar"><div className="history-filters">{[['all', '全部'], ['success', '已完成'], ['active', '进行中']].map(([value, label]) => <button key={value} className={historyFilter === value ? 'selected' : ''} onClick={() => setHistoryFilter(value)}>{label}</button>)}</div><span>{jobs.length} 次实验</span></div>
+        <div className="history-heading"><h1>历史记录</h1><button className="secondary-button" disabled={historyLoading} onClick={refreshHistory}><RefreshCw size={16} className={historyLoading ? 'spin' : ''} />刷新</button></div>
+        <div className="history-toolbar"><div className="history-filters">{[['all', '全部'], ['success', '已完成'], ['active', '进行中']].map(([value, label]) => <button key={value} className={historyFilter === value ? 'selected' : ''} onClick={() => setHistoryFilter(value)}>{label}</button>)}</div><span>{jobs.length} 条记录</span></div>
         {historyError && <div className="connection-notice" role="alert"><TriangleAlert size={16} />{historyError}</div>}
-        {filteredJobs.length ? <div className="history-grid">{filteredJobs.map((item) => { const cover = item.candidates?.[item.best_index || 0] || item.candidates?.[0]; return <article className="history-card" key={item.id}><button className="history-cover" onClick={() => openJob(item)} disabled={busy || uploading} aria-label={`回看 ${item.id} 实验`}>{cover ? <Photo src={cover.url} alt="实验生成结果" loading="lazy" /> : <div className="history-no-image"><ImagePlus size={28} /><span>{STATUS_NAMES[item.status] || item.status}</span></div>}<span className={`job-status status-${item.status}`}>{STATUS_NAMES[item.status]}</span></button><div className="history-info"><div><h3>{RECIPES.find((entry) => entry.id === item.config.recipe)?.name || '自定义'}</h3><span>{timeLabel(item.created_at)}</span></div>{item.error && <p className="history-error" title={item.error}>{item.error}</p>}<div className="history-card-actions"><button className="text-button" disabled={busy || uploading} onClick={() => openJob(item)}>回看<ArrowUpRight size={15} /></button><a className="icon-button" href={`/api/jobs/${encodeURIComponent(item.id)}/export`} download aria-label={`导出实验 ${item.id} JSON`} title="导出实验 JSON"><FileJson size={17} /></a></div></div></article>; })}</div> : <div className="history-empty"><History size={30} strokeWidth={1.5} /><h3>{historyLoading ? '正在载入' : '暂无实验记录'}</h3><button className="secondary-button" onClick={() => setView('studio')}>开始生成<ArrowRight size={16} /></button></div>}
+        {filteredJobs.length ? <div className="history-grid">{filteredJobs.map((item) => { const cover = item.candidates?.[item.best_index || 0] || item.candidates?.[0]; return <article className="history-card" key={item.id}><button className="history-cover" onClick={() => openJob(item)} disabled={busy || uploading} aria-label={`查看${RECIPES.find((entry) => entry.id === item.config.recipe)?.name || '作品'}：${timeLabel(item.created_at)}`}>{cover ? <Photo src={cover.url} alt="生成结果" loading="lazy" /> : <div className="history-no-image"><ImagePlus size={28} /><span>{STATUS_NAMES[item.status] || item.status}</span></div>}<span className={`job-status status-${item.status}`}>{STATUS_NAMES[item.status]}</span></button><div className="history-info"><div><h3>{RECIPES.find((entry) => entry.id === item.config.recipe)?.name || '自定义'}</h3><span>{timeLabel(item.created_at)}</span></div>{item.error && <p className="history-error" title={item.error}>{item.error}</p>}<div className="history-card-actions"><button className="text-button" disabled={busy || uploading} onClick={() => openJob(item)}>回看<ArrowUpRight size={15} /></button><a className="icon-button" href={`/api/jobs/${encodeURIComponent(item.id)}/export`} download aria-label={`导出 ${timeLabel(item.created_at)} 的参数`} title="导出实验 JSON"><FileJson size={17} /></a></div></div></article>; })}</div> : <div className="history-empty"><History size={30} strokeWidth={1.5} /><h3>{historyLoading ? '加载中' : jobs.length ? '没有符合条件的记录' : '暂无记录'}</h3><button className="secondary-button" onClick={() => setView('studio')}>开始生成<ArrowRight size={16} /></button></div>}
       </section>}
     </main>
     {toast && <div className="toast" role="status"><span>{toast}</span><button onClick={() => setToast('')} aria-label="关闭提示"><X size={16} /></button></div>}

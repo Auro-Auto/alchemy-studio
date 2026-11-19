@@ -269,13 +269,13 @@ def meme_presets(root):
 
 def presets(root):
     definitions = [
-        ("scu_gate_mug", "望江红门马克杯", "川大校园文创概念", "plain_mug.jpg", "scu_wangjiang.png", "architecture", "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，三处门洞留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。", "scu_gate_mug"),
-        ("scu_gate_tumbler", "望江红门随行杯", "川大校园文创概念", "iced_drink_cup.png", "scu_wangjiang.png", "architecture", "用奶白釉杯身承托一座四川大学望江北门的浮雕。中间高、两边低的三座青灰瓦飞檐和四根朱红方柱构成唯一的主图案，放在杯身中央，保留清楚的屋檐轮廓和柱间留白。保留原透明杯盖和吸管，杯身无把手。", "scu_gate_tumbler"),
-        ("cat_tumbler", "猫咪随行杯", "让角色细节成为杯子的造型", "iced_drink_cup.png", "comfy_cat.png", "ceramic", "保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。", "cat_tumbler"),
-        ("cat_sneaker", "猫咪运动鞋", "把性格织进鞋面", "sneaker_black.png", "comfy_cat.png", "sneaker", "保留鞋底、鞋带和穿着结构，把角色配色与眼镜细节融入鞋面。", "cat_sneaker"),
-        ("real_cat_mug", "宠物纪念马克杯", "保留它独特的花纹", "plain_mug.jpg", "real_cat.png", "ceramic", "保持白色马克杯的敞口、右侧把手和木桌。只在正面做一张浅浮雕猫脸，两个绿眼睛、一个粉鼻子；黑白釉色匹配参考猫，侧面和背面纯白。不要盖子和吸管。", "real_cat_mug_refined"),
-        ("plush_sneaker", "毛绒鞋精灵", "从运动鞋变成柔软收藏品", "sneaker_black.png", "comfy_cat.png", "plush", "保留运动鞋的整体轮廓与鞋带线索，以参考角色的配色和可见特征做成柔软、精致的收藏毛绒玩具。", "plush_sneaker"),
-        ("crystal_tumbler", "水晶角色杯", "透明材质与角色配色相遇", "iced_drink_cup.png", "comfy_cat.png", "crystal", "保留原杯的高挑轮廓、杯盖和吸管，角色特征融入透明水晶杯的雕刻和色彩内含物中。", "crystal_tumbler"),
+        ("scu_gate_mug", "望江红门马克杯", "马克杯 × 望江北门", "plain_mug.jpg", "scu_wangjiang.png", "architecture", "在白釉杯身正面中央做四川大学望江北门的浅浮雕。中间高、两边低的三座青灰飞檐由四根朱红方柱支撑，三处门洞留白，建筑造型与白釉自然融合。保留原杯口、茶水、右侧单把手和木桌。", "scu_gate_mug"),
+        ("scu_gate_tumbler", "望江红门随行杯", "随行杯 × 望江北门", "iced_drink_cup.png", "scu_wangjiang.png", "architecture", "用奶白釉杯身承托一座四川大学望江北门的浮雕。中间高、两边低的三座青灰瓦飞檐和四根朱红方柱构成唯一的主图案，放在杯身中央，保留清楚的屋檐轮廓和柱间留白。保留原透明杯盖和吸管，杯身无把手。", "scu_gate_tumbler"),
+        ("cat_tumbler", "猫咪随行杯", "随行杯 × 猫咪", "iced_drink_cup.png", "comfy_cat.png", "ceramic", "保留原杯的盖子与吸管，用参考角色的藏蓝、奶白、橙色和眼镜细节做一个可用的杯子。只在正面有一张脸。", "cat_tumbler"),
+        ("cat_sneaker", "猫咪运动鞋", "运动鞋 × 猫咪", "sneaker_black.png", "comfy_cat.png", "sneaker", "保留鞋底、鞋带和穿着结构，把角色配色与眼镜细节融入鞋面。", "cat_sneaker"),
+        ("real_cat_mug", "宠物纪念马克杯", "马克杯 × 宠物猫", "plain_mug.jpg", "real_cat.png", "ceramic", "保持白色马克杯的敞口、右侧把手和木桌。只在正面做一张浅浮雕猫脸，两个绿眼睛、一个粉鼻子；黑白釉色匹配参考猫，侧面和背面纯白。不要盖子和吸管。", "real_cat_mug_refined"),
+        ("plush_sneaker", "毛绒鞋精灵", "运动鞋 × 毛绒玩具", "sneaker_black.png", "comfy_cat.png", "plush", "保留运动鞋的整体轮廓与鞋带线索，以参考角色的配色和可见特征做成柔软、精致的收藏毛绒玩具。", "plush_sneaker"),
+        ("crystal_tumbler", "水晶角色杯", "随行杯 × 水晶", "iced_drink_cup.png", "comfy_cat.png", "crystal", "保留原杯的高挑轮廓、杯盖和吸管，角色特征融入透明水晶杯的雕刻和色彩内含物中。", "crystal_tumbler"),
     ]
     result = []
     for preset_id, title, subtitle, a_name, b_name, recipe, prompt, preview_dir in definitions:
@@ -374,7 +374,7 @@ def create_app(
 
     def ensure_gpu_idle_for_enhance():
         if engine.gpu_lock.locked() or any(job["status"] in {"queued", "running"} for job in engine.jobs.values()):
-            raise HTTPException(409, "当前有生图或提示词增强任务，请等待其完成后再增强提示词。")
+            raise HTTPException(409, "有任务正在运行，请完成后再增强。")
 
     @asynccontextmanager
     async def enhancement_gpu(native_enhancer):
@@ -431,7 +431,7 @@ def create_app(
                 yield f"data: {json.dumps({'type': 'error', 'detail': str(exc)}, ensure_ascii=False)}\n\n"
             except Exception:
                 logging.getLogger("alchemy.studio").exception("Unexpected error during prompt enhancement stream")
-                yield f"data: {json.dumps({'type': 'error', 'detail': '提示词增强发生未知错误，请稍后重试。'}, ensure_ascii=False)}\n\n"
+                yield f"data: {json.dumps({'type': 'error', 'detail': '提示词增强失败，请重试。'}, ensure_ascii=False)}\n\n"
 
         return StreamingResponse(
             event_stream(),
@@ -467,7 +467,7 @@ def create_app(
             raise HTTPException(400, f"输入图片无效：{exc}") from exc
         requires_segmentation = values["isolate_subject"] or (values["edit_mode"] == "global" and values["lock_background"])
         if requires_segmentation and not engine.segmentation_available():
-            raise HTTPException(503, "本地分割模型尚未就绪，请关闭主体隔离和背景锁定，或先安装分割模型。")
+            raise HTTPException(503, "分割模型未就绪，请关闭“提取主体”和“保留背景”，或先安装分割模型。")
         if not (await engine.backend_status())["comfy_connected"]:
             raise HTTPException(503, "ComfyUI 尚未连接，请先启动推理服务。")
         job = engine.create(values)
@@ -524,7 +524,7 @@ def create_app(
         index = dist / "index.html"
         if index.is_file():
             return FileResponse(index)
-        return HTMLResponse("<h1>Alchemy Studio</h1><p>Frontend build is missing. Build web/dist first.</p>", status_code=503)
+        return HTMLResponse("<h1>万物炼金台</h1><p>页面尚未构建。请在 web 目录运行 npm ci 和 npm run build。</p>", status_code=503)
 
     return app
 

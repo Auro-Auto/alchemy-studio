@@ -117,7 +117,7 @@ class ComfyRunner:
                 raise
         records = list((directory / "runs").glob("*/run.json"))
         if len(records) != 1:
-            raise InferenceFailure("推理客户端未产生完整记录，请检查候选的 stderr.log。", {"exit_code": returncode})
+            raise InferenceFailure("未收到完整生成结果，请重试。", {"exit_code": returncode})
         record = json.loads(records[0].read_text(encoding="utf-8"))
         if returncode != 0 or record.get("status") != "success":
             raise InferenceFailure(record.get("error") or f"推理客户端退出：{returncode}", {"run_file": str(records[0]), "record": record})
@@ -227,7 +227,7 @@ class JobEngine:
                 if not isinstance(job.get("status"), str) or not isinstance(job.get("created_at"), str):
                     raise ValueError("Missing required job fields")
                 if job["status"] == "running":
-                    job.update(status="failed", stage="interrupted_restart", error="服务在上次任务运行时重启；旧 ComfyUI 任务可能仍在运行，未自动重提。", finished_at=utc_now())
+                    job.update(status="failed", stage="interrupted_restart", error="服务重启导致任务中断；请确认后台任务状态后重新生成。", finished_at=utc_now())
                     self.save(job)
                 self.jobs[job["id"]] = job
             except Exception:
@@ -318,7 +318,7 @@ class JobEngine:
                     await self.execute(job)
             except asyncio.CancelledError:
                 if job["status"] == "running":
-                    job.update(status="failed", stage="interrupted_shutdown", error="服务停止；仅停止本任务客户端，未向 ComfyUI 发送全局中断。", finished_at=utc_now())
+                    job.update(status="failed", stage="interrupted_shutdown", error="服务已停止，生成未完成。", finished_at=utc_now())
                 raise
             except Exception as exc:
                 self.logger.exception("Job %s failed at %s", job_id, job.get("stage"))
@@ -341,10 +341,10 @@ class JobEngine:
         segmentation_ready = self.segmentation_available()
         union_background_lock = config["lock_background"] and not region_mode
         if (config["isolate_subject"] or union_background_lock) and not segmentation_ready:
-            raise RuntimeError("本地分割模型不可用，无法完成请求的主体隔离或背景锁定。")
+            raise RuntimeError("分割模型不可用，请关闭“提取主体”和“保留背景”。")
         backend = await self.backend_status()
         if not backend["comfy_connected"]:
-            raise RuntimeError("无法连接 ComfyUI，请确认推理服务已启动。")
+            raise RuntimeError("生成服务未连接，请先启动服务。")
         if self.cancelled(job):
             return
         vision = self.vision_api()
@@ -369,7 +369,7 @@ class JobEngine:
             prepared_a["mask_path"] = mask_reference["mask_path"]
             prepared_a.setdefault("metadata", {})["background_mask_preparation"] = mask_reference["metadata"]
         if union_background_lock and prepared_a.get("mask_path") is None:
-            raise RuntimeError("主体掩膜缺失，不能声称已锁定背景。")
+            raise RuntimeError("未获得主体蒙版，无法保留背景。")
         job["preprocessing"]["a_url"] = asset_url(self.root, prepared_a["image_path"])
         if prepared_a.get("mask_path"):
             job["preprocessing"]["mask_a_url"] = asset_url(self.root, prepared_a["mask_path"])

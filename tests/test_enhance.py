@@ -245,6 +245,6 @@ def test_comfy_release_does_not_treat_dynamic_vram_as_free(monkeypatch):
         })
     monkeypatch.setattr(enhance.httpx, 'AsyncClient', lambda **kwargs: real_client(
         transport=httpx.MockTransport(responder), **kwargs))
-    with pytest.raises(enhance.PromptEnhanceError, match='保守启动门槛'):
+    with pytest.raises(enhance.PromptEnhanceError, match='显存尚未释放'):
         asyncio.run(enhance.release_comfy_models('http://comfy', timeout=.01))
     assert '/free' in calls
