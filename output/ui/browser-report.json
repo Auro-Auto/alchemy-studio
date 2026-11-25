@@ -1,31 +1,33 @@
 {
-  "date": "2026-11-19",
+  "date": "2026-11-25",
   "passed": true,
   "new_model_inference": false,
   "transport": "Local HTTP API/SSE fixtures",
   "images": "Retained GPU outputs",
+  "frontend_assets": [
+    "index-DmiZ2Sa5.js",
+    "index-BflXsZuF.css"
+  ],
   "checks": [
-    "Default studio loads with short project/preset names; 1440px layout has no page overflow.",
-    "All 22 styles across five groups and 19 short instruction names are available; selecting an instruction preserves existing text.",
-    "Region edit/protect drawing, save and cancel preserve confirmed regions.",
-    "1280px laptop and 390px mobile studio/region layouts have no page overflow.",
-    "Retained GPU result reopens from history; comparison and presentation modes render. Filtered empty state is specific.",
-    "Empty history and API error display short, actionable messages.",
-    "Chunked HTTP SSE success, exact undo, HTTP/event errors, dropped stream, immediate cancellation, 30s silence and continue-wait all restore usable controls. No model inference performed.",
-    "200% browser zoom equivalent (720 CSS px at 2x scale, 1440 physical px) has no horizontal page overflow."
+    "Selection backgrounds follow rapid clicks and keyboard activation; layout changes realign them.",
+    "Repeated A/B swaps reuse decoded image nodes, retain upload roles, clear ROI and submit images in the correct order.",
+    "Upload and preset changes preserve slot identity and keyboard focus.",
+    "Edit/protect drawing, cancellation, history reopening, comparison and presentation remain usable.",
+    "Fragmented UTF-8 SSE success, undo, HTTP/event errors, dropped streams, cancellation and 30-second silence recover correctly.",
+    "1440px desktop and 390px mobile layouts have no horizontal page overflow.",
+    "Download progress follows received bytes; repeated clicks are deduplicated and the saved file matches its SHA-256.",
+    "Downloads survive candidate changes and preview closure; UTF-8 filenames, unknown lengths, failure and retry work.",
+    "Reduced-motion mode preserves state feedback; hidden or offscreen activity pauses.",
+    "Hidden selection controls settle without repeated observer or animation-frame callbacks."
   ],
   "screenshots": {
     "desktop": "studio-desktop.png",
-    "laptop": "studio-laptop.png",
     "mobile": "studio-mobile.png",
-    "region": "studio-region-editor.png",
-    "region-mobile": "studio-region-mobile.png",
-    "history": "studio-history.png",
-    "compare": "studio-compare.png",
-    "presentation": "studio-presentation.png"
+    "region": "studio-region-editor.png"
   },
   "console_errors": [],
-  "regression": {
+  "backend_regression": {
+    "date": "2026-11-19",
     "tests_passed": 86,
     "subtests_passed": 5
   }

@@ -26,8 +26,8 @@
   },
   {
     "file": "THIRD_PARTY_NOTICES.md",
-    "bytes": 1604,
-    "sha256": "090610a4ca15f4efacb206cf1fe209a020c58f7c7e370571c6bd022a50126fd1"
+    "bytes": 1735,
+    "sha256": "42828c5b98d7116a6c552913c9639f0f100085f28423452175c957ec856cb4d8"
   },
   {
     "file": "constraints.txt",
@@ -1066,8 +1066,8 @@
   },
   {
     "file": "output/ui/browser-report.json",
-    "bytes": 1512,
-    "sha256": "407399dd45d52f9a6e34b2d219449360d0509a38093cc7cbc705ae17e4e656e2"
+    "bytes": 1574,
+    "sha256": "2a9468b61e896b1b0149744a98ccf12fe5b97aedbc70486cc28b584ba038592a"
   },
   {
     "file": "output/ui/downloaded-experiment.json",
@@ -1091,8 +1091,8 @@
   },
   {
     "file": "output/ui/studio-desktop.png",
-    "bytes": 919744,
-    "sha256": "3e4376a54fce6c7984431c7108dd3fb2f61a39e690917249d4c0bc5a03a4eea3"
+    "bytes": 837932,
+    "sha256": "7cdcf0477e86afc53438504590eff3f166a856ca013f7d8f55e593dd7dc4e5e8"
   },
   {
     "file": "output/ui/studio-history.png",
@@ -1106,8 +1106,8 @@
   },
   {
     "file": "output/ui/studio-mobile.png",
-    "bytes": 428742,
-    "sha256": "ede46295b8cc1b4fc0f946694fe18c64009a8730c488face549bb592ffea67b1"
+    "bytes": 409513,
+    "sha256": "9428ca6ae53356f419102a422a6d7be842c3a904f97be66545f5a8fc9d28803a"
   },
   {
     "file": "output/ui/studio-presentation.png",
@@ -1116,8 +1116,8 @@
   },
   {
     "file": "output/ui/studio-region-editor.png",
-    "bytes": 1027854,
-    "sha256": "8535a9a92261f2885db424bea5d0625ee98ed45c902d65a69cb3d9c8ad7ef07a"
+    "bytes": 965366,
+    "sha256": "c7343aee5cd6c6ac322a9acf25849d2ecec0d00807a48fd71471065c21848d03"
   },
   {
     "file": "output/ui/studio-region-mobile.png",
@@ -1356,8 +1356,8 @@
   },
   {
     "file": "web/src/App.jsx",
-    "bytes": 54762,
-    "sha256": "d36f25e2a0a53fc2fec475cd0d175e09ad26a804cf5d710055fa842837d86b8a"
+    "bytes": 55810,
+    "sha256": "3559a00d2b7edf9309143114b24f15e15b4261d96ee89b21f001018a931895ff"
   },
   {
     "file": "web/src/Canvas.jsx",
@@ -1365,14 +1365,44 @@
     "sha256": "e2f9a1b8ceecba1007f3fb7325326f5cd6d34f0ac9bcae5414633aaa136bc55a"
   },
   {
+    "file": "web/src/DownloadButton.jsx",
+    "bytes": 9444,
+    "sha256": "b3a59fff288ed2ddb7b160053de9bb2bf83d4cfddb77315e0671d889f879490f"
+  },
+  {
     "file": "web/src/RegionEditor.jsx",
     "bytes": 7644,
     "sha256": "dcb7a6fc2aa2655134567d6b6399c26ae03851e4dfea3501404b4a4f76a0c479"
   },
   {
+    "file": "web/src/SelectionRail.jsx",
+    "bytes": 8061,
+    "sha256": "95f9d331f1d8fa660b6bed63ddd988fb060b27bd0d7064c177abc7e87d690992"
+  },
+  {
+    "file": "web/src/WorkbenchMotion.jsx",
+    "bytes": 3222,
+    "sha256": "2ce1b9db015eebffb5053087c8687dd1c130d98da4253d0e28c8b130bef365ed"
+  },
+  {
+    "file": "web/src/download.css",
+    "bytes": 2816,
+    "sha256": "60817fd01024ff09c403f64771118559c2d6d44714dd1ad80c9e0baa602e168f"
+  },
+  {
     "file": "web/src/main.jsx",
-    "bytes": 188,
-    "sha256": "2ec4bc653249c65ae05ba956ba10ff79aaa1c0faccefd6db289b1f306f688fdc"
+    "bytes": 244,
+    "sha256": "dafe35aefe8d4f7f73464f7e6b21d5045216c0efefabf06cb55b241e459eec52"
+  },
+  {
+    "file": "web/src/motion.css",
+    "bytes": 777,
+    "sha256": "ed130f5d67f7adc28673505a4fc6225023296a32e8dd927629debeaf226fb6e8"
+  },
+  {
+    "file": "web/src/motion.js",
+    "bytes": 2553,
+    "sha256": "96051ea06e4dad3c8a275decf06846c0ac4a638d07e510f15d8e8bd18e7c5bd2"
   },
   {
     "file": "web/src/regions.js",
@@ -1381,8 +1411,13 @@
   },
   {
     "file": "web/src/styles.css",
-    "bytes": 29170,
-    "sha256": "f30b66c9f1d8e34a79094521dd1892f8343b924f1e0ab50330d05cbc45b8dba1"
+    "bytes": 28361,
+    "sha256": "98685863a0e5f7dd90307c969a53a3a433b271f09303db6e236a535913636299"
+  },
+  {
+    "file": "web/src/workbench-motion.css",
+    "bytes": 3997,
+    "sha256": "66e1e96dcf97bf572f047114617efee9999b6632275731e886f7f7f7cf841a9d"
   },
   {
     "file": "web/vite.config.js",

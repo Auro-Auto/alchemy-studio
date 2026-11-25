@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import RegionEditor from './RegionEditor.jsx';
 import Canvas from './Canvas.jsx';
+import SelectionRail from './SelectionRail.jsx';
+import DownloadButton from './DownloadButton.jsx';
+import { ActivityBars, referenceMotionName, useReferenceSwap } from './WorkbenchMotion.jsx';
 import { ArrowLeftRight, ArrowRight, ArrowUpRight, Check, ChevronDown, Download, Expand, FileJson, History, ImagePlus, Layers, LoaderCircle, Maximize2, Minimize2, RefreshCw, ScanLine, Settings2, Sparkles, Square, TriangleAlert, Undo2, Upload, X, ZoomIn } from 'lucide-react';
 
 const RECIPES = [
@@ -120,10 +123,10 @@ function StylePanel({ options, selected, disabled, onSelect }) {
   const defaultGroup = selected.id === 'original' && groups.has('纸上') ? '纸上' : selected.group;
   const activeGroup = [group, defaultGroup, groups.keys().next().value].find((name) => groups.has(name));
   return <div className="creative-panel style-panel" id="creative-styles" role="group" aria-label="画风选项">
-    <div className="style-groups" role="group" aria-label="画风分类">
+    <SelectionRail className="style-groups" activeKey={activeGroup} role="group" aria-label="画风分类">
       {[...groups.keys()].map((name) => <button key={name} aria-pressed={activeGroup === name}
         onClick={() => setGroup(name)}>{name}</button>)}
-    </div>
+    </SelectionRail>
     <div className="creative-grid style-grid" key={activeGroup}>
       {groups.get(activeGroup)?.map((option) => (
         <button key={option.id} className="creative-choice style-choice" aria-pressed={selected.id === option.id}
@@ -149,7 +152,7 @@ function UploadCard({ role, image, sourceUrl, uploading, disabled, onUpload }) {
       onClick={select} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(); } }}
       onDragOver={(event) => { event.preventDefault(); if (!disabled) setDragging(true); }} onDragLeave={() => setDragging(false)}
       onDrop={(event) => { event.preventDefault(); setDragging(false); if (!disabled && !uploading && event.dataTransfer.files[0]) onUpload(event.dataTransfer.files[0]); }}>
-      {image ? <Photo src={image.url} alt={`${role} ${role === 'A' ? '原图' : '参考图'}`} /> : <div className="upload-empty"><ImagePlus size={25} strokeWidth={1.4} /><span>选择图片</span></div>}
+      {image ? <Photo src={image.url} alt={`${role} ${role === 'A' ? '原图' : '参考图'}`} className="reference-image" style={{ viewTransitionName: referenceMotionName(image.id) }} /> : <div className="upload-empty"><ImagePlus size={25} strokeWidth={1.4} /><span>选择图片</span></div>}
       {image && <span className="replace-label" aria-hidden="true" title="更换图片"><Upload size={14} /></span>}
       {uploading && <div className="upload-loading"><LoaderCircle className="spin" size={22} /><span>上传中</span></div>}
     </div>
@@ -163,7 +166,7 @@ function Switch({ checked, onChange, disabled, title, children }) {
   </label>;
 }
 
-function Modal({ image, onClose }) {
+function Modal({ image, onClose, onError }) {
   const container = useRef(null);
   useEffect(() => {
     const previous = document.activeElement;
@@ -173,7 +176,7 @@ function Modal({ image, onClose }) {
     return () => { document.removeEventListener('keydown', escape); previous?.focus?.(); };
   }, [onClose]);
   return <div className="modal-backdrop" onClick={onClose}><div className="image-modal" role="dialog" aria-modal="true" aria-label={image.title} tabIndex={-1} ref={container} onClick={(event) => event.stopPropagation()} onKeyDown={(event) => { if (event.key === 'Tab') { const links = container.current.querySelectorAll('button, a[href]'); const first = links[0]; const last = links[links.length - 1]; if (event.shiftKey && (document.activeElement === first || document.activeElement === container.current)) { event.preventDefault(); last?.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); } } }}>
-    <div className="modal-header"><span>{image.title}</span><div><a className="icon-button" href={image.downloadUrl || image.url} download aria-label="下载当前图片"><Download size={18} /></a><button className="icon-button" onClick={onClose} aria-label="关闭图片"><X size={20} /></button></div></div>
+    <div className="modal-header"><span>{image.title}</span><div><DownloadButton className="icon-button" href={image.downloadUrl || image.url} iconOnly aria-label="下载当前图片" onError={onError} /><button className="icon-button" onClick={onClose} aria-label="关闭图片"><X size={20} /></button></div></div>
     <Photo src={image.url} alt={image.title} />
   </div></div>;
 }
@@ -187,6 +190,7 @@ export default function App() {
   const [presetId, setPresetId] = useState('');
   const [preview, setPreview] = useState(null);
   const [images, setImages] = useState({ a: null, b: null });
+  const [referenceKeys, setReferenceKeys] = useState({ a: 'reference-one', b: 'reference-two' });
   const [uploads, setUploads] = useState({ a: false, b: false });
   const [recipe, setRecipe] = useState('ceramic');
   const [style, setStyle] = useState('original');
@@ -274,6 +278,12 @@ export default function App() {
     setRegionDetail(false);
     setRegionEditor(null);
   }, []);
+
+  const { swap: swapReferences, pending: referenceSwapPending } = useReferenceSwap(() => {
+    setImages((current) => ({ a: current.b, b: current.a }));
+    setReferenceKeys((current) => ({ a: current.b, b: current.a }));
+    setPresetId(''); setPreview(null); setJob(null); setCanvasView('result'); clearRegions();
+  });
 
   const applyPreset = useCallback((preset) => {
     knownAssets.current[preset.image_a.id] = preset.image_a;
@@ -398,7 +408,7 @@ export default function App() {
   }
 
   async function generate() {
-    if (submittingRef.current || busy || uploading || pendingPresetStyle) return;
+    if (submittingRef.current || busy || uploading || pendingPresetStyle || referenceSwapPending) return;
     if (!status?.comfy_connected) { setToast('生成服务未连接，请重新连接。'); return; }
     if (!images.a || !images.b) { setToast('请先添加两张图片。'); return; }
     const seedValue = Number(seed);
@@ -628,10 +638,10 @@ export default function App() {
   return <div className={`app ${demo ? 'demo-mode' : ''}`}>
     <header className="site-header">
       <a className="brand" href="#" onClick={(event) => { event.preventDefault(); setView('studio'); }}><img className="brand-mark" src="/favicon.svg" alt="" />万物炼金台</a>
-      <nav className="main-nav" aria-label="主导航">
-        <button className={view === 'studio' ? 'active' : ''} onClick={() => setView('studio')}>生成</button>
-        <button className={view === 'history' ? 'active' : ''} onClick={() => { setView('history'); refreshHistory(); }}>历史记录</button>
-      </nav>
+      <SelectionRail as="nav" className="main-nav" activeKey={view} aria-label="主导航">
+        <button className={view === 'studio' ? 'active' : ''} aria-current={view === 'studio' ? 'page' : undefined} onClick={() => setView('studio')}>生成</button>
+        <button className={view === 'history' ? 'active' : ''} aria-current={view === 'history' ? 'page' : undefined} onClick={() => { setView('history'); refreshHistory(); }}>历史记录</button>
+      </SelectionRail>
       <div className="header-actions"><span className={`connection-badge ${connected ? 'connected' : ''}`}><i />{checking ? '连接中' : connected ? '已连接' : '未连接'}</span><button className={`demo-button ${demo ? 'active' : ''}`} aria-label={demo ? '退出演示' : '演示模式'} onClick={toggleDemo}>{demo ? <Minimize2 size={17} /> : <Maximize2 size={17} />}<span>{demo ? '退出演示' : '演示模式'}</span></button></div>
     </header>
 
@@ -642,24 +652,24 @@ export default function App() {
         <section className="result-column" aria-label="图像画布">
           <div className="result-panel">
             <div className="result-heading">
-              <div className="canvas-modes" role="group" aria-label="画布视图">
+              <SelectionRail className="canvas-modes" activeKey={viewingOriginal ? 'original' : canvasView} role="group" aria-label="画布视图">
                 <button aria-pressed={viewingOriginal} disabled={!original} onClick={() => setCanvasView('original')}>原图</button>
                 <button aria-pressed={!viewingOriginal && !compare} disabled={!resultUrl} onClick={() => setCanvasView('result')}>结果</button>
                 <button aria-label="前后对比" title="前后对比" aria-pressed={compare} disabled={!resultUrl || !original}
                   onClick={() => setCanvasView(compare ? 'result' : 'compare')}><ArrowLeftRight size={15} /><span>前后对比</span></button>
-              </div>
+              </SelectionRail>
               <div className="canvas-tools">
-                {hasComposite && !viewingOriginal && <div className="result-variants" role="group" aria-label="生成处理阶段">
+                {hasComposite && !viewingOriginal && <SelectionRail className="result-variants" activeKey={resultVariant} role="group" aria-label="生成处理阶段">
                   <button className={showRaw ? 'selected' : ''} aria-pressed={showRaw} onClick={() => setResultVariant('raw')}
                     >原始生成</button>
                   <button className={!showRaw ? 'selected' : ''} aria-pressed={!showRaw} onClick={() => setResultVariant('composite')}>最终结果</button>
-                </div>}
+                </SelectionRail>}
                 {refinementSource && !viewingOriginal && !showRaw && !demo && <button className="region-open-button"
                   disabled={busy || uploading} onClick={() => setRegionEditor('result')}>继续编辑</button>}
                 <button className="icon-button" disabled={!canvasImage} onClick={() => setModal({ url: canvasImage.url, downloadUrl: canvasDownloadUrl, title: canvasImage.label })}
                   aria-label={viewingOriginal ? '放大原图' : '放大结果'} title="全图预览"><Expand size={17} /></button>
-                {canvasDownloadUrl && <a className="download-button" href={canvasDownloadUrl} download
-                  aria-label={viewingOriginal ? '下载原图' : selected ? `下载${resultLabel}图片` : '保存样例'} title="下载当前图片"><Download size={16} /><span>下载</span></a>}
+                {canvasDownloadUrl && <DownloadButton className="download-button" href={canvasDownloadUrl}
+                  aria-label={viewingOriginal ? '下载原图' : selected ? `下载${resultLabel}图片` : '保存样例'} title="下载当前图片" onError={setToast} />}
               </div>
             </div>
             <Canvas key={canvasImage?.url} Photo={Photo} image={canvasImage} original={original}
@@ -673,10 +683,10 @@ export default function App() {
                 <button aria-pressed={activeTray === 'candidates'} disabled={!job?.candidates?.length}
                   onClick={() => setTrayChoice({ jobId: job?.id, value: 'candidates' })}>候选{job?.candidates?.length ? ` ${job.candidates.length}` : ''}</button>
               </div>
-              {activeTray === 'presets' && presets.length > 0 && <div className="preset-categories" role="group" aria-label="素材分类">
+              {activeTray === 'presets' && presets.length > 0 && <SelectionRail className="preset-categories" activeKey={presetCategory} role="group" aria-label="素材分类">
                 {PRESET_CATEGORIES.map(({ id, name }) => <button key={id} aria-pressed={presetCategory === id}
                   onClick={() => setPresetCategory(id)}>{name}</button>)}
-              </div>}
+              </SelectionRail>}
             </div>
             {activeTray === 'candidates'
               ? <div className="filmstrip-items candidate-grid">{job.candidates.map((candidate, index) => (
@@ -709,14 +719,11 @@ export default function App() {
             </div>
             <section className="assets-column" aria-label="素材">
             <div className="section-heading"><h2>素材</h2>
-              <button className="text-button" disabled={!images.a || !images.b || busy || uploading} onClick={() => {
-                setImages({ a: images.b, b: images.a });
-                setPresetId(''); setPreview(null); setJob(null); setCanvasView('result'); clearRegions();
-              }}><ArrowLeftRight size={15} />交换</button>
+              <button className="text-button" disabled={!images.a || !images.b || busy || uploading} onClick={swapReferences}><ArrowLeftRight size={15} />交换</button>
             </div>
             <div className="ingredients-grid">
-              <UploadCard role="A" image={images.a} uploading={uploads.a} disabled={busy} onUpload={(file) => upload('a', file)} />
-              <UploadCard role="B" image={images.b} sourceUrl={referenceSourceUrl} uploading={uploads.b} disabled={busy} onUpload={(file) => upload('b', file)} />
+              <UploadCard key={referenceKeys.a} role="A" image={images.a} uploading={uploads.a} disabled={busy} onUpload={(file) => upload('a', file)} />
+              <UploadCard key={referenceKeys.b} role="B" image={images.b} sourceUrl={referenceSourceUrl} uploading={uploads.b} disabled={busy} onUpload={(file) => upload('b', file)} />
             </div>
             <div className="region-action-row">
               <button className={`region-open-button ${editRegions.length ? 'selected' : ''}`} aria-label="编辑区域" aria-pressed={!!editRegions.length}
@@ -735,7 +742,7 @@ export default function App() {
             </div>
             </section>
             <section className="panel recipe-panel" onKeyDown={closeCreativePanelOnEscape}>
-              <div className="recipe-options" role="group" aria-label="材质与类型">{RECIPES.map(({ id, name }) => <button key={id} className={`recipe-chip ${recipe === id ? 'selected' : ''}`} aria-pressed={recipe === id} disabled={busy} onClick={() => setRecipe(id)}>{name}</button>)}</div>
+              <SelectionRail className="recipe-options" activeKey={recipe} role="group" aria-label="材质与类型">{RECIPES.map(({ id, name }) => <button key={id} className={`recipe-chip ${recipe === id ? 'selected' : ''}`} aria-pressed={recipe === id} disabled={busy} onClick={() => setRecipe(id)}>{name}</button>)}</SelectionRail>
               <div className="style-field">
                 <span>风格</span>
                 <button className="style-trigger" ref={styleTrigger} aria-label={`选择风格：${chosenStyle.name}`}
@@ -772,7 +779,7 @@ export default function App() {
                 )} />}
               {enhancing && <div className={`enhance-banner ${enhanceTimeoutPrompt ? 'is-timeout' : ''}`} role="status" aria-live="polite">
                 <div className="enhance-banner-info">
-                  <span className="enhance-dot" aria-hidden="true" />
+                  <ActivityBars />
                   <span>{enhanceTimeoutPrompt ? '增强暂未响应' : (enhanceStage || '正在增强提示词…')}</span>
                 </div>
                 <div className="enhance-banner-actions">
@@ -785,7 +792,7 @@ export default function App() {
               </div>
               <details className="advanced-options"><summary><Settings2 size={16} />更多设置<ChevronDown size={16} /></summary><div className="advanced-body">
                 <div className="vision-options"><Switch checked={isolate} onChange={setIsolate} disabled={busy || (!status?.segmentation_available && !isolate)} title={!status?.segmentation_available ? '请先安装分割模型' : '提取图片主体'}><ScanLine size={16} />提取主体</Switch><Switch checked={background} onChange={setBackground} disabled={busy || !!editRegions.length || (!status?.segmentation_available && !background)} title={editRegions.length ? '选区外保持不变' : '保留原图背景'}><Layers size={16} />保留背景</Switch></div>
-                <div className="field"><span id="mode-label">融合方式</span><div className="segmented" role="group" aria-labelledby="mode-label"><button className={mode === 'structured' ? 'selected' : ''} disabled={busy} onClick={() => setMode('structured')} title="按用途组织生成指令">结构化配方</button><button className={mode === 'baseline' ? 'selected' : ''} disabled={busy} onClick={() => setMode('baseline')} title="使用简短生成指令">基础对照</button></div></div>
+                <div className="field"><span id="mode-label">融合方式</span><SelectionRail className="segmented" activeKey={mode} role="group" aria-labelledby="mode-label"><button className={mode === 'structured' ? 'selected' : ''} disabled={busy} onClick={() => setMode('structured')} title="按用途组织生成指令">结构化配方</button><button className={mode === 'baseline' ? 'selected' : ''} disabled={busy} onClick={() => setMode('baseline')} title="使用简短生成指令">基础对照</button></SelectionRail></div>
                 <div className="form-row"><label>候选数量<select aria-label="候选数量" value={candidates} disabled={busy} onChange={(event) => setCandidates(Number(event.target.value))}><option value={1}>1 张</option><option value={2}>2 张</option><option value={3}>3 张</option></select></label><label>分辨率<select aria-label="分辨率" value={megapixels} disabled={busy} onChange={(event) => setMegapixels(Number(event.target.value))}><option value={0.5}>0.5 MP</option><option value={1}>1.0 MP</option></select></label></div>
                 <label className="seed-field">随机种子<div><input inputMode="numeric" value={seed} disabled={busy} onChange={(event) => setSeed(event.target.value)} aria-label="随机种子" /><button className="icon-button" disabled={busy} onClick={() => setSeed(String(crypto.getRandomValues(new Uint32Array(1))[0]))} aria-label="更换随机种子" title="更换随机种子"><RefreshCw size={15} /></button></div></label>
               </div></details>
@@ -795,7 +802,7 @@ export default function App() {
           <div className="inspector-footer">
             {(job || jobError || submitting) && <section className={`progress-panel ${job?.status === 'failed' ? 'has-error' : ''}`} aria-live="polite">
               <div className="progress-top">
-                <div>{busy ? <LoaderCircle className="spin" size={16} /> : job?.status === 'success' ? <Check size={16} /> : <TriangleAlert size={16} />}
+                <div>{busy ? <ActivityBars /> : job?.status === 'success' ? <Check className="completion-check" size={16} /> : <TriangleAlert size={16} />}
                   <strong>{submitting ? '正在提交' : stageLabel(job)}</strong>
                   {!busy && job?.elapsed_seconds != null && <span>{Number(job.elapsed_seconds).toFixed(1)} 秒</span>}
                 </div>
@@ -805,7 +812,7 @@ export default function App() {
               {(job?.error || jobError) && <p className="error-message" role="alert">{job?.error || jobError}</p>}
             </section>}
             {running ? <button className="secondary-button cancel-button" onClick={cancelJob} disabled={cancelling}><Square size={13} />{cancelling ? '取消中' : '取消任务'}</button>
-              : <button className="generate-button" onClick={generate} disabled={!connected || !images.a || !images.b || busy || uploading || pendingPresetStyle}>
+              : <button className="generate-button" onClick={generate} disabled={!connected || !images.a || !images.b || busy || uploading || pendingPresetStyle || referenceSwapPending}>
                 {submitting && <LoaderCircle className="spin" size={17} />}{submitting ? '正在提交' : '生成图片'}
               </button>}
           </div>
@@ -840,7 +847,7 @@ export default function App() {
       </section>}
     </main>
     {toast && <div className="toast" role="status"><span>{toast}</span><button onClick={() => setToast('')} aria-label="关闭提示"><X size={16} /></button></div>}
-    {modal && <Modal image={modal} onClose={closeModal} />}
+    {modal && <Modal image={modal} onClose={closeModal} onError={setToast} />}
     {regionEditor && editorImage && <RegionEditor image={editorImage}
       editRegions={editingResult ? [] : editRegions} protectRegions={editingResult ? [] : protectRegions}
       onClose={closeRegionEditor} onSave={saveRegionSelection} />}

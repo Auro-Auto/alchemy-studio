@@ -1,0 +1,90 @@
+.download-motion {
+  position: relative;
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+
+.download-motion > .download-motion-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.download-motion-icon > svg {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+}
+
+.download-motion-arrow {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 120ms ease-out, transform 160ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.download-motion-ring,
+.download-motion-check {
+  opacity: 0;
+  transition: opacity 140ms ease-out;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.download-motion-track { opacity: .18; }
+.download-motion-meter { transform: rotate(-90deg); transform-origin: 10px 10px; }
+.download-motion-check { transform: scale(.85); }
+.download-motion-check path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+.download-motion[data-download-state="loading"] .download-motion-arrow,
+.download-motion[data-download-state="done"] .download-motion-arrow {
+  opacity: 0;
+  transform: translateY(2px);
+}
+
+.download-motion[data-download-state="loading"] .download-motion-ring { opacity: 1; }
+.download-motion[data-download-indeterminate="true"] .download-motion-ring {
+  animation: download-busy-turn 900ms linear infinite;
+}
+.download-motion[data-page-hidden="true"] .download-motion-ring { animation-play-state: paused; }
+.download-motion[aria-disabled="true"] { cursor: not-allowed; }
+.download-motion[data-download-state="loading"] { cursor: progress; }
+.download-motion[data-download-state="done"] { color: var(--accent, #486d59); }
+.download-motion[data-download-state="done"] .download-motion-check {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 140ms ease-out, transform 220ms cubic-bezier(.16, 1, .3, 1);
+}
+.download-motion[data-download-state="done"] .download-motion-check path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 220ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.download-motion .download-motion-sr {
+  position: absolute;
+  display: block;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes download-busy-turn { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .download-motion .download-motion-arrow,
+  .download-motion .download-motion-check,
+  .download-motion .download-motion-check path { transform: none; transition: opacity 100ms linear; }
+  .download-motion[data-download-state] .download-motion-arrow,
+  .download-motion[data-download-state] .download-motion-check { transform: none; }
+  .download-motion[data-download-indeterminate="true"] .download-motion-ring { animation: none; }
+}

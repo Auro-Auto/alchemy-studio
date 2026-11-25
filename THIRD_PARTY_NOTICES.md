@@ -25,3 +25,5 @@
 ## 参考项目
 
 交互与预设参考 Fooocus、InvokeAI、IOPaint、Memegen 与 OpenAI 官方图像提示示例。[项目调研](docs/upstream_research.json)
+
+微交互参考 [UI Moments（观默，源码副本）](https://github.com/luojiaping/ui-moments)，其代码采用 MIT 许可。

@@ -1,0 +1,35 @@
+.selection-rail {
+  position: relative;
+  isolation: isolate;
+}
+
+.selection-rail > .selection-rail__indicator {
+  position: absolute;
+  display: block;
+  inset: auto;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  user-select: none;
+  background: var(--selection-fill, var(--tint, #e8eee6));
+  border-radius: var(--selection-radius, var(--selection-item-radius, 6px));
+  box-shadow: var(--selection-shadow, none);
+  transform-origin: 0 0;
+}
+
+.selection-rail > .selection-rail__indicator[hidden] {
+  display: none;
+}
+
+.selection-rail > :where(button, a) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selection-rail > .selection-rail__indicator {
+    transform: none !important;
+    will-change: auto !important;
+  }
+}
